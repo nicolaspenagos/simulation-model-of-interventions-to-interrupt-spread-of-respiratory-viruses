@@ -32,6 +32,22 @@ public class ModelCircle extends Person {
 		
 	}
 
+	public void move() {
+		
+		posY += velY;	
+		
+		if(posY<Logic.UP_LIMIT || posY>Logic.DOWN_LIMIT) {
+			//velY *= -1;
+		}
+		
+		posX += velX;
+		
+		if(posX<Logic.LEFT_LIMIT|| posX>Logic.RIGHT_LIMIT) {
+			//velX *= -1;
+		}
+		
+	}
+	
 	// -------------------------------------
 	// Getters and Setters
 	// -------------------------------------

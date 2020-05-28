@@ -9,12 +9,14 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import customThreads.MovementThread;
+
 public class Logic{
 	
 	// -------------------------------------
 	// Constants
 	// -------------------------------------
-	public final static double LEFT_LIMIT = 390.0;
+	public final static double LEFT_LIMIT = 394.0;
 	public final static double RIGHT_LIMIT = 790.0;
 	public final static double UP_LIMIT = 138.0;
 	public final static double DOWN_LIMIT = 555.0;
@@ -23,19 +25,22 @@ public class Logic{
 	
 	
 	// -------------------------------------
-	// Atributtes
+	// Atributtes and relationships
 	// -------------------------------------
 	private int infectedPeople;
 	private int recoveredPeople;
 	private int healthyPeople;
 	private int totalPeople;
+	
 	private List<ModelCircle> people;
+	private MovementThread movementThread;
 	
 	// -------------------------------------
 	// Constructor
 	// -------------------------------------
 	public Logic() {
 		
+		people = new ArrayList<ModelCircle>();
 		
 	}
 
@@ -48,7 +53,6 @@ public class Logic{
 	
 	public void loadPeople() {
 		
-		people = new ArrayList<ModelCircle>();
 		totalPeople = infectedPeople + recoveredPeople + healthyPeople;
 		
 		for (int i = 0; i < totalPeople; i++) {
@@ -72,6 +76,24 @@ public class Logic{
 		}
 		
 	}
+	
+	public void move() {
+		
+		for (int i = 0; i < people.size(); i++) {
+			people.get(i).move();
+		}
+		
+	}
+	
+	public void startMovementThread() {
+		
+		movementThread = new MovementThread(this);
+		movementThread.setDaemon(true);
+		movementThread.start();
+		
+	}
+	
+	
 	// -------------------------------------
 	// Getters and Setters
 	// -------------------------------------

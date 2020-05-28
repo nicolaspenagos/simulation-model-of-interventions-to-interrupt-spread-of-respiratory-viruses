@@ -26,6 +26,9 @@ public abstract class Person {
 		this.healthCondition = healthCondition;
 	}
 
+	// -------------------------------------
+	// Methods
+	// -------------------------------------
 	public void move() {
 	}
 	

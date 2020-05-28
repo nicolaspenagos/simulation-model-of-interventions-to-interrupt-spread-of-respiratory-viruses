@@ -5,28 +5,22 @@
 */
 package customThreads;
 
-import controller.GraphicUserInterfaceController;
-import javafx.application.Platform;
+import model.Logic;
 
-public class GUIUpdateControlThread extends Thread{
-
-	// -------------------------------------
-	// Constants
-	// -------------------------------------
-	private final static long UPDATE_SLEEP_TIME = 5;
+public class MovementThread extends Thread{
 	
 	// -------------------------------------
 	// Atributtes and relationships
 	// -------------------------------------
-	private GraphicUserInterfaceController graphicUserInterfaceController;
+	private Logic logic;
 	
 	// -------------------------------------
 	// Constructor
 	// -------------------------------------
-	public GUIUpdateControlThread(GraphicUserInterfaceController graphicUserInterfaceController) {
-		this.graphicUserInterfaceController = graphicUserInterfaceController;
+	public MovementThread(Logic logic) {
+		this.logic = logic;
 	}
-
+	
 	// -------------------------------------
 	// Methods
 	// -------------------------------------
@@ -34,11 +28,11 @@ public class GUIUpdateControlThread extends Thread{
 		
 		while(true) {
 			
-			GUIUpdateRunnable gUR = new GUIUpdateRunnable(graphicUserInterfaceController);
-			Platform.runLater(gUR);
-			
 			try {
-				sleep(UPDATE_SLEEP_TIME);
+				
+				sleep(30);
+				logic.move();
+				
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -47,5 +41,5 @@ public class GUIUpdateControlThread extends Thread{
 		}
 		
 	}
-	
+
 }

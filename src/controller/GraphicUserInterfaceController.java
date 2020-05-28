@@ -21,6 +21,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import model.Logic;
 import model.ModelCircle;
+import model.Person;
 
 public class GraphicUserInterfaceController {
 
@@ -29,7 +30,7 @@ public class GraphicUserInterfaceController {
 	// -------------------------------------
 	@FXML
 	private Pane pane;
-
+	
 	@FXML
 	private Slider sliderInfectedPeople;
 
@@ -50,6 +51,9 @@ public class GraphicUserInterfaceController {
 
 	@FXML
 	private Label totalPeopleLabel;
+	
+    @FXML
+    private Label totalPeopleLabel1;
 
 	@FXML
 	private Button startButton;
@@ -75,6 +79,7 @@ public class GraphicUserInterfaceController {
 	private Logic logic;
 	private boolean onSimulation;
 	private ArrayList<Circle> circles;
+	private ArrayList<ModelCircle> people;
 
 	// -------------------------------------
 	// Constructor
@@ -88,6 +93,7 @@ public class GraphicUserInterfaceController {
 		guiThread.setDaemon(true);
 		guiThread.start();
 		circles = new ArrayList<Circle>();
+		people = (ArrayList<ModelCircle>) logic.getPeople();
 
 	}
 
@@ -96,7 +102,7 @@ public class GraphicUserInterfaceController {
 	// -------------------------------------
 	@FXML
 	public void initialize() {
-
+		
 		disableTextFields();
 		addSlidersEventHandlers();
 
@@ -106,8 +112,6 @@ public class GraphicUserInterfaceController {
 		startButton.setText("START");
 		startButton.setDisable(true);
 		
-
-
 	}
 
 	@FXML
@@ -117,16 +121,18 @@ public class GraphicUserInterfaceController {
 		ableConfigButtons();
 		logic.loadPeople();
 		loadCircles();
+		startButton.setVisible(false);
 
 	}
 
 	public void update() {
-		System.out.println(circles.size());
+		
+		draw();
+		
 	}
 
 	public void loadCircles() {
 
-		ArrayList<ModelCircle> people = (ArrayList<ModelCircle>) logic.getPeople();
 
 		for (int i = 0; i < people.size(); i++) {
 
@@ -135,17 +141,41 @@ public class GraphicUserInterfaceController {
 			double centerX = (double) current.getPosX();
 			double centerY = (double) current.getPosY();
 			double radius = (double) current.getRadius();
-
-			Circle circleJfx = new Circle(centerX, centerY, radius, Color.GREEN);
-
+			
+			Color color = Color.MEDIUMSEAGREEN;
+			
+			if(current.getHealthCondition() == Person.INFECTED) {
+				color = Color.SALMON;
+			}else if(current.getHealthCondition() == Person.RECOVERED) {
+				color = Color.STEELBLUE;
+			}
+			
+			Circle circleJfx = new Circle(centerX, centerY, radius, color);
 			circles.add(circleJfx);
 			pane.getChildren().add(circleJfx);
 
 		}
-
+		
+		logic.startMovementThread();
+		
 	}
 
 	public void draw() {
+		
+		for (int i = 0; i < circles.size(); i++) {
+			
+			Circle current  = circles.get(i);
+			double currentX = (double)people.get(i).getPosX();
+			double currentY = (double)people.get(i).getPosY();
+			
+			current.setCenterX(currentX);
+			current.setCenterY(currentY);
+		
+		}
+		
+		totalPeopleLabel.toFront();
+		totalPeopleLabel1.toFront();
+		
 
 	}
 

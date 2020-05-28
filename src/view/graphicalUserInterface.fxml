@@ -24,7 +24,7 @@
       <Pane layoutX="374.0" layoutY="125.0" prefHeight="585.0" prefWidth="8.0" style="-fx-background-color: WHITE;" />
       <Pane layoutX="393.0" layoutY="136.0" prefHeight="558.0" prefWidth="798.0" style="-fx-background-color: WHITE;">
          <children>
-            <Label layoutX="31.0" layoutY="21.0" text="TOTAL PEOPLE: ">
+            <Label fx:id="totalPeopleLabel1" layoutX="31.0" layoutY="21.0" text="TOTAL PEOPLE: ">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
