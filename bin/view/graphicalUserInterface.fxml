@@ -40,7 +40,7 @@
                </font>
             </Button>
          </children></Pane>
-      <Slider fx:id="sliderInfectedPeople" layoutX="42.0" layoutY="198.0" majorTickUnit="200.0" max="1000.0" minorTickCount="1" prefHeight="68.0" prefWidth="296.0" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="sliderInfectedPeople" layoutX="42.0" layoutY="198.0" majorTickUnit="1.0" max="1.0" minorTickCount="1" prefHeight="68.0" prefWidth="296.0" showTickLabels="true" showTickMarks="true" />
       <Label layoutX="46.0" layoutY="173.0" prefHeight="45.0" prefWidth="245.0" text="Infected people:" textFill="#ff3b6d">
          <font>
             <Font name="Century Gothic" size="17.0" />

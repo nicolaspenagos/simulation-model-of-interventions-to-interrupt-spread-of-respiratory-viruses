@@ -144,6 +144,7 @@ public class GraphicUserInterfaceController {
 			
 			Color color = Color.MEDIUMSEAGREEN;
 			
+		//	System.out.println(" centerX: "+ centerX+" centerY: "+centerY);
 			if(current.getHealthCondition() == Person.INFECTED) {
 				color = Color.SALMON;
 			}else if(current.getHealthCondition() == Person.RECOVERED) {
@@ -241,7 +242,7 @@ public class GraphicUserInterfaceController {
 
 	public void disableTextFields() {
 
-		iPtxtField.setEditable(false);
+		iPtxtField.setEditable(true);
 		hPtxtField.setEditable(false);
 		rPtxtField.setEditable(false);
 
@@ -261,7 +262,7 @@ public class GraphicUserInterfaceController {
 
 	public void disableButton() {
 
-		if (logic.getTotalPeople() > 1)
+		if (logic.getTotalPeople() >= 1)
 			startButton.setDisable(false);
 		else
 			startButton.setDisable(true);

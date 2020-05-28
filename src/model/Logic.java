@@ -7,6 +7,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.List;
 
 import customThreads.MovementThread;
@@ -57,10 +58,10 @@ public class Logic{
 		
 		for (int i = 0; i < totalPeople; i++) {
 			
-			int ramdonX = (int) ( (Math.random() * RIGHT_LIMIT) + LEFT_LIMIT);
-			int ramdonY = (int) ( (Math.random() * DOWN_LIMIT) + UP_LIMIT);
-			int velX    = (int) ( (Math.random() * MAX_VEL) + 1);
-			int velY    = (int) ( (Math.random() * MAX_VEL) + 1);
+			int ramdonX = ThreadLocalRandom.current().nextInt((int)LEFT_LIMIT, (int)RIGHT_LIMIT + 1);
+			int ramdonY = ThreadLocalRandom.current().nextInt((int)UP_LIMIT, (int)DOWN_LIMIT + 1);
+			int velX    = ThreadLocalRandom.current().nextInt(1,(int)MAX_VEL +1 );
+			int velY    = ThreadLocalRandom.current().nextInt(1,(int)MAX_VEL +1 );
 			char condition;
 			
 			if(i < infectedPeople) {

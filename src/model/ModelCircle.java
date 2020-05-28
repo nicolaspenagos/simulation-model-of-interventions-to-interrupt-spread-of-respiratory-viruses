@@ -34,16 +34,20 @@ public class ModelCircle extends Person {
 
 	public void move() {
 		
+		//System.out.println("X:"+posX+" Y: "+ posY);
+		
 		posY += velY;	
 		
 		if(posY<Logic.UP_LIMIT || posY>Logic.DOWN_LIMIT) {
-			//velY *= -1;
+			velY *= -1;
+		
 		}
 		
 		posX += velX;
 		
 		if(posX<Logic.LEFT_LIMIT|| posX>Logic.RIGHT_LIMIT) {
-			//velX *= -1;
+			velX *= -1;
+			//System.out.println("rebote en X");
 		}
 		
 	}
