@@ -11,19 +11,25 @@ import customThreads.GUIUpdateControlThread;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import model.Logic;
+import model.ModelCircle;
 
 public class GraphicUserInterfaceController {
 
 	// -------------------------------------
 	// FXML
 	// -------------------------------------
+	@FXML
+	private Pane pane;
+
 	@FXML
 	private Slider sliderInfectedPeople;
 
@@ -44,19 +50,31 @@ public class GraphicUserInterfaceController {
 
 	@FXML
 	private Label totalPeopleLabel;
-	
-    @FXML
-    private Button startButton;
-    
-    @FXML
-    void startSimulation(ActionEvent event) {
-    	logic.loadPeople();
-    }
-    
+
+	@FXML
+	private Button startButton;
+
+	@FXML
+	private CheckBox maskChB;
+
+	@FXML
+	private CheckBox n95MaskChB;
+
+	@FXML
+	private CheckBox glovesChB;
+
+	@FXML
+	private CheckBox gownChB;
+
+	@FXML
+	private CheckBox handWashingChB;
+
 	// -------------------------------------
 	// Atributtes
 	// -------------------------------------
 	private Logic logic;
+	private boolean onSimulation;
+	private ArrayList<Circle> circles;
 
 	// -------------------------------------
 	// Constructor
@@ -64,51 +82,84 @@ public class GraphicUserInterfaceController {
 	public GraphicUserInterfaceController() {
 
 		logic = new Logic();
+		onSimulation = false;
 
-	}
-
-	@FXML
-	public void initialize() {
-
-		disableTextFields();
-		addSlidersEventHandlers();
-		
-		startButton.setStyle("-fx-base: coral;");
-		startButton.setStyle(
-		            "-fx-background-radius: 50em; "
-		            + "-fx-min-width: 100px; "
-		            + "-fx-min-height: 100px; "
-		            + "-fx-max-width: 100px; "
-		            + "-fx-max-height: 100px;"
-		            + "-fx-background-color:LIMEGREEN"
-		    );
-		startButton.setText("START");
-		startButton.setDisable(true);
-		
-		GUIUpdateControlThread guiThread = new GUIUpdateControlThread(this); 
-    	guiThread.setDaemon(true);
-    	guiThread.start();
+		GUIUpdateControlThread guiThread = new GUIUpdateControlThread(this);
+		guiThread.setDaemon(true);
+		guiThread.start();
+		circles = new ArrayList<Circle>();
 
 	}
 
 	// -------------------------------------
 	// Methods
 	// -------------------------------------
-	public void update() {
+	@FXML
+	public void initialize() {
+
+		disableTextFields();
+		addSlidersEventHandlers();
+
+		startButton.setStyle("-fx-base: coral;");
+		startButton.setStyle("-fx-background-radius: 50em; " + "-fx-min-width: 100px; " + "-fx-min-height: 100px; "
+				+ "-fx-max-width: 100px; " + "-fx-max-height: 100px;" + "-fx-background-color:LIMEGREEN");
+		startButton.setText("START");
+		startButton.setDisable(true);
 		
+
+
 	}
 
-	private void changeTextF1Handler(MouseEvent e) {
+	@FXML
+	void startSimulation(ActionEvent event) {
+
+		onSimulation = true;
+		ableConfigButtons();
+		logic.loadPeople();
+		loadCircles();
+
+	}
+
+	public void update() {
+		System.out.println(circles.size());
+	}
+
+	public void loadCircles() {
+
+		ArrayList<ModelCircle> people = (ArrayList<ModelCircle>) logic.getPeople();
+
+		for (int i = 0; i < people.size(); i++) {
+
+			ModelCircle current = people.get(i);
+
+			double centerX = (double) current.getPosX();
+			double centerY = (double) current.getPosY();
+			double radius = (double) current.getRadius();
+
+			Circle circleJfx = new Circle(centerX, centerY, radius, Color.GREEN);
+
+			circles.add(circleJfx);
+			pane.getChildren().add(circleJfx);
+
+		}
+
+	}
+
+	public void draw() {
+
+	}
+
+	public void changeTextF1Handler(MouseEvent e) {
 
 		int infectedPeople = (int) sliderInfectedPeople.getValue();
 		iPtxtField.setText("" + infectedPeople);
 		logic.setInfectedPeople(infectedPeople);
 		updateTotalPeople();
 		disableButton();
-			
+
 	}
 
-	private void changeTextF2Handler(MouseEvent e) {
+	public void changeTextF2Handler(MouseEvent e) {
 
 		int healthyPeople = (int) sliderHealthyPeople.getValue();
 		hPtxtField.setText("" + healthyPeople);
@@ -118,14 +169,44 @@ public class GraphicUserInterfaceController {
 
 	}
 
-	private void changeTextF3Handler(MouseEvent e) {
+	public void ableConfigButtons() {
+
+		if (onSimulation) {
+
+			sliderInfectedPeople.setDisable(true);
+			sliderHealthyPeople.setDisable(true);
+			sliderRecoveredPeople.setDisable(true);
+			handWashingChB.setDisable(true);
+			maskChB.setDisable(true);
+			n95MaskChB.setDisable(true);
+			glovesChB.setDisable(true);
+			gownChB.setDisable(true);
+			startButton.setDisable(true);
+
+		} else {
+
+			sliderInfectedPeople.setDisable(false);
+			sliderHealthyPeople.setDisable(false);
+			sliderRecoveredPeople.setDisable(false);
+			handWashingChB.setDisable(false);
+			maskChB.setDisable(false);
+			n95MaskChB.setDisable(false);
+			glovesChB.setDisable(false);
+			gownChB.setDisable(false);
+			startButton.setDisable(false);
+
+		}
+
+	}
+
+	public void changeTextF3Handler(MouseEvent e) {
 
 		int recoveredPeople = (int) sliderRecoveredPeople.getValue();
 		rPtxtField.setText("" + recoveredPeople);
 		logic.setRecoveredPeople(recoveredPeople);
 		updateTotalPeople();
 		disableButton();
-		
+
 	}
 
 	public void disableTextFields() {
@@ -144,18 +225,17 @@ public class GraphicUserInterfaceController {
 
 	}
 
-	public void updateTotalPeople() {	
-		totalPeopleLabel.setText(""+logic.getTotalPeople());
+	public void updateTotalPeople() {
+		totalPeopleLabel.setText("" + logic.getTotalPeople());
 	}
 
 	public void disableButton() {
-		
-		if(logic.getTotalPeople() > 1) 
+
+		if (logic.getTotalPeople() > 1)
 			startButton.setDisable(false);
-		else 
+		else
 			startButton.setDisable(true);
-		
+
 	}
-	
-	
+
 }

@@ -9,7 +9,18 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Logic {
+public class Logic{
+	
+	// -------------------------------------
+	// Constants
+	// -------------------------------------
+	public final static double LEFT_LIMIT = 390.0;
+	public final static double RIGHT_LIMIT = 790.0;
+	public final static double UP_LIMIT = 138.0;
+	public final static double DOWN_LIMIT = 555.0;
+	public final static double MAX_VEL = 4.0;
+	public final static double RADIUS = 3;
+	
 	
 	// -------------------------------------
 	// Atributtes
@@ -18,7 +29,7 @@ public class Logic {
 	private int recoveredPeople;
 	private int healthyPeople;
 	private int totalPeople;
-	private List<Person> people;
+	private List<ModelCircle> people;
 	
 	// -------------------------------------
 	// Constructor
@@ -37,28 +48,27 @@ public class Logic {
 	
 	public void loadPeople() {
 		
-		people = new ArrayList<Person>();
+		people = new ArrayList<ModelCircle>();
 		totalPeople = infectedPeople + recoveredPeople + healthyPeople;
-		Circle c;
 		
 		for (int i = 0; i < totalPeople; i++) {
 			
-			if(i < infectedPeople) {
-				
-				c = new Circle(Person.INFECTED);
-				people.add(c);
-				
-			}else if(i >= infectedPeople && i < infectedPeople + recoveredPeople) {
-				
-				c = new Circle(Person.RECOVERED);
-				people.add(c);
+			int ramdonX = (int) ( (Math.random() * RIGHT_LIMIT) + LEFT_LIMIT);
+			int ramdonY = (int) ( (Math.random() * DOWN_LIMIT) + UP_LIMIT);
+			int velX    = (int) ( (Math.random() * MAX_VEL) + 1);
+			int velY    = (int) ( (Math.random() * MAX_VEL) + 1);
+			char condition;
 			
+			if(i < infectedPeople) {
+				condition = Person.INFECTED;	
+			}else if(i >= infectedPeople && i < infectedPeople + recoveredPeople) {
+				condition = Person.RECOVERED;
 			}else {
-				
-				c = new Circle(Person.HEALTHY);
-				people.add(c);
-				
+				condition = Person.HEALTHY;	
 			}
+			
+			people.add(new ModelCircle(condition, ramdonX, ramdonY, velX, velY, (int)RADIUS));
+			
 		}
 		
 	}
@@ -87,6 +97,14 @@ public class Logic {
 
 	public void setHealthyPeople(int healthyPeople) {
 		this.healthyPeople = healthyPeople;
+	}
+
+	public List<ModelCircle> getPeople() {
+		return people;
+	}
+
+	public void setPeople(List<ModelCircle> people) {
+		this.people = people;
 	}
 
 }

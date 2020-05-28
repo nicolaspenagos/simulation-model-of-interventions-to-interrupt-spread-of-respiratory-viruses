@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: ALICEBLUE;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GraphicUserInterfaceController">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: ALICEBLUE;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GraphicUserInterfaceController">
    <children>
       <ImageView fitHeight="104.0" fitWidth="1151.0" layoutX="18.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -29,7 +29,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="totalPeopleLabel" layoutX="137.0" layoutY="21.0" text="120">
+            <Label fx:id="totalPeopleLabel" layoutX="137.0" layoutY="21.0" text="0">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -58,7 +58,7 @@
             <Font name="Century Gothic" size="17.0" />
          </font>
       </Label>
-      <CheckBox layoutX="79.0" layoutY="519.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="245.0" text="Frequend handwashing">
+      <CheckBox fx:id="handWashingChB" layoutX="79.0" layoutY="519.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="245.0" text="Frequend handwashing">
          <font>
             <Font name="Century Gothic" size="14.0" />
          </font></CheckBox>
@@ -85,22 +85,22 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <CheckBox layoutX="80.0" layoutY="552.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="245.0" text="Wearing mask">
+      <CheckBox fx:id="maskChB" layoutX="80.0" layoutY="552.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="245.0" text="Wearing mask">
          <font>
             <Font name="Century Gothic" size="14.0" />
          </font>
       </CheckBox>
-      <CheckBox layoutX="80.0" layoutY="584.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="245.0" text="Wearing N95 mask">
+      <CheckBox fx:id="n95MaskChB" layoutX="80.0" layoutY="584.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="245.0" text="Wearing N95 mask">
          <font>
             <Font name="Century Gothic" size="14.0" />
          </font>
       </CheckBox>
-      <CheckBox layoutX="80.0" layoutY="618.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="245.0" text="Wearing gloves">
+      <CheckBox fx:id="glovesChB" layoutX="80.0" layoutY="618.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="245.0" text="Wearing gloves">
          <font>
             <Font name="Century Gothic" size="14.0" />
          </font>
       </CheckBox>
-      <CheckBox layoutX="80.0" layoutY="652.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="245.0" text="Wearing gown">
+      <CheckBox fx:id="gownChB" layoutX="80.0" layoutY="652.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="245.0" text="Wearing gown">
          <font>
             <Font name="Century Gothic" size="14.0" />
          </font>

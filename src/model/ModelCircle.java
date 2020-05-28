@@ -6,9 +6,8 @@
 
 package model;
 
-public class Circle extends Person{
-	
-	
+public class ModelCircle extends Person {
+
 	// -------------------------------------
 	// Atributtes
 	// -------------------------------------
@@ -16,17 +15,23 @@ public class Circle extends Person{
 	private int posY;
 	private int velX;
 	private int velY;
-	
-	
+	private int radius;
+
 	// -------------------------------------
 	// Constructor
 	// -------------------------------------
-	public Circle(char healthCondition) {
+	public ModelCircle(char healthCondition, int posX, int posY, int velX, int velY, int radius) {
+		
 		super(healthCondition);
-		// TODO Auto-generated constructor stub
+		
+		this.posX   = posX;
+		this.posY   = posY;
+		this.velX   = velX;
+		this.velY   = velY;
+		this.radius = radius;
+		
 	}
 
-	
 	// -------------------------------------
 	// Getters and Setters
 	// -------------------------------------
@@ -37,7 +42,7 @@ public class Circle extends Person{
 	public void setPosX(int posX) {
 		this.posX = posX;
 	}
-	
+
 	public int getPosY() {
 		return posY;
 	}
@@ -60,6 +65,14 @@ public class Circle extends Person{
 
 	public void setVelY(int velY) {
 		this.velY = velY;
+	}
+
+	public int getRadius() {
+		return radius;
+	}
+
+	public void setRadius(int radius) {
+		this.radius = radius;
 	}
 
 }
