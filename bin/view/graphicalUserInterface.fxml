@@ -22,7 +22,7 @@
       <Pane layoutY="117.0" prefHeight="8.0" prefWidth="1200.0" style="-fx-background-color: WHITE;" />
       <Pane layoutX="1.0" layoutY="703.0" prefHeight="8.0" prefWidth="1200.0" style="-fx-background-color: WHITE;" />
       <Pane layoutX="374.0" layoutY="125.0" prefHeight="585.0" prefWidth="8.0" style="-fx-background-color: WHITE;" />
-      <Pane layoutX="396.0" layoutY="156.0" prefHeight="535.0" prefWidth="790.0" style="-fx-background-color: WHITE;">
+      <Pane layoutX="382.0" layoutY="146.0" prefHeight="559.0" prefWidth="816.0" style="-fx-background-color: SNOW;">
          <children>
             <Label fx:id="totalPeopleLabel1" layoutX="31.0" layoutY="21.0" text="TOTAL PEOPLE: ">
                <font>
@@ -43,24 +43,24 @@
       <Slider fx:id="sliderInfectedPeople" layoutX="42.0" layoutY="198.0" majorTickUnit="200.0" max="1000.0" minorTickCount="1" prefHeight="68.0" prefWidth="296.0" showTickLabels="true" showTickMarks="true" />
       <Label layoutX="46.0" layoutY="173.0" prefHeight="45.0" prefWidth="245.0" text="Infected people:" textFill="#ff3b6d">
          <font>
-            <Font name="Century Gothic" size="17.0" />
+            <Font size="17.0" />
          </font>
       </Label>
       <Slider fx:id="sliderHealthyPeople" layoutX="42.0" layoutY="294.0" majorTickUnit="200.0" max="1000.0" minorTickCount="1" prefHeight="68.0" prefWidth="296.0" showTickLabels="true" showTickMarks="true" />
       <Slider fx:id="sliderRecoveredPeople" layoutX="42.0" layoutY="398.0" majorTickUnit="200.0" max="1000.0" minorTickCount="1" prefHeight="68.0" prefWidth="296.0" showTickLabels="true" showTickMarks="true" />
       <Label layoutX="46.0" layoutY="268.0" prefHeight="45.0" prefWidth="245.0" text="Healthy people:" textFill="#398a5b">
          <font>
-            <Font name="Century Gothic" size="17.0" />
+            <Font size="17.0" />
          </font>
       </Label>
       <Label layoutX="46.0" layoutY="371.0" prefHeight="45.0" prefWidth="245.0" text="Recovered people:" textFill="#0b65e7">
          <font>
-            <Font name="Century Gothic" size="17.0" />
+            <Font size="17.0" />
          </font>
       </Label>
       <CheckBox fx:id="handWashingChB" layoutX="79.0" layoutY="519.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="245.0" text="Frequend handwashing">
          <font>
-            <Font name="Century Gothic" size="14.0" />
+            <Font size="14.0" />
          </font></CheckBox>
       <TextField fx:id="iPtxtField" layoutX="278.0" layoutY="184.0" prefHeight="25.0" prefWidth="54.0">
          <font>
@@ -87,22 +87,22 @@
       </Label>
       <CheckBox fx:id="maskChB" layoutX="80.0" layoutY="552.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="245.0" text="Wearing mask">
          <font>
-            <Font name="Century Gothic" size="14.0" />
+            <Font size="14.0" />
          </font>
       </CheckBox>
       <CheckBox fx:id="n95MaskChB" layoutX="80.0" layoutY="584.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="245.0" text="Wearing N95 mask">
          <font>
-            <Font name="Century Gothic" size="14.0" />
+            <Font size="14.0" />
          </font>
       </CheckBox>
       <CheckBox fx:id="glovesChB" layoutX="80.0" layoutY="618.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="245.0" text="Wearing gloves">
          <font>
-            <Font name="Century Gothic" size="14.0" />
+            <Font size="14.0" />
          </font>
       </CheckBox>
       <CheckBox fx:id="gownChB" layoutX="80.0" layoutY="652.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="245.0" text="Wearing gown">
          <font>
-            <Font name="Century Gothic" size="14.0" />
+            <Font size="14.0" />
          </font>
       </CheckBox>
       <TextField fx:id="rPtxtField" layoutX="279.0" layoutY="385.0" prefHeight="25.0" prefWidth="54.0">
@@ -110,6 +110,21 @@
             <Font name="Century Gothic" size="12.0" />
          </font>
       </TextField>
-      <Pane layoutX="396.0" layoutY="136.0" prefHeight="26.0" prefWidth="790.0" style="-fx-background-color: LIGHTSTEELBLUE;" />
+      <Pane layoutX="382.0" layoutY="126.0" prefHeight="36.0" prefWidth="816.0" style="-fx-background-color: ALICEBLUE;" />
+      <ImageView fx:id="playImageView" fitHeight="25.0" fitWidth="19.0" layoutX="400.0" layoutY="134.0" onMouseClicked="#playButtonClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/playButtonOff.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="6.0" layoutX="390.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/sepBar-01.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="stopImageView" fitHeight="25.0" fitWidth="19.0" layoutX="426.0" layoutY="134.0" onMouseClicked="#stopButtonClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/stopButtonOff.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

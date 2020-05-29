@@ -15,6 +15,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -72,12 +74,25 @@ public class GraphicUserInterfaceController {
 
 	@FXML
 	private CheckBox handWashingChB;
+	
+    @FXML
+    private ImageView playImageView;
+    
+    @FXML
+    private ImageView stopImageView;
 
 	// -------------------------------------
 	// Atributtes
 	// -------------------------------------
 	private Logic logic;
 	private boolean onSimulation;
+	private boolean playButtonAble;
+	private boolean removeAllCircles;
+	private Image playButtonOn;
+	private Image playButtonOff;
+	private Image stopButtonOn;
+	private Image stopButtonOff;
+	
 	private ArrayList<Circle> circles;
 	private ArrayList<ModelCircle> people;
 
@@ -88,7 +103,9 @@ public class GraphicUserInterfaceController {
 
 		logic = new Logic();
 		onSimulation = false;
-
+		playButtonAble = false;
+		removeAllCircles = false;
+		
 		GUIUpdateControlThread guiThread = new GUIUpdateControlThread(this);
 		guiThread.setDaemon(true);
 		guiThread.start();
@@ -112,19 +129,59 @@ public class GraphicUserInterfaceController {
 		startButton.setText("START");
 		startButton.setDisable(true);
 		
+		playButtonOn = new Image("/images/playButtonOn.png");
+		playButtonOff = new Image("/images/playButtonOff.png");
+		stopButtonOn = new Image("/images/stopButtonOn.png");
+		stopButtonOff = new Image("/images/stopButtonOff.png");
+		
 	}
 
 	@FXML
 	void startSimulation(ActionEvent event) {
 
-		onSimulation = true;
-		ableConfigButtons();
-		logic.loadPeople();
-		loadCircles();
+		
 		startButton.setVisible(false);
 
 	}
 
+
+    @FXML
+    void playButtonClicked(MouseEvent event) {
+    
+    	if(playButtonAble) {
+    		
+    		playImageView.setImage(playButtonOff);
+    		stopImageView.setImage(stopButtonOn);
+    		onSimulation = true;
+    		ableConfigButtons();
+    		logic.loadPeople();
+    		loadCircles();
+    		
+    	}else {
+    		playImageView.setImage(playButtonOn);
+    	}
+    	
+    	playButtonAble = (playButtonAble)?false:true;
+    	
+    }
+    
+    @FXML
+    void stopButtonClicked(MouseEvent event) {
+    	
+    	if(onSimulation) {
+    		
+    		onSimulation = false;
+    		playButtonAble = true;
+    		playImageView.setImage(playButtonOn);
+    		stopImageView.setImage(stopButtonOff);
+    		logic.setPeople(new ArrayList<ModelCircle>());
+    		removeAllCircles = true;
+    		onSimulation = false;
+    		
+    	}
+    	
+    }
+    
 	public void update() {
 		
 		draw();
@@ -144,7 +201,6 @@ public class GraphicUserInterfaceController {
 			
 			Color color = Color.MEDIUMSEAGREEN;
 			
-		//	System.out.println(" centerX: "+ centerX+" centerY: "+centerY);
 			if(current.getHealthCondition() == Person.INFECTED) {
 				color = Color.SALMON;
 			}else if(current.getHealthCondition() == Person.RECOVERED) {
@@ -172,7 +228,21 @@ public class GraphicUserInterfaceController {
 			checkColor(current, people.get(i));
 			current.setCenterX(currentX);
 			current.setCenterY(currentY);
+				
+		}
 		
+		if(removeAllCircles) {
+		
+			for (int i = 0; i < circles.size(); i++) {
+				
+				Circle current  = circles.get(i);
+				pane.getChildren().remove(current);
+				
+			}
+			
+			circles = new ArrayList<Circle>();
+			removeAllCircles = false;
+	
 		}
 		
 		totalPeopleLabel.toFront();
@@ -275,10 +345,17 @@ public class GraphicUserInterfaceController {
 
 	public void disableButton() {
 
-		if (logic.getTotalPeople() >= 1)
-			startButton.setDisable(false);
-		else
-			startButton.setDisable(true);
+		if (logic.getTotalPeople() >= 1) {
+			
+			playImageView.setImage(playButtonOn);
+			playButtonAble = true;
+			
+		}else {
+			
+			playImageView.setImage(playButtonOff);
+			playButtonAble = false;
+			
+		}	
 
 	}
 

@@ -34,6 +34,7 @@ public class Logic{
 	private int healthyPeople;
 	private int totalPeople;
 	private int radius;
+	private boolean deleteAllPeople;
 	
 	private List<ModelCircle> people;
 	private MovementThread movementThread;
@@ -44,6 +45,7 @@ public class Logic{
 	public Logic() {
 		
 		people = new ArrayList<ModelCircle>();
+		deleteAllPeople = false;
 	
 	}
 
@@ -104,6 +106,13 @@ public class Logic{
 			ModelCircle current = people.get(i);
 			current.move();
 			contact(current, i);
+			
+		}
+		
+		if(deleteAllPeople) {
+			
+			people = new ArrayList<ModelCircle>();
+			deleteAllPeople = false;
 			
 		}
 	
@@ -189,6 +198,14 @@ public class Logic{
 
 	public void setPeople(List<ModelCircle> people) {
 		this.people = people;
+	}
+
+	public boolean isDeleteAllPeople() {
+		return deleteAllPeople;
+	}
+
+	public void setDeleteAllPeople(boolean deleteAllPeople) {
+		this.deleteAllPeople = deleteAllPeople;
 	}
 
 }
