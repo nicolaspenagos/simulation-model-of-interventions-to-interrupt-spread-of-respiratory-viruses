@@ -37,7 +37,7 @@ public class Main extends Application{
 		stage.getIcons().add(new Image("/images/icon-01.png")); 
 		stage.setTitle("MOTSORV");
 		stage.show();
-		//stage.setResizable(false);
+		stage.setResizable(false);
 		
 	}
 

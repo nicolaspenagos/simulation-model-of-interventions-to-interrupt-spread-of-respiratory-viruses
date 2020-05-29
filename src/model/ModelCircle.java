@@ -33,11 +33,9 @@ public class ModelCircle extends Person {
 	}
 
 	public void move() {
-		
-		//System.out.println("X:"+posX+" Y: "+ posY);
-		
+
 		posY += velY;	
-		
+	
 		if(posY<Logic.UP_LIMIT || posY>Logic.DOWN_LIMIT) {
 			velY *= -1;
 		
@@ -47,8 +45,25 @@ public class ModelCircle extends Person {
 		
 		if(posX<Logic.LEFT_LIMIT|| posX>Logic.RIGHT_LIMIT) {
 			velX *= -1;
-			//System.out.println("rebote en X");
 		}
+		
+		if(posY<Logic.UP_LIMIT-Logic.TOLERANCE || posY>Logic.DOWN_LIMIT+Logic.TOLERANCE) {
+			posY =(int) (Logic.UP_LIMIT + Logic.DOWN_LIMIT )/2;
+		}
+		
+		if(posX<Logic.LEFT_LIMIT-Logic.TOLERANCE || posX>Logic.RIGHT_LIMIT+Logic.TOLERANCE) {
+			posX =(int) (Logic.UP_LIMIT + Logic.DOWN_LIMIT )/2;
+		}
+			
+	}
+	
+	public void bounce() {
+		
+		velY *= -1;
+		velX *= -1;
+		
+		posY += (velY);	
+		posX += (velX);
 		
 	}
 	

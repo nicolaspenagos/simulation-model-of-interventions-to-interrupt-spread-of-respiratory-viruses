@@ -169,6 +169,7 @@ public class GraphicUserInterfaceController {
 			double currentX = (double)people.get(i).getPosX();
 			double currentY = (double)people.get(i).getPosY();
 			
+			checkColor(current, people.get(i));
 			current.setCenterX(currentX);
 			current.setCenterY(currentY);
 		
@@ -178,6 +179,18 @@ public class GraphicUserInterfaceController {
 		totalPeopleLabel1.toFront();
 		
 
+	}
+	
+	public void checkColor(Circle circle, ModelCircle modelCircle) {
+		
+		if(modelCircle.getHealthCondition() == Person.INFECTED) {
+			circle.setFill(Color.SALMON);
+		}else if(modelCircle.getHealthCondition() == Person.HEALTHY) {
+			circle.setFill(Color.MEDIUMSEAGREEN);
+		}else {
+			circle.setFill(Color.STEELBLUE);
+		}
+		
 	}
 
 	public void changeTextF1Handler(MouseEvent e) {

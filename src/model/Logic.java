@@ -9,6 +9,7 @@ package model;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.List;
+import java.util.Random;
 
 import customThreads.MovementThread;
 
@@ -17,12 +18,12 @@ public class Logic{
 	// -------------------------------------
 	// Constants
 	// -------------------------------------
-	public final static double LEFT_LIMIT = 394.0;
-	public final static double RIGHT_LIMIT = 790.0;
-	public final static double UP_LIMIT = 138.0;
-	public final static double DOWN_LIMIT = 555.0;
+	public final static double LEFT_LIMIT = 398.0;
+	public final static double RIGHT_LIMIT = 1185.0;
+	public final static double UP_LIMIT = 166.0;
+	public final static double DOWN_LIMIT = 690.0;
 	public final static double MAX_VEL = 4.0;
-	public final static double RADIUS = 3;
+	public final static double TOLERANCE = 4;
 	
 	
 	// -------------------------------------
@@ -32,6 +33,7 @@ public class Logic{
 	private int recoveredPeople;
 	private int healthyPeople;
 	private int totalPeople;
+	private int radius;
 	
 	private List<ModelCircle> people;
 	private MovementThread movementThread;
@@ -42,7 +44,7 @@ public class Logic{
 	public Logic() {
 		
 		people = new ArrayList<ModelCircle>();
-		
+	
 	}
 
 	// -------------------------------------
@@ -55,7 +57,16 @@ public class Logic{
 	public void loadPeople() {
 		
 		totalPeople = infectedPeople + recoveredPeople + healthyPeople;
+		Random r = new Random();
 		
+		if(totalPeople < 500) {
+			radius = 3;
+		}else if(totalPeople < 1500) {
+			radius = 2;
+		}else {
+			radius = 1;
+		}
+			
 		for (int i = 0; i < totalPeople; i++) {
 			
 			int ramdonX = ThreadLocalRandom.current().nextInt((int)LEFT_LIMIT, (int)RIGHT_LIMIT + 1);
@@ -63,6 +74,14 @@ public class Logic{
 			int velX    = ThreadLocalRandom.current().nextInt(1,(int)MAX_VEL +1 );
 			int velY    = ThreadLocalRandom.current().nextInt(1,(int)MAX_VEL +1 );
 			char condition;
+			
+			if(r.nextBoolean()) {
+				velX*=-1;
+			}
+			
+			if(r.nextBoolean()) {
+				velY*=-1;
+			}
 			
 			if(i < infectedPeople) {
 				condition = Person.INFECTED;	
@@ -72,16 +91,58 @@ public class Logic{
 				condition = Person.HEALTHY;	
 			}
 			
-			people.add(new ModelCircle(condition, ramdonX, ramdonY, velX, velY, (int)RADIUS));
+			people.add(new ModelCircle(condition, ramdonX, ramdonY, velX, velY, radius));
 			
 		}
 		
 	}
 	
 	public void move() {
-		
+	
 		for (int i = 0; i < people.size(); i++) {
-			people.get(i).move();
+			
+			ModelCircle current = people.get(i);
+			current.move();
+			contact(current, i);
+			
+		}
+	
+	}
+	
+	public void contact(ModelCircle current, int index) {
+	
+		for (int i = 0; i < people.size(); i++) {
+			
+			if(i!=index) {
+				
+				ModelCircle other = people.get(i);
+				double dist = Math.sqrt( (current.getPosX()-other.getPosX())*(current.getPosX()-other.getPosX())  + (current.getPosY()-other.getPosY())*(current.getPosY()-other.getPosY()) );
+				
+				if(dist<=current.getRadius()+other.getRadius()) {
+		
+					other.bounce();
+					current.bounce();	
+					
+					if(other.getHealthCondition() == Person.INFECTED && current.getHealthCondition() == Person.HEALTHY) {
+						
+						current.setHealthCondition(Person.INFECTED);
+						infectedPeople++;
+						healthyPeople--;
+						
+						
+					}else if(current.getHealthCondition() == Person.INFECTED && other.getHealthCondition() == Person.HEALTHY) {
+						
+						other.setHealthCondition(Person.INFECTED);
+						infectedPeople++;
+						healthyPeople--;
+						
+					}
+					
+					
+				}
+				
+			}
+			
 		}
 		
 	}
