@@ -33,12 +33,11 @@ public class ModelCircle extends Person {
 	}
 
 	public void move() {
-
+		
 		posY += velY;	
 	
 		if(posY<Logic.UP_LIMIT || posY>Logic.DOWN_LIMIT) {
 			velY *= -1;
-		
 		}
 		
 		posX += velX;
@@ -54,6 +53,8 @@ public class ModelCircle extends Person {
 		if(posX<Logic.LEFT_LIMIT-Logic.TOLERANCE || posX>Logic.RIGHT_LIMIT+Logic.TOLERANCE) {
 			posX =(int) (Logic.UP_LIMIT + Logic.DOWN_LIMIT )/2;
 		}
+		
+		//System.out.println(" "+posX+" "+posY);
 			
 	}
 	

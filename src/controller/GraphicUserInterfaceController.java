@@ -153,6 +153,7 @@ public class GraphicUserInterfaceController {
     		playImageView.setImage(playButtonOff);
     		stopImageView.setImage(stopButtonOn);
     		onSimulation = true;
+    		logic.startMovementThread();
     		ableConfigButtons();
     		logic.loadPeople();
     		loadCircles();
@@ -177,6 +178,7 @@ public class GraphicUserInterfaceController {
     		logic.setPeople(new ArrayList<ModelCircle>());
     		removeAllCircles = true;
     		onSimulation = false;
+    		logic.killMovThread();
     		
     	}
     	
@@ -190,6 +192,7 @@ public class GraphicUserInterfaceController {
 
 	public void loadCircles() {
 
+		people = (ArrayList<ModelCircle>) logic.getPeople();
 
 		for (int i = 0; i < people.size(); i++) {
 
@@ -213,8 +216,6 @@ public class GraphicUserInterfaceController {
 
 		}
 		
-		logic.startMovementThread();
-		
 	}
 
 	public void draw() {
@@ -228,8 +229,10 @@ public class GraphicUserInterfaceController {
 			checkColor(current, people.get(i));
 			current.setCenterX(currentX);
 			current.setCenterY(currentY);
-				
+			//System.out.println("cX "+currentX+" cY: "+currentY);
 		}
+		
+	//	System.out.println("");
 		
 		if(removeAllCircles) {
 		

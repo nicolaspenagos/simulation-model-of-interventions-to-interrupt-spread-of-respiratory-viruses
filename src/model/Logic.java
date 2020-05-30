@@ -46,7 +46,7 @@ public class Logic{
 		
 		people = new ArrayList<ModelCircle>();
 		deleteAllPeople = false;
-	
+		
 	}
 
 	// -------------------------------------
@@ -58,6 +58,7 @@ public class Logic{
 	
 	public void loadPeople() {
 		
+		people = new ArrayList<ModelCircle>();
 		totalPeople = infectedPeople + recoveredPeople + healthyPeople;
 		Random r = new Random();
 		
@@ -100,7 +101,7 @@ public class Logic{
 	}
 	
 	public void move() {
-	
+		
 		for (int i = 0; i < people.size(); i++) {
 			
 			ModelCircle current = people.get(i);
@@ -108,7 +109,7 @@ public class Logic{
 			contact(current, i);
 			
 		}
-		
+		//System.out.println("");
 		if(deleteAllPeople) {
 			
 			people = new ArrayList<ModelCircle>();
@@ -116,6 +117,10 @@ public class Logic{
 			
 		}
 	
+	}
+	
+	public void killMovThread() {
+		movementThread.kill();
 	}
 	
 	public void contact(ModelCircle current, int index) {

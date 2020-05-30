@@ -13,12 +13,14 @@ public class MovementThread extends Thread{
 	// Atributtes and relationships
 	// -------------------------------------
 	private Logic logic;
+	boolean running;
 	
 	// -------------------------------------
 	// Constructor
 	// -------------------------------------
 	public MovementThread(Logic logic) {
 		this.logic = logic;
+		running = true;
 	}
 	
 	// -------------------------------------
@@ -26,12 +28,13 @@ public class MovementThread extends Thread{
 	// -------------------------------------
 	public void run() {
 		
-		while(true) {
+		while(running) {
 			
 			try {
 				
 				sleep(30);
 				logic.move();
+				
 				
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
@@ -40,6 +43,10 @@ public class MovementThread extends Thread{
 			
 		}
 		
+	}
+	
+	public void kill() {
+		running = false;
 	}
 
 }
