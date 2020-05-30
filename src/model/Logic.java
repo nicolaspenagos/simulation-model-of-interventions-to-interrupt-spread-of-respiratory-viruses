@@ -122,38 +122,35 @@ public class Logic{
 	
 		for (int i = 0; i < people.size(); i++) {
 			
-			if(i!=index) {
-				
-				ModelCircle other = people.get(i);
-				double dist = Math.sqrt( (current.getPosX()-other.getPosX())*(current.getPosX()-other.getPosX())  + (current.getPosY()-other.getPosY())*(current.getPosY()-other.getPosY()) );
-				
-				if(dist<=current.getRadius()+other.getRadius()) {
-		
-					other.bounce();
-					current.bounce();	
+			if(people.size()!=0) {
+				if(i!=index) {
 					
-					if(other.getHealthCondition() == Person.INFECTED && current.getHealthCondition() == Person.HEALTHY) {
-						
-						current.setHealthCondition(Person.INFECTED);
-						infectedPeople++;
-						healthyPeople--;
-						
-						
-					}else if(current.getHealthCondition() == Person.INFECTED && other.getHealthCondition() == Person.HEALTHY) {
-						
-						other.setHealthCondition(Person.INFECTED);
-						infectedPeople++;
-						healthyPeople--;
-						
-					}
+					ModelCircle other = people.get(i);
+					double dist = Math.sqrt( (current.getPosX()-other.getPosX())*(current.getPosX()-other.getPosX())  + (current.getPosY()-other.getPosY())*(current.getPosY()-other.getPosY()) );
 					
-					
-				}
-				
-			}
+					if(dist<=current.getRadius()+other.getRadius()) {
 			
+						other.bounce();
+						current.bounce();	
+						
+						if(other.getHealthCondition() == Person.INFECTED && current.getHealthCondition() == Person.HEALTHY) {
+							
+							current.setHealthCondition(Person.INFECTED);
+							infectedPeople++;
+							healthyPeople--;
+							
+							
+						}else if(current.getHealthCondition() == Person.INFECTED && other.getHealthCondition() == Person.HEALTHY) {
+							
+							other.setHealthCondition(Person.INFECTED);
+							infectedPeople++;
+							healthyPeople--;
+							
+						}
+					}
+				}
+			}
 		}
-		
 	}
 	
 	public void startMovementThread() {
