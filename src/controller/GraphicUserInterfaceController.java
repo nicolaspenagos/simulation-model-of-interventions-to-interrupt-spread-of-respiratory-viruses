@@ -178,6 +178,7 @@ public class GraphicUserInterfaceController {
 			pauseButtonAble = true;
 
 			if (playButtonAble) {
+				
 				ableConfigButtons(false);
 				pause = false;
 				logic.setPause(false);
@@ -186,6 +187,7 @@ public class GraphicUserInterfaceController {
 				pauseImageView.setImage(pauseButtonOn);
 				logic.startMovementThread();
 				ableConfigButtons(false);
+				logic.setProbability();
 				logic.loadPeople();
 				loadCircles();
 				playButtonAble = false;
@@ -199,147 +201,7 @@ public class GraphicUserInterfaceController {
 		}
 
 	}
-
-	@FXML
-	void frequendHandwashing(ActionEvent event) {
-
-		if (handWashingChB.isSelected()) {
-
-			maskChB.setDisable(true);
-			n95MaskChB.setDisable(true);
-			glovesChB.setDisable(true);
-			gownChB.setDisable(true);
-			allCombinedChB.setDisable(true);
-
-		} else {
-
-			maskChB.setDisable(false);
-			n95MaskChB.setDisable(false);
-			glovesChB.setDisable(false);
-			gownChB.setDisable(false);
-			allCombinedChB.setDisable(false);
-
-		}
-
-	}
-
-	@FXML
-	void mask(ActionEvent event) {
-
-		if (maskChB.isSelected()) {
-
-			handWashingChB.setDisable(true);
-			n95MaskChB.setDisable(true);
-			glovesChB.setDisable(true);
-			gownChB.setDisable(true);
-			allCombinedChB.setDisable(true);
-
-		} else {
-
-			handWashingChB.setDisable(false);
-			n95MaskChB.setDisable(false);
-			glovesChB.setDisable(false);
-			gownChB.setDisable(false);
-			allCombinedChB.setDisable(false);
-
-		}
-
-	}
-
-	@FXML
-	void n95Mask(ActionEvent event) {
-
-		if (n95MaskChB.isSelected()) {
-
-			handWashingChB.setDisable(true);
-			maskChB.setDisable(true);
-			glovesChB.setDisable(true);
-			gownChB.setDisable(true);
-			allCombinedChB.setDisable(true);
-
-		} else {
-
-			handWashingChB.setDisable(false);
-			maskChB.setDisable(false);
-			glovesChB.setDisable(false);
-			gownChB.setDisable(false);
-			allCombinedChB.setDisable(false);
-
-		}
-		
-	}
-
-    @FXML
-    void gloves(ActionEvent event) {
-    	
-    	if (glovesChB.isSelected()) {
-
-			handWashingChB.setDisable(true);
-			maskChB.setDisable(true);
-			n95MaskChB.setDisable(true);
-			gownChB.setDisable(true);
-			allCombinedChB.setDisable(true);
-
-		} else {
-
-			handWashingChB.setDisable(false);
-			maskChB.setDisable(false);
-			n95MaskChB.setDisable(false);
-			gownChB.setDisable(false);
-			allCombinedChB.setDisable(false);
-
-		}
-    	
-    }
-    
-
-    @FXML
-    void gown(ActionEvent event) {
-    	
-    	if (gownChB.isSelected()) {
-
-			handWashingChB.setDisable(true);
-			maskChB.setDisable(true);
-			n95MaskChB.setDisable(true);
-			glovesChB.setDisable(true);
-			allCombinedChB.setDisable(true);
-
-		} else {
-
-			handWashingChB.setDisable(false);
-			maskChB.setDisable(false);
-			n95MaskChB.setDisable(false);
-			glovesChB.setDisable(false);
-			allCombinedChB.setDisable(false);
-
-		}
-    	
-    }
-    
-
-    @FXML
-    void allCombined(ActionEvent event) {
-
-    	if (allCombinedChB.isSelected()) {
-
-			handWashingChB.setDisable(true);
-			maskChB.setDisable(true);
-			n95MaskChB.setDisable(true);
-			glovesChB.setDisable(true);
-			gownChB.setDisable(true);
-
-		} else {
-
-			handWashingChB.setDisable(false);
-			maskChB.setDisable(false);
-			n95MaskChB.setDisable(false);
-			glovesChB.setDisable(false);
-			gownChB.setDisable(false);
-
-		}
-    	
-    }
-    
+	
 	@FXML
 	void stopButtonClicked(MouseEvent event) {
 
@@ -348,13 +210,14 @@ public class GraphicUserInterfaceController {
 			playButtonAble = true;
 			stopButtonAble = false;
 			pauseButtonAble = false;
-
+			
 			playImageView.setImage(playButtonOn);
 			stopImageView.setImage(stopButtonOff);
 			pauseImageView.setImage(pauseButtonOff);
 			logic.setPeople(new ArrayList<ModelCircle>());
 			removeAllCircles = true;
 			logic.killMovThread();
+			logic.setOption(-1);
 			ableConfigButtons(true);
 
 			sliderHealthyPeople.setValue(0);
@@ -381,6 +244,158 @@ public class GraphicUserInterfaceController {
 		}
 
 	}
+
+	@FXML
+	void frequendHandwashing(ActionEvent event) {
+
+		if (handWashingChB.isSelected()) {
+
+			maskChB.setDisable(true);
+			n95MaskChB.setDisable(true);
+			glovesChB.setDisable(true);
+			gownChB.setDisable(true);
+			allCombinedChB.setDisable(true);
+			logic.setOption(Logic.OPTION_FHW);
+
+		} else {
+
+			maskChB.setDisable(false);
+			n95MaskChB.setDisable(false);
+			glovesChB.setDisable(false);
+			gownChB.setDisable(false);
+			allCombinedChB.setDisable(false);
+			logic.setOption(-1);
+		
+		}
+
+	}
+
+	@FXML
+	void mask(ActionEvent event) {
+
+		if (maskChB.isSelected()) {
+
+			handWashingChB.setDisable(true);
+			n95MaskChB.setDisable(true);
+			glovesChB.setDisable(true);
+			gownChB.setDisable(true);
+			allCombinedChB.setDisable(true);
+			logic.setOption(Logic.OPTION_M);
+
+		} else {
+
+			handWashingChB.setDisable(false);
+			n95MaskChB.setDisable(false);
+			glovesChB.setDisable(false);
+			gownChB.setDisable(false);
+			allCombinedChB.setDisable(false);
+			logic.setOption(-1);
+
+		}
+
+	}
+
+	@FXML
+	void n95Mask(ActionEvent event) {
+
+		if (n95MaskChB.isSelected()) {
+
+			handWashingChB.setDisable(true);
+			maskChB.setDisable(true);
+			glovesChB.setDisable(true);
+			gownChB.setDisable(true);
+			allCombinedChB.setDisable(true);
+			logic.setOption(Logic.OPTION_N95M);
+
+		} else {
+
+			handWashingChB.setDisable(false);
+			maskChB.setDisable(false);
+			glovesChB.setDisable(false);
+			gownChB.setDisable(false);
+			allCombinedChB.setDisable(false);
+			logic.setOption(-1);
+
+		}
+		
+	}
+
+    @FXML
+    void gloves(ActionEvent event) {
+    	
+    	if (glovesChB.isSelected()) {
+
+			handWashingChB.setDisable(true);
+			maskChB.setDisable(true);
+			n95MaskChB.setDisable(true);
+			gownChB.setDisable(true);
+			allCombinedChB.setDisable(true);
+			logic.setOption(Logic.OPTION_GLVS);
+
+		} else {
+
+			handWashingChB.setDisable(false);
+			maskChB.setDisable(false);
+			n95MaskChB.setDisable(false);
+			gownChB.setDisable(false);
+			allCombinedChB.setDisable(false);
+			logic.setOption(-1);
+
+		}
+    	
+    }
+    
+
+    @FXML
+    void gown(ActionEvent event) {
+    	
+    	if (gownChB.isSelected()) {
+
+			handWashingChB.setDisable(true);
+			maskChB.setDisable(true);
+			n95MaskChB.setDisable(true);
+			glovesChB.setDisable(true);
+			allCombinedChB.setDisable(true);
+			logic.setOption(Logic.OPTION_GWN);
+
+		} else {
+
+			handWashingChB.setDisable(false);
+			maskChB.setDisable(false);
+			n95MaskChB.setDisable(false);
+			glovesChB.setDisable(false);
+			allCombinedChB.setDisable(false);
+			logic.setOption(-1);
+
+		}
+    	
+    }
+    
+
+    @FXML
+    void allCombined(ActionEvent event) {
+
+    	if (allCombinedChB.isSelected()) {
+
+			handWashingChB.setDisable(true);
+			maskChB.setDisable(true);
+			n95MaskChB.setDisable(true);
+			glovesChB.setDisable(true);
+			gownChB.setDisable(true);
+			logic.setOption(Logic.OPTION_WALL);
+
+		} else {
+
+			handWashingChB.setDisable(false);
+			maskChB.setDisable(false);
+			n95MaskChB.setDisable(false);
+			glovesChB.setDisable(false);
+			gownChB.setDisable(false);
+			logic.setOption(-1);
+
+		}
+    	
+    }
 
 	public void update() {
 
