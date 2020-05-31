@@ -52,7 +52,7 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <CheckBox fx:id="handWashingChB" layoutX="79.0" layoutY="519.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="245.0" text="Frequend handwashing">
+      <CheckBox fx:id="handWashingChB" layoutX="79.0" layoutY="526.0" mnemonicParsing="false" onAction="#frequendHandwashing" prefHeight="36.0" prefWidth="245.0" text="Frequend handwashing">
          <font>
             <Font size="14.0" />
          </font></CheckBox>
@@ -79,22 +79,22 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <CheckBox fx:id="maskChB" layoutX="80.0" layoutY="552.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="245.0" text="Wearing mask">
+      <CheckBox fx:id="maskChB" layoutX="80.0" layoutY="553.0" mnemonicParsing="false" onAction="#mask" prefHeight="36.0" prefWidth="245.0" text="Wearing mask">
          <font>
             <Font size="14.0" />
          </font>
       </CheckBox>
-      <CheckBox fx:id="n95MaskChB" layoutX="80.0" layoutY="584.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="245.0" text="Wearing N95 mask">
+      <CheckBox fx:id="n95MaskChB" layoutX="80.0" layoutY="581.0" mnemonicParsing="false" onAction="#n95Mask" prefHeight="36.0" prefWidth="245.0" text="Wearing N95 mask">
          <font>
             <Font size="14.0" />
          </font>
       </CheckBox>
-      <CheckBox fx:id="glovesChB" layoutX="80.0" layoutY="618.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="245.0" text="Wearing gloves">
+      <CheckBox fx:id="glovesChB" layoutX="80.0" layoutY="608.0" mnemonicParsing="false" onAction="#gloves" prefHeight="36.0" prefWidth="245.0" text="Wearing gloves">
          <font>
             <Font size="14.0" />
          </font>
       </CheckBox>
-      <CheckBox fx:id="gownChB" layoutX="80.0" layoutY="652.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="245.0" text="Wearing gown">
+      <CheckBox fx:id="gownChB" layoutX="80.0" layoutY="635.0" mnemonicParsing="false" onAction="#gown" prefHeight="36.0" prefWidth="245.0" text="Wearing gown">
          <font>
             <Font size="14.0" />
          </font>
@@ -130,5 +130,10 @@
             <Image url="@../images/sepBar-01.png" />
          </image>
       </ImageView>
+      <CheckBox fx:id="allCombinedChB" layoutX="80.0" layoutY="661.0" mnemonicParsing="false" onAction="#allCombined" prefHeight="36.0" prefWidth="245.0" text="All combined">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </CheckBox>
    </children>
 </Pane>

@@ -8,6 +8,7 @@ package controller;
 import java.util.ArrayList;
 
 import customThreads.GUIUpdateControlThread;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -69,6 +70,9 @@ public class GraphicUserInterfaceController {
 
 	@FXML
 	private CheckBox handWashingChB;
+
+	@FXML
+	private CheckBox allCombinedChB;
 
 	@FXML
 	private ImageView playImageView;
@@ -141,51 +145,41 @@ public class GraphicUserInterfaceController {
 	void pauseButtonClicked(MouseEvent event) {
 
 		if (pauseButtonAble) {
-			
+
 			playButtonAble = false;
 			stopButtonAble = true;
-			
-			if(!isPause()) {
-				
+
+			if (!isPause()) {
+
 				pauseImageView.setImage(pausePlayButton);
 				pause = true;
 				logic.setPause(true);
-				
-			}else {
-				
+
+			} else {
+
 				pauseImageView.setImage(pauseButtonOn);
 				pause = false;
 				logic.setPause(false);
-				
+
 			}
-			
-		}else {
+
+		} else {
 			pauseImageView.setImage(pauseButtonOff);
 		}
 
-		/*
-		 * if(pauseButtonAble) { pauseImageView.setImage(pausePlayButton); }else {
-		 * pauseImageView.setImage(pauseButtonOn); }
-		 * 
-		 * if(onSimulation) {
-		 * 
-		 * }
-		 */
 	}
 
 	@FXML
 	void playButtonClicked(MouseEvent event) {
 
 		if (playButtonAble) {
-			System.out.println("playButtonClick");
 
-			// When the simulation is running, you can: STOP and Pause
 			stopButtonAble = true;
 			pauseButtonAble = true;
 
 			if (playButtonAble) {
 				ableConfigButtons(false);
-				pause=false;
+				pause = false;
 				logic.setPause(false);
 				playImageView.setImage(playButtonOff);
 				stopImageView.setImage(stopButtonOn);
@@ -195,7 +189,6 @@ public class GraphicUserInterfaceController {
 				logic.loadPeople();
 				loadCircles();
 				playButtonAble = false;
-				
 
 			} else {
 
@@ -207,32 +200,151 @@ public class GraphicUserInterfaceController {
 
 	}
 
-	/*
-	 * 
-	 * if(playButtonAble) {
-	 * 
-	 * playImageView.setImage(playButtonOff); stopImageView.setImage(stopButtonOn);
-	 * pauseImageView.setImage(pauseButtonOn); onSimulation = true; pauseButtonAble
-	 * = true; logic.startMovementThread(); ableConfigButtons(); logic.loadPeople();
-	 * loadCircles();
-	 * 
-	 * }else {
-	 * 
-	 * playImageView.setImage(playButtonOn);
-	 * pauseImageView.setImage(pauseButtonOff);
-	 * 
-	 * }
-	 */
+	@FXML
+	void frequendHandwashing(ActionEvent event) {
 
-	// playButtonAble = (playButtonAble)?false:true;
+		if (handWashingChB.isSelected()) {
 
+			maskChB.setDisable(true);
+			n95MaskChB.setDisable(true);
+			glovesChB.setDisable(true);
+			gownChB.setDisable(true);
+			allCombinedChB.setDisable(true);
+
+		} else {
+
+			maskChB.setDisable(false);
+			n95MaskChB.setDisable(false);
+			glovesChB.setDisable(false);
+			gownChB.setDisable(false);
+			allCombinedChB.setDisable(false);
+
+		}
+
+	}
+
+	@FXML
+	void mask(ActionEvent event) {
+
+		if (maskChB.isSelected()) {
+
+			handWashingChB.setDisable(true);
+			n95MaskChB.setDisable(true);
+			glovesChB.setDisable(true);
+			gownChB.setDisable(true);
+			allCombinedChB.setDisable(true);
+
+		} else {
+
+			handWashingChB.setDisable(false);
+			n95MaskChB.setDisable(false);
+			glovesChB.setDisable(false);
+			gownChB.setDisable(false);
+			allCombinedChB.setDisable(false);
+
+		}
+
+	}
+
+	@FXML
+	void n95Mask(ActionEvent event) {
+
+		if (n95MaskChB.isSelected()) {
+
+			handWashingChB.setDisable(true);
+			maskChB.setDisable(true);
+			glovesChB.setDisable(true);
+			gownChB.setDisable(true);
+			allCombinedChB.setDisable(true);
+
+		} else {
+
+			handWashingChB.setDisable(false);
+			maskChB.setDisable(false);
+			glovesChB.setDisable(false);
+			gownChB.setDisable(false);
+			allCombinedChB.setDisable(false);
+
+		}
+		
+	}
+
+    @FXML
+    void gloves(ActionEvent event) {
+    	
+    	if (glovesChB.isSelected()) {
+
+			handWashingChB.setDisable(true);
+			maskChB.setDisable(true);
+			n95MaskChB.setDisable(true);
+			gownChB.setDisable(true);
+			allCombinedChB.setDisable(true);
+
+		} else {
+
+			handWashingChB.setDisable(false);
+			maskChB.setDisable(false);
+			n95MaskChB.setDisable(false);
+			gownChB.setDisable(false);
+			allCombinedChB.setDisable(false);
+
+		}
+    	
+    }
+    
+
+    @FXML
+    void gown(ActionEvent event) {
+    	
+    	if (gownChB.isSelected()) {
+
+			handWashingChB.setDisable(true);
+			maskChB.setDisable(true);
+			n95MaskChB.setDisable(true);
+			glovesChB.setDisable(true);
+			allCombinedChB.setDisable(true);
+
+		} else {
+
+			handWashingChB.setDisable(false);
+			maskChB.setDisable(false);
+			n95MaskChB.setDisable(false);
+			glovesChB.setDisable(false);
+			allCombinedChB.setDisable(false);
+
+		}
+    	
+    }
+    
+
+    @FXML
+    void allCombined(ActionEvent event) {
+
+    	if (allCombinedChB.isSelected()) {
+
+			handWashingChB.setDisable(true);
+			maskChB.setDisable(true);
+			n95MaskChB.setDisable(true);
+			glovesChB.setDisable(true);
+			gownChB.setDisable(true);
+
+		} else {
+
+			handWashingChB.setDisable(false);
+			maskChB.setDisable(false);
+			n95MaskChB.setDisable(false);
+			glovesChB.setDisable(false);
+			gownChB.setDisable(false);
+
+		}
+    	
+    }
+    
 	@FXML
 	void stopButtonClicked(MouseEvent event) {
 
 		if (stopButtonAble) {
-			System.out.println("stopButtonClick");
 
-			// The simulation has ended, you can: NOTHING (People has to be more than 1)
 			playButtonAble = true;
 			stopButtonAble = false;
 			pauseButtonAble = false;
@@ -244,11 +356,11 @@ public class GraphicUserInterfaceController {
 			removeAllCircles = true;
 			logic.killMovThread();
 			ableConfigButtons(true);
-			
+
 			sliderHealthyPeople.setValue(0);
 			sliderInfectedPeople.setValue(0);
 			sliderRecoveredPeople.setValue(0);
-			
+
 			logic.setHealthyPeople(0);
 			logic.setInfectedPeople(0);
 			logic.setRecoveredPeople(0);
@@ -256,19 +368,17 @@ public class GraphicUserInterfaceController {
 			rPtxtField.setText("");
 			hPtxtField.setText("");
 			updateTotalPeople();
+			disableButton();
+			
+			handWashingChB.setSelected(false);
+			maskChB.setSelected(false);
+			n95MaskChB.setSelected(false);
+			glovesChB.setSelected(false);
+			gownChB.setSelected(false);
+			allCombinedChB.setSelected(false);
+			
 
 		}
-		/*
-		 * if(onSimulation) {
-		 * 
-		 * onSimulation = false; playButtonAble = true;
-		 * playImageView.setImage(playButtonOn); stopImageView.setImage(stopButtonOff);
-		 * pauseImageView.setImage(pauseButtonOff); logic.setPeople(new
-		 * ArrayList<ModelCircle>()); removeAllCircles = true; onSimulation = false;
-		 * logic.killMovThread();
-		 * 
-		 * }
-		 */
 
 	}
 
@@ -317,10 +427,8 @@ public class GraphicUserInterfaceController {
 			checkColor(current, people.get(i));
 			current.setCenterX(currentX);
 			current.setCenterY(currentY);
-			// System.out.println("cX "+currentX+" cY: "+currentY);
-		}
 
-		// System.out.println("");
+		}
 
 		if (removeAllCircles) {
 
@@ -374,30 +482,16 @@ public class GraphicUserInterfaceController {
 	}
 
 	public void ableConfigButtons(boolean able) {
-
-		if (!able) {
-
-			sliderInfectedPeople.setDisable(true);
-			sliderHealthyPeople.setDisable(true);
-			sliderRecoveredPeople.setDisable(true);
-			handWashingChB.setDisable(true);
-			maskChB.setDisable(true);
-			n95MaskChB.setDisable(true);
-			glovesChB.setDisable(true);
-			gownChB.setDisable(true);
-
-		} else {
-
-			sliderInfectedPeople.setDisable(false);
-			sliderHealthyPeople.setDisable(false);
-			sliderRecoveredPeople.setDisable(false);
-			handWashingChB.setDisable(false);
-			maskChB.setDisable(false);
-			n95MaskChB.setDisable(false);
-			glovesChB.setDisable(false);
-			gownChB.setDisable(false);
-
-		}
+		
+		sliderInfectedPeople.setDisable(!able);
+		sliderHealthyPeople.setDisable(!able);
+		sliderRecoveredPeople.setDisable(!able);
+		handWashingChB.setDisable(!able);
+		maskChB.setDisable(!able);
+		n95MaskChB.setDisable(!able);
+		glovesChB.setDisable(!able);
+		gownChB.setDisable(!able);
+		allCombinedChB.setDisable(!able);
 
 	}
 
@@ -437,14 +531,11 @@ public class GraphicUserInterfaceController {
 
 			playImageView.setImage(playButtonOn);
 			playButtonAble = true;
-			//ableConfigButtons(true);
 
 		} else {
 
 			playImageView.setImage(playButtonOff);
 			playButtonAble = false;
-			//ableConfigButtons(false);
-
 		}
 
 	}
