@@ -34,6 +34,7 @@ public class Logic{
 	private int healthyPeople;
 	private int totalPeople;
 	private int radius;
+	private boolean pause;
 	private boolean deleteAllPeople;
 	
 	private List<ModelCircle> people;
@@ -102,21 +103,25 @@ public class Logic{
 	
 	public void move() {
 		
-		for (int i = 0; i < people.size(); i++) {
+		if(!pause) {
 			
-			ModelCircle current = people.get(i);
-			current.move();
-			contact(current, i);
-			
+			for (int i = 0; i < people.size(); i++) {
+				
+				ModelCircle current = people.get(i);
+				current.move();
+				contact(current, i);
+				
+			}
+			//System.out.println("");
+			if(deleteAllPeople) {
+				
+				people = new ArrayList<ModelCircle>();
+				deleteAllPeople = false;
+				
+			}
+		
 		}
-		//System.out.println("");
-		if(deleteAllPeople) {
-			
-			people = new ArrayList<ModelCircle>();
-			deleteAllPeople = false;
-			
-		}
-	
+		
 	}
 	
 	public void killMovThread() {
@@ -208,6 +213,14 @@ public class Logic{
 
 	public void setDeleteAllPeople(boolean deleteAllPeople) {
 		this.deleteAllPeople = deleteAllPeople;
+	}
+
+	public boolean isPause() {
+		return pause;
+	}
+
+	public void setPause(boolean pause) {
+		this.pause = pause;
 	}
 
 }
