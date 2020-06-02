@@ -3,10 +3,9 @@
 * nicolas.penagosm98@gmail.com
 **~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 */
-
 package model;
 
-public class ModelCircle extends Person {
+public class ModelCircle extends Person implements Runnable{
 
 	// -------------------------------------
 	// Atributtes
@@ -32,6 +31,9 @@ public class ModelCircle extends Person {
 		
 	}
 
+	// -------------------------------------
+	// Methods
+	// -------------------------------------
 	public void move() {
 		
 		posY += velY;	
@@ -53,11 +55,9 @@ public class ModelCircle extends Person {
 		if(posX<Logic.LEFT_LIMIT-Logic.TOLERANCE || posX>Logic.RIGHT_LIMIT+Logic.TOLERANCE) {
 			posX =(int) (Logic.UP_LIMIT + Logic.DOWN_LIMIT )/2;
 		}
-		
-		//System.out.println(" "+posX+" "+posY);
 			
 	}
-	
+		
 	public void bounce() {
 		
 		velY *= -1;
@@ -65,6 +65,22 @@ public class ModelCircle extends Person {
 		
 		posY += (velY);	
 		posX += (velX);
+		
+	}
+	
+
+	@Override
+	public void run() {
+		
+		try {
+			
+			Thread.sleep(14000);
+			super.setHealthCondition(RECOVERED);
+			
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	

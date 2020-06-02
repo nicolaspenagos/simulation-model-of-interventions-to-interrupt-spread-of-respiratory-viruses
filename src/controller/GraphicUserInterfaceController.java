@@ -53,8 +53,20 @@ public class GraphicUserInterfaceController {
 	@FXML
 	private Label totalPeopleLabel;
 
-	@FXML
-	private Label totalPeopleLabel1;
+    @FXML
+    private Label recoveredPeopleLabel;
+    
+    @FXML
+    private Label healthyPeopleLabel;
+
+    @FXML
+    private Label infectedPeopleLabel;
+    
+    @FXML
+    private Label timeLabel;
+    
+    @FXML
+    private Label dayLabel;
 
 	@FXML
 	private CheckBox maskChB;
@@ -153,6 +165,7 @@ public class GraphicUserInterfaceController {
 
 				pauseImageView.setImage(pausePlayButton);
 				pause = true;
+				logic.getChronometer().setPause(true);
 				logic.setPause(true);
 
 			} else {
@@ -160,6 +173,7 @@ public class GraphicUserInterfaceController {
 				pauseImageView.setImage(pauseButtonOn);
 				pause = false;
 				logic.setPause(false);
+				logic.getChronometer().setPause(false);
 
 			}
 
@@ -191,6 +205,7 @@ public class GraphicUserInterfaceController {
 				logic.loadPeople();
 				loadCircles();
 				playButtonAble = false;
+				logic.startChronometerThread();
 
 			} else {
 
@@ -240,7 +255,9 @@ public class GraphicUserInterfaceController {
 			gownChB.setSelected(false);
 			allCombinedChB.setSelected(false);
 			
-
+			logic.killChronometerThread();
+			logic.getChronometer().reStart();
+			
 		}
 
 	}
@@ -399,8 +416,19 @@ public class GraphicUserInterfaceController {
 
 	public void update() {
 
+		updateLabels();
 		draw();
 
+	}
+	
+	public void updateLabels() {
+		
+		infectedPeopleLabel.setText(""+logic.getInfectedPeople());
+		healthyPeopleLabel.setText(""+logic.getHealthyPeople());
+		recoveredPeopleLabel.setText(""+logic.getRecoveredPeople());
+		timeLabel.setText(logic.getChronometer().getTime());
+		dayLabel.setText(""+(logic.getChronometer().getSec() + logic.getChronometer().getMin()*60));
+		
 	}
 
 	public void loadCircles() {
@@ -460,8 +488,7 @@ public class GraphicUserInterfaceController {
 		}
 
 		totalPeopleLabel.toFront();
-		totalPeopleLabel1.toFront();
-
+		
 	}
 
 	public void checkColor(Circle circle, ModelCircle modelCircle) {

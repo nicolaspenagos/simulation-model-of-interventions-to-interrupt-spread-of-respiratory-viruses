@@ -11,6 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.List;
 import java.util.Random;
 
+import customThreads.ChronometerThread;
 import customThreads.MovementThread;
 
 public class Logic {
@@ -55,6 +56,8 @@ public class Logic {
 
 	private List<ModelCircle> people;
 	private MovementThread movementThread;
+	private Chronometer chronometer;
+	private ChronometerThread chronometerThread;
 
 	// -------------------------------------
 	// Constructor
@@ -64,6 +67,7 @@ public class Logic {
 		people = new ArrayList<ModelCircle>();
 		deleteAllPeople = false;
 		option = -1;
+		chronometer = new Chronometer();
 
 	}
 
@@ -72,6 +76,14 @@ public class Logic {
 	// -------------------------------------
 	public int getTotalPeople() {
 		return infectedPeople + recoveredPeople + healthyPeople;
+	}
+	
+	public void startChronometerThread() {
+		
+		chronometerThread = new ChronometerThread(getChronometer());
+		chronometerThread.setDaemon(true);
+		chronometerThread.start();
+		
 	}
 
 	public void loadPeople() {
@@ -129,7 +141,7 @@ public class Logic {
 				contact(current, i);
 
 			}
-			// System.out.println("");
+			
 			if (deleteAllPeople) {
 
 				people = new ArrayList<ModelCircle>();
@@ -161,22 +173,33 @@ public class Logic {
 
 						other.bounce();
 						current.bounce();
+						
+						double contagion = Math.random();
+					
+						if((probability - contagion<0)) {
+						
+							if (other.getHealthCondition() == Person.INFECTED
+									&& current.getHealthCondition() == Person.HEALTHY) {
 
-						if (other.getHealthCondition() == Person.INFECTED
-								&& current.getHealthCondition() == Person.HEALTHY) {
+								current.setHealthCondition(Person.INFECTED);
+								new Thread(current).start();
+								
+								infectedPeople++;
+								healthyPeople--;
 
-							current.setHealthCondition(Person.INFECTED);
-							infectedPeople++;
-							healthyPeople--;
+							} else if (current.getHealthCondition() == Person.INFECTED
+									&& other.getHealthCondition() == Person.HEALTHY) {
 
-						} else if (current.getHealthCondition() == Person.INFECTED
-								&& other.getHealthCondition() == Person.HEALTHY) {
+								other.setHealthCondition(Person.INFECTED);
+								new Thread(other).start();
+								infectedPeople++;
+								healthyPeople--;
 
-							other.setHealthCondition(Person.INFECTED);
-							infectedPeople++;
-							healthyPeople--;
-
+							}
+							
 						}
+
+						
 					}
 				}
 			}
@@ -188,9 +211,13 @@ public class Logic {
 		movementThread = new MovementThread(this);
 		movementThread.setDaemon(true);
 		movementThread.start();
-
+	
 	}
 
+	public void killChronometerThread() {
+		chronometerThread.kill();
+	}
+	
 	public void setProbability() {
 		
 		switch(option) {
@@ -214,12 +241,10 @@ public class Logic {
 				probability = IE_WEARING_ALL;
 				break;
 			case -1:
-				probability = 1;
+				probability = 0;
 				break;
 		
 		}
-		
-		System.out.println(probability);
 		
 	}
 
@@ -280,6 +305,14 @@ public class Logic {
 
 	public void setOption(int option) {
 		this.option = option;
+	}
+
+	public Chronometer getChronometer() {
+		return chronometer;
+	}
+
+	public void setChronometer(Chronometer chronometer) {
+		this.chronometer = chronometer;
 	}
 
 }

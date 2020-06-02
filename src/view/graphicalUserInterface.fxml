@@ -21,26 +21,14 @@
       <Pane layoutY="117.0" prefHeight="8.0" prefWidth="1200.0" style="-fx-background-color: WHITE;" />
       <Pane layoutX="1.0" layoutY="703.0" prefHeight="8.0" prefWidth="1200.0" style="-fx-background-color: WHITE;" />
       <Pane layoutX="374.0" layoutY="125.0" prefHeight="585.0" prefWidth="8.0" style="-fx-background-color: WHITE;" />
-      <Pane layoutX="382.0" layoutY="146.0" prefHeight="559.0" prefWidth="816.0" style="-fx-background-color: SNOW;">
-         <children>
-            <Label fx:id="totalPeopleLabel1" layoutX="31.0" layoutY="28.0" text="TOTAL PEOPLE: ">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label fx:id="totalPeopleLabel" layoutX="137.0" layoutY="28.0" text="0">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-         </children></Pane>
-      <Slider fx:id="sliderInfectedPeople" layoutX="42.0" layoutY="198.0" majorTickUnit="200.0" max="1000.0" minorTickCount="1" prefHeight="68.0" prefWidth="296.0" showTickLabels="true" showTickMarks="true" />
+      <Pane layoutX="382.0" layoutY="146.0" prefHeight="559.0" prefWidth="816.0" style="-fx-background-color: SNOW;" />
+      <Slider fx:id="sliderInfectedPeople" layoutX="42.0" layoutY="198.0" majorTickUnit="20.0" minorTickCount="1" prefHeight="68.0" prefWidth="296.0" showTickLabels="true" showTickMarks="true" />
       <Label layoutX="46.0" layoutY="173.0" prefHeight="45.0" prefWidth="245.0" text="Infected people:" textFill="#ff3b6d">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Slider fx:id="sliderHealthyPeople" layoutX="42.0" layoutY="294.0" majorTickUnit="200.0" max="1000.0" minorTickCount="1" prefHeight="68.0" prefWidth="296.0" showTickLabels="true" showTickMarks="true" />
+      <Slider fx:id="sliderHealthyPeople" layoutX="42.0" layoutY="294.0" majorTickUnit="1000.0" max="5000.0" minorTickCount="1" prefHeight="68.0" prefWidth="296.0" showTickLabels="true" showTickMarks="true" />
       <Slider fx:id="sliderRecoveredPeople" layoutX="42.0" layoutY="398.0" majorTickUnit="200.0" max="1000.0" minorTickCount="1" prefHeight="68.0" prefWidth="296.0" showTickLabels="true" showTickMarks="true" />
       <Label layoutX="46.0" layoutY="268.0" prefHeight="45.0" prefWidth="245.0" text="Healthy people:" textFill="#398a5b">
          <font>
@@ -104,7 +92,104 @@
             <Font name="Century Gothic" size="12.0" />
          </font>
       </TextField>
-      <Pane layoutX="382.0" layoutY="126.0" prefHeight="36.0" prefWidth="816.0" style="-fx-background-color: ALICEBLUE;" />
+      <Pane layoutX="382.0" layoutY="126.0" prefHeight="36.0" prefWidth="816.0" style="-fx-background-color: ALICEBLUE;">
+         <children>
+            <Label layoutX="451.0" layoutY="10.0" text="T: ">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="healthyPeopleLabel" layoutX="582.0" layoutY="10.0" text="0" textFill="#3aae6e">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="infectedPeopleLabel" layoutX="635.0" layoutY="10.0" text="0" textFill="#f57c6c">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="624.0" layoutY="10.0" text="I:" textFill="#f57c6c">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="565.0" layoutY="10.0" text="H:" textFill="#3aae6e">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="508.0" layoutY="10.0" text="R:" textFill="STEELBLUE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="totalPeopleLabel" layoutX="466.0" layoutY="10.0" text="0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="recoveredPeopleLabel" layoutX="524.0" layoutY="10.0" text="0" textFill="STEELBLUE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="timeLabel" layoutX="683.0" layoutY="10.0" prefHeight="17.0" prefWidth="54.0" text="0:00:00">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="674.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/sepBar-01.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="616.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/sepBar-01.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="558.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/sepBar-01.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="500.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/sepBar-01.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="totalPeopleLabel1111" layoutX="-447.0" layoutY="7.0" text="R:" textFill="STEELBLUE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="442.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/sepBar-01.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="734.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/sepBar-01.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="744.0" layoutY="10.0" text="DAY:">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="798.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/sepBar-01.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="dayLabel" layoutX="781.0" layoutY="10.0" text="0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children></Pane>
       <ImageView fx:id="playImageView" fitHeight="25.0" fitWidth="19.0" layoutX="400.0" layoutY="134.0" onMouseClicked="#playButtonClicked" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/playButtonOff.png" />
