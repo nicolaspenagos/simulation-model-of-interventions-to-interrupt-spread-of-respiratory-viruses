@@ -8,6 +8,7 @@ package controller;
 import java.util.ArrayList;
 
 import customThreads.GUIUpdateControlThread;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -20,9 +21,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 import model.Logic;
 import model.ModelCircle;
 import model.Person;
+
 
 public class GraphicUserInterfaceController {
 
@@ -103,6 +106,7 @@ public class GraphicUserInterfaceController {
 	private boolean pauseButtonAble;
 	private boolean stopButtonAble;
 	private boolean removeAllCircles;
+	private boolean windowLaunched;
 	private boolean pause;
 	private Image playButtonOn;
 	private Image playButtonOff;
@@ -114,6 +118,7 @@ public class GraphicUserInterfaceController {
 
 	private ArrayList<Circle> circles;
 	private ArrayList<ModelCircle> people;
+	private AlertBox alertBox;
 
 	// -------------------------------------
 	// Constructor
@@ -125,6 +130,7 @@ public class GraphicUserInterfaceController {
 		pauseButtonAble = false;
 		stopButtonAble = false;
 		removeAllCircles = false;
+		setWindowLaunched(false);
 		setPause(false);
 		GUIUpdateControlThread guiThread = new GUIUpdateControlThread(this);
 		guiThread.setDaemon(true);
@@ -142,6 +148,7 @@ public class GraphicUserInterfaceController {
 
 		disableTextFields();
 		addSlidersEventHandlers();
+		alertBox = new AlertBox();
 
 		playButtonOn = new Image("/images/playButtonOn.png");
 		playButtonOff = new Image("/images/playButtonOff.png");
@@ -206,6 +213,10 @@ public class GraphicUserInterfaceController {
 				loadCircles();
 				playButtonAble = false;
 				logic.startChronometerThread();
+				logic.setSimulationEnded(false);
+				logic.getChronometer().setPause(false);
+				setWindowLaunched(false);
+				System.out.println("WindowLaunched = false");
 
 			} else {
 
@@ -311,7 +322,21 @@ public class GraphicUserInterfaceController {
 		}
 
 	}
+	
+	public void exit() {
+		
+		programmaticallyStopButton();
+		Stage stage = (Stage)pane.getScene().getWindow();
+		stage.close();
+		    
+	}
 
+	public void saveCVS() {
+		
+		System.out.println("SaveCVS");
+		programmaticallyStopButton();
+	}
+	
 	@FXML
 	void n95Mask(ActionEvent event) {
 
@@ -362,7 +387,6 @@ public class GraphicUserInterfaceController {
     	
     }
     
-
     @FXML
     void gown(ActionEvent event) {
     	
@@ -429,6 +453,21 @@ public class GraphicUserInterfaceController {
 		timeLabel.setText(logic.getChronometer().getTime());
 		dayLabel.setText(""+(logic.getChronometer().getSec() + logic.getChronometer().getMin()*60));
 		
+		if(logic.isSimulationEnded()) {
+			
+			pauseImageView.setImage(pauseButtonOff);
+			
+			if(!isWindowLaunched()) {
+				launchAlertBox();
+			}
+				
+			
+		}
+		
+	}
+	
+	public void launchAlertBox() {
+		alertBox.display("Notification", "THE SIMULATION IS OVER", this);
 	}
 
 	public void loadCircles() {
@@ -581,6 +620,46 @@ public class GraphicUserInterfaceController {
 		}
 
 	}
+	
+	public void programmaticallyStopButton() {
+		
+		playButtonAble = true;
+		stopButtonAble = false;
+		pauseButtonAble = false;
+		
+		playImageView.setImage(playButtonOn);
+		stopImageView.setImage(stopButtonOff);
+		pauseImageView.setImage(pauseButtonOff);
+		logic.setPeople(new ArrayList<ModelCircle>());
+		removeAllCircles = true;
+		logic.killMovThread();
+		logic.setOption(-1);
+		ableConfigButtons(true);
+
+		sliderHealthyPeople.setValue(0);
+		sliderInfectedPeople.setValue(0);
+		sliderRecoveredPeople.setValue(0);
+
+		logic.setHealthyPeople(0);
+		logic.setInfectedPeople(0);
+		logic.setRecoveredPeople(0);
+		iPtxtField.setText("");
+		rPtxtField.setText("");
+		hPtxtField.setText("");
+		updateTotalPeople();
+		disableButton();
+		
+		handWashingChB.setSelected(false);
+		maskChB.setSelected(false);
+		n95MaskChB.setSelected(false);
+		glovesChB.setSelected(false);
+		gownChB.setSelected(false);
+		allCombinedChB.setSelected(false);
+		
+		logic.killChronometerThread();
+		logic.getChronometer().reStart();
+		
+	}
 
 	public boolean isPause() {
 		return pause;
@@ -588,6 +667,14 @@ public class GraphicUserInterfaceController {
 
 	public void setPause(boolean pause) {
 		this.pause = pause;
+	}
+
+	public boolean isWindowLaunched() {
+		return windowLaunched;
+	}
+
+	public void setWindowLaunched(boolean windowLaunched) {
+		this.windowLaunched = windowLaunched;
 	}
 
 }

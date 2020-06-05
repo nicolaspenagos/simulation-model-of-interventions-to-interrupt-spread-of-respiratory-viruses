@@ -5,7 +5,7 @@
 */
 package model;
 
-public class ModelCircle extends Person implements Runnable{
+public class ModelCircle extends Person {
 
 	// -------------------------------------
 	// Atributtes
@@ -69,20 +69,7 @@ public class ModelCircle extends Person implements Runnable{
 	}
 	
 
-	@Override
-	public void run() {
-		
-		try {
-			
-			Thread.sleep(14000);
-			super.setHealthCondition(RECOVERED);
-			
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
+
 	
 	// -------------------------------------
 	// Getters and Setters

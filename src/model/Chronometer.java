@@ -22,13 +22,21 @@ public class Chronometer {
     public Chronometer() {
         time="0:00:00";
     }
+    
+    public Chronometer(int min, int sec, int centiSec, boolean pause) {
+    	
+        this.min = min;
+        this.sec = sec;
+        this.centiSec = centiSec;
+        this.pause = pause;
+        
+    }
 
     //-------------------------------------
     // Methods
     //-------------------------------------
     public void changeTime(String time) {
         this.time=time;
-     
     }
     
     public void reStart() {
@@ -37,6 +45,11 @@ public class Chronometer {
     	sec = 0;
     	centiSec = 0;
     	min = 0;
+    	
+    	if(sec<10)
+    		time = min + ":0" + sec + ":" + centiSec;
+    	else
+    		time = min + ":" + sec + ":" + centiSec;
     	
     }
     

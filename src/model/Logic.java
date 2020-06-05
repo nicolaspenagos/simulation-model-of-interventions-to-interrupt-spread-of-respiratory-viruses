@@ -53,6 +53,7 @@ public class Logic {
 	private boolean deleteAllPeople;
 	private int option;
 	private double probability;
+	private boolean simulationEnded;
 
 	private List<ModelCircle> people;
 	private MovementThread movementThread;
@@ -68,6 +69,7 @@ public class Logic {
 		deleteAllPeople = false;
 		option = -1;
 		chronometer = new Chronometer();
+		setSimulationEnded(false);
 
 	}
 
@@ -116,8 +118,13 @@ public class Logic {
 				velY *= -1;
 			}
 
+			boolean setChronometer = false;
+			
 			if (i < infectedPeople) {
+				
 				condition = Person.INFECTED;
+				setChronometer = true;
+				
 			} else if (i >= infectedPeople && i < infectedPeople + recoveredPeople) {
 				condition = Person.RECOVERED;
 			} else {
@@ -125,13 +132,18 @@ public class Logic {
 			}
 
 			people.add(new ModelCircle(condition, ramdonX, ramdonY, velX, velY, radius));
-
+			
+			if(setChronometer)
+				people.get(i).setInfectionTime(new Chronometer());
+		
 		}
-
+		
 	}
 
 	public void move() {
-
+		
+		endSimulation();
+		
 		if (!pause) {
 
 			for (int i = 0; i < people.size(); i++) {
@@ -139,7 +151,8 @@ public class Logic {
 				ModelCircle current = people.get(i);
 				current.move();
 				contact(current, i);
-
+				recoveryCheck(current);
+				
 			}
 			
 			if (deleteAllPeople) {
@@ -150,13 +163,46 @@ public class Logic {
 			}
 
 		}
-
+		
 	}
 
+	public void recoveryCheck(ModelCircle circle) {
+		
+		if(circle.getHealthCondition()==Person.INFECTED){
+			
+			int time = ((chronometer.getMin()*60)+chronometer.getSec());
+			int timeCircle = ((circle.getInfectionTime().getMin()*60)+circle.getInfectionTime().getSec());
+			
+			if(14<time-timeCircle) {
+				
+				circle.setHealthCondition(Person.RECOVERED);
+				recoveredPeople++;
+				infectedPeople--;
+				
+			}	
+		}
+			
+	}
+	
 	public void killMovThread() {
 		movementThread.kill();
 	}
 
+	public void endSimulation() {
+		
+		if(infectedPeople == 0) {
+			pause = true;
+			chronometer.setPause(true);
+			setSimulationEnded(true);
+		}
+		if(chronometer.getMin()>10) {
+			pause = true;
+			chronometer.setPause(true);
+			setSimulationEnded(true);
+		}
+		
+	}
+	
 	public void contact(ModelCircle current, int index) {
 
 		for (int i = 0; i < people.size(); i++) {
@@ -182,8 +228,7 @@ public class Logic {
 									&& current.getHealthCondition() == Person.HEALTHY) {
 
 								current.setHealthCondition(Person.INFECTED);
-								new Thread(current).start();
-								
+								current.setInfectionTime(new Chronometer(chronometer.getMin(), chronometer.getSec(), chronometer.getCentiSec(), true));
 								infectedPeople++;
 								healthyPeople--;
 
@@ -191,7 +236,7 @@ public class Logic {
 									&& other.getHealthCondition() == Person.HEALTHY) {
 
 								other.setHealthCondition(Person.INFECTED);
-								new Thread(other).start();
+								other.setInfectionTime(new Chronometer(chronometer.getMin(), chronometer.getSec(), chronometer.getCentiSec(), true));
 								infectedPeople++;
 								healthyPeople--;
 
@@ -313,6 +358,14 @@ public class Logic {
 
 	public void setChronometer(Chronometer chronometer) {
 		this.chronometer = chronometer;
+	}
+
+	public boolean isSimulationEnded() {
+		return simulationEnded;
+	}
+
+	public void setSimulationEnded(boolean simulationEnded) {
+		this.simulationEnded = simulationEnded;
 	}
 
 }

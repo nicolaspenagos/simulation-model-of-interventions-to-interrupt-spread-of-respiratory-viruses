@@ -18,12 +18,14 @@ public abstract class Person {
 	// Atributtes
 	// -------------------------------------
 	private char healthCondition;
+	private Chronometer infectionTime;
 	
 	// -------------------------------------
 	// Constructor
 	// -------------------------------------
 	public Person(char healthCondition) {
 		this.healthCondition = healthCondition;
+		infectionTime = new Chronometer(0,Integer.MIN_VALUE, 0, false);
 	}
 
 	// -------------------------------------
@@ -41,6 +43,14 @@ public abstract class Person {
 
 	public void setHealthCondition(char healthCondition) {
 		this.healthCondition = healthCondition;
+	}
+
+	public Chronometer getInfectionTime() {
+		return infectionTime;
+	}
+
+	public void setInfectionTime(Chronometer infectionTime) {
+		this.infectionTime = infectionTime;
 	}
 	
 	

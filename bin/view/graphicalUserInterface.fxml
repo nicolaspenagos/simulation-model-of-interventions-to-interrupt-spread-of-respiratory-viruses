@@ -94,102 +94,108 @@
       </TextField>
       <Pane layoutX="382.0" layoutY="126.0" prefHeight="36.0" prefWidth="816.0" style="-fx-background-color: ALICEBLUE;">
          <children>
-            <Label layoutX="451.0" layoutY="10.0" text="T: ">
+            <Label layoutX="451.0" layoutY="8.0" text="T: ">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="healthyPeopleLabel" layoutX="582.0" layoutY="10.0" text="0" textFill="#3aae6e">
+            <Label fx:id="healthyPeopleLabel" layoutX="582.0" layoutY="8.0" text="0" textFill="#3aae6e">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="infectedPeopleLabel" layoutX="635.0" layoutY="10.0" text="0" textFill="#f57c6c">
+            <Label fx:id="infectedPeopleLabel" layoutX="635.0" layoutY="8.0" text="0" textFill="#f57c6c">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="624.0" layoutY="10.0" text="I:" textFill="#f57c6c">
+            <Label layoutX="624.0" layoutY="8.0" text="I:" textFill="#f57c6c">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="565.0" layoutY="10.0" text="H:" textFill="#3aae6e">
+            <Label layoutX="565.0" layoutY="8.0" text="H:" textFill="#3aae6e">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="508.0" layoutY="10.0" text="R:" textFill="STEELBLUE">
+            <Label layoutX="508.0" layoutY="8.0" text="R:" textFill="STEELBLUE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label fx:id="totalPeopleLabel" layoutX="466.0" layoutY="10.0" text="0">
+            <Label fx:id="totalPeopleLabel" layoutX="466.0" layoutY="8.0" text="0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="recoveredPeopleLabel" layoutX="524.0" layoutY="10.0" text="0" textFill="STEELBLUE">
+            <Label fx:id="recoveredPeopleLabel" layoutX="524.0" layoutY="8.0" text="0" textFill="STEELBLUE">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="timeLabel" layoutX="683.0" layoutY="10.0" prefHeight="17.0" prefWidth="54.0" text="0:00:00">
+            <Label fx:id="timeLabel" layoutX="683.0" layoutY="8.0" prefHeight="17.0" prefWidth="54.0" text="0:00:00">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="674.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="674.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/sepBar-01.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="616.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="616.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/sepBar-01.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="558.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="558.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/sepBar-01.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="500.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="500.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/sepBar-01.png" />
                </image>
             </ImageView>
-            <Label fx:id="totalPeopleLabel1111" layoutX="-447.0" layoutY="7.0" text="R:" textFill="STEELBLUE">
+            <Label fx:id="totalPeopleLabel1111" layoutX="-447.0" layoutY="5.0" text="R:" textFill="STEELBLUE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="442.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="442.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/sepBar-01.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="734.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="734.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/sepBar-01.png" />
                </image>
             </ImageView>
-            <Label layoutX="744.0" layoutY="10.0" text="DAY:">
+            <Label layoutX="741.0" layoutY="8.0" text="DAY:">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="798.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="800.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/sepBar-01.png" />
                </image>
             </ImageView>
-            <Label fx:id="dayLabel" layoutX="781.0" layoutY="10.0" text="0">
+            <Label fx:id="dayLabel" layoutX="776.0" layoutY="8.0" text="0">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-         </children></Pane>
+            <Label layoutX="261.0" layoutY="8.0" text="Probability of contagion:">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
       <ImageView fx:id="playImageView" fitHeight="25.0" fitWidth="19.0" layoutX="400.0" layoutY="134.0" onMouseClicked="#playButtonClicked" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/playButtonOff.png" />
