@@ -6,9 +6,9 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import customThreads.GUIUpdateControlThread;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -21,19 +21,28 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.Logic;
 import model.ModelCircle;
 import model.Person;
 
-
 public class GraphicUserInterfaceController {
+
+	// -------------------------------------
+	// Constants
+	// -------------------------------------
+	public final static double GRAPHIC_SIZE = 78.0;
+	public final static double GRAPHIC_BAR_SIZE = 7.0;
 
 	// -------------------------------------
 	// FXML
 	// -------------------------------------
 	@FXML
 	private Pane pane;
+
+	@FXML
+	private Pane graphicPane;
 
 	@FXML
 	private Slider sliderInfectedPeople;
@@ -56,20 +65,26 @@ public class GraphicUserInterfaceController {
 	@FXML
 	private Label totalPeopleLabel;
 
+	@FXML
+	private Label recoveredPeopleLabel;
+
+	@FXML
+	private Label healthyPeopleLabel;
+
+	@FXML
+	private Label infectedPeopleLabel;
+
+	@FXML
+	private Label timeLabel;
+
+	@FXML
+	private Label dayLabel;
+	
     @FXML
-    private Label recoveredPeopleLabel;
-    
-    @FXML
-    private Label healthyPeopleLabel;
+    private Label graphicTotalPeopleLabel;
 
     @FXML
-    private Label infectedPeopleLabel;
-    
-    @FXML
-    private Label timeLabel;
-    
-    @FXML
-    private Label dayLabel;
+    private Label graphicHalfPeopleLabel;
 
 	@FXML
 	private CheckBox maskChB;
@@ -119,6 +134,7 @@ public class GraphicUserInterfaceController {
 	private ArrayList<Circle> circles;
 	private ArrayList<ModelCircle> people;
 	private AlertBox alertBox;
+	private Stack<Rectangle> graphic;
 
 	// -------------------------------------
 	// Constructor
@@ -137,7 +153,8 @@ public class GraphicUserInterfaceController {
 		guiThread.start();
 		circles = new ArrayList<Circle>();
 		people = (ArrayList<ModelCircle>) logic.getPeople();
-
+		graphic = new Stack<Rectangle>();
+		
 	}
 
 	// -------------------------------------
@@ -199,7 +216,7 @@ public class GraphicUserInterfaceController {
 			pauseButtonAble = true;
 
 			if (playButtonAble) {
-				
+
 				ableConfigButtons(false);
 				pause = false;
 				logic.setPause(false);
@@ -212,12 +229,14 @@ public class GraphicUserInterfaceController {
 				logic.loadPeople();
 				loadCircles();
 				playButtonAble = false;
-				logic.startChronometerThread();
+				logic.startChronometerThread(this);
 				logic.setSimulationEnded(false);
 				logic.getChronometer().setPause(false);
 				setWindowLaunched(false);
-				System.out.println("WindowLaunched = false");
-
+				
+			    graphicTotalPeopleLabel.setText(""+logic.getTotalPeople());
+			    graphicHalfPeopleLabel.setText(""+(logic.getTotalPeople()/2));
+		
 			} else {
 
 				playImageView.setImage(playButtonOn);
@@ -227,7 +246,7 @@ public class GraphicUserInterfaceController {
 		}
 
 	}
-	
+
 	@FXML
 	void stopButtonClicked(MouseEvent event) {
 
@@ -236,7 +255,7 @@ public class GraphicUserInterfaceController {
 			playButtonAble = true;
 			stopButtonAble = false;
 			pauseButtonAble = false;
-			
+
 			playImageView.setImage(playButtonOn);
 			stopImageView.setImage(stopButtonOff);
 			pauseImageView.setImage(pauseButtonOff);
@@ -258,17 +277,21 @@ public class GraphicUserInterfaceController {
 			hPtxtField.setText("");
 			updateTotalPeople();
 			disableButton();
-			
+
 			handWashingChB.setSelected(false);
 			maskChB.setSelected(false);
 			n95MaskChB.setSelected(false);
 			glovesChB.setSelected(false);
 			gownChB.setSelected(false);
 			allCombinedChB.setSelected(false);
-			
+
 			logic.killChronometerThread();
 			logic.getChronometer().reStart();
 			
+			graphicPane.getChildren().clear();
+
+			graphicTotalPeopleLabel.setText("");
+		    graphicHalfPeopleLabel.setText("");
 		}
 
 	}
@@ -293,7 +316,7 @@ public class GraphicUserInterfaceController {
 			gownChB.setDisable(false);
 			allCombinedChB.setDisable(false);
 			logic.setOption(-1);
-		
+
 		}
 
 	}
@@ -322,21 +345,62 @@ public class GraphicUserInterfaceController {
 		}
 
 	}
-	
-	public void exit() {
+
+	public void toGraph(int t) {
 		
+		double iF = ((double)logic.getInfectedPeople() * GRAPHIC_SIZE / (double)logic.getTotalPeople());
+		
+		System.out.println(iF);
+		
+		Rectangle rIf = new Rectangle();
+		rIf.setWidth(GRAPHIC_BAR_SIZE);
+		rIf.setHeight(iF);
+		rIf.setX(GRAPHIC_BAR_SIZE*t+1.5);
+		rIf.setY(GRAPHIC_SIZE-iF);
+		rIf.setFill(Color.SALMON);
+		
+		graphic.push(rIf);
+		
+		double hE = ((double)logic.getHealthyPeople() * GRAPHIC_SIZE / (double)logic.getTotalPeople());
+		
+		Rectangle rHe = new Rectangle();
+		rHe.setWidth(GRAPHIC_BAR_SIZE);
+		rHe.setHeight(hE);
+		rHe.setX(GRAPHIC_BAR_SIZE*t+1.5);
+		rHe.setY(GRAPHIC_SIZE-iF-hE);
+		rHe.setFill(Color.MEDIUMSEAGREEN);
+		
+		graphic.push(rHe);
+		
+		double rE = ((double)logic.getRecoveredPeople() * GRAPHIC_SIZE / (double)logic.getTotalPeople());
+		
+		Rectangle rRe = new Rectangle();
+		rRe.setWidth(GRAPHIC_BAR_SIZE);
+		rRe.setHeight(rE);
+		rRe.setX(GRAPHIC_BAR_SIZE*t+1.5);
+		rRe.setY(GRAPHIC_SIZE-iF-hE-rE);
+		rRe.setFill(Color.STEELBLUE);
+		
+		graphic.push(rRe);
+	
+		
+	
+	}
+
+	public void exit() {
+
 		programmaticallyStopButton();
-		Stage stage = (Stage)pane.getScene().getWindow();
+		Stage stage = (Stage) pane.getScene().getWindow();
 		stage.close();
-		    
+
 	}
 
 	public void saveCVS() {
-		
+
 		System.out.println("SaveCVS");
 		programmaticallyStopButton();
 	}
-	
+
 	@FXML
 	void n95Mask(ActionEvent event) {
 
@@ -359,13 +423,13 @@ public class GraphicUserInterfaceController {
 			logic.setOption(-1);
 
 		}
-		
+
 	}
 
-    @FXML
-    void gloves(ActionEvent event) {
-    	
-    	if (glovesChB.isSelected()) {
+	@FXML
+	void gloves(ActionEvent event) {
+
+		if (glovesChB.isSelected()) {
 
 			handWashingChB.setDisable(true);
 			maskChB.setDisable(true);
@@ -384,13 +448,13 @@ public class GraphicUserInterfaceController {
 			logic.setOption(-1);
 
 		}
-    	
-    }
-    
-    @FXML
-    void gown(ActionEvent event) {
-    	
-    	if (gownChB.isSelected()) {
+
+	}
+
+	@FXML
+	void gown(ActionEvent event) {
+
+		if (gownChB.isSelected()) {
 
 			handWashingChB.setDisable(true);
 			maskChB.setDisable(true);
@@ -409,14 +473,13 @@ public class GraphicUserInterfaceController {
 			logic.setOption(-1);
 
 		}
-    	
-    }
-    
 
-    @FXML
-    void allCombined(ActionEvent event) {
+	}
 
-    	if (allCombinedChB.isSelected()) {
+	@FXML
+	void allCombined(ActionEvent event) {
+
+		if (allCombinedChB.isSelected()) {
 
 			handWashingChB.setDisable(true);
 			maskChB.setDisable(true);
@@ -435,8 +498,8 @@ public class GraphicUserInterfaceController {
 			logic.setOption(-1);
 
 		}
-    	
-    }
+
+	}
 
 	public void update() {
 
@@ -444,28 +507,27 @@ public class GraphicUserInterfaceController {
 		draw();
 
 	}
-	
+
 	public void updateLabels() {
-		
-		infectedPeopleLabel.setText(""+logic.getInfectedPeople());
-		healthyPeopleLabel.setText(""+logic.getHealthyPeople());
-		recoveredPeopleLabel.setText(""+logic.getRecoveredPeople());
+
+		infectedPeopleLabel.setText("" + logic.getInfectedPeople());
+		healthyPeopleLabel.setText("" + logic.getHealthyPeople());
+		recoveredPeopleLabel.setText("" + logic.getRecoveredPeople());
 		timeLabel.setText(logic.getChronometer().getTime());
-		dayLabel.setText(""+(logic.getChronometer().getSec() + logic.getChronometer().getMin()*60));
-		
-		if(logic.isSimulationEnded()) {
-			
+		dayLabel.setText("" + (logic.getChronometer().getSec() + logic.getChronometer().getMin() * 60));
+
+		if (logic.isSimulationEnded()) {
+
 			pauseImageView.setImage(pauseButtonOff);
-			
-			if(!isWindowLaunched()) {
+
+			if (!isWindowLaunched()) {
 				launchAlertBox();
 			}
-				
-			
+
 		}
-		
+
 	}
-	
+
 	public void launchAlertBox() {
 		alertBox.display("Notification", "THE SIMULATION IS OVER", this);
 	}
@@ -525,9 +587,15 @@ public class GraphicUserInterfaceController {
 			removeAllCircles = false;
 
 		}
-
-		totalPeopleLabel.toFront();
 		
+		totalPeopleLabel.toFront();
+			
+		while(!graphic.empty()) {
+			graphicPane.getChildren().add((Rectangle)graphic.pop());
+		}
+		
+			
+
 	}
 
 	public void checkColor(Circle circle, ModelCircle modelCircle) {
@@ -563,7 +631,7 @@ public class GraphicUserInterfaceController {
 	}
 
 	public void ableConfigButtons(boolean able) {
-		
+
 		sliderInfectedPeople.setDisable(!able);
 		sliderHealthyPeople.setDisable(!able);
 		sliderRecoveredPeople.setDisable(!able);
@@ -620,13 +688,13 @@ public class GraphicUserInterfaceController {
 		}
 
 	}
-	
+
 	public void programmaticallyStopButton() {
-		
+
 		playButtonAble = true;
 		stopButtonAble = false;
 		pauseButtonAble = false;
-		
+
 		playImageView.setImage(playButtonOn);
 		stopImageView.setImage(stopButtonOff);
 		pauseImageView.setImage(pauseButtonOff);
@@ -648,18 +716,23 @@ public class GraphicUserInterfaceController {
 		hPtxtField.setText("");
 		updateTotalPeople();
 		disableButton();
-		
+
 		handWashingChB.setSelected(false);
 		maskChB.setSelected(false);
 		n95MaskChB.setSelected(false);
 		glovesChB.setSelected(false);
 		gownChB.setSelected(false);
 		allCombinedChB.setSelected(false);
-		
+
 		logic.killChronometerThread();
 		logic.getChronometer().reStart();
 		
+		graphicPane.getChildren().clear();
+
+		graphicTotalPeopleLabel.setText("");
+	    graphicHalfPeopleLabel.setText("");
 	}
+	
 
 	public boolean isPause() {
 		return pause;

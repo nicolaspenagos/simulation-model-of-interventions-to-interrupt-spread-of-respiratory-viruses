@@ -7,21 +7,27 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1197.0" style="-fx-background-color: ALICEBLUE;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GraphicUserInterfaceController">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="817.0" prefWidth="1197.0" style="-fx-background-color: ALICEBLUE;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GraphicUserInterfaceController">
    <children>
+      <Pane fx:id="graphicPane" layoutX="404.0" layoutY="724.0" prefHeight="79.0" prefWidth="781.0" style="-fx-background-color: SNOW;" />
       <ImageView fitHeight="104.0" fitWidth="1151.0" layoutX="18.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Sin%20título-2-01.png" />
          </image>
       </ImageView>
-      <Pane layoutX="1.0" layoutY="1.0" prefHeight="700.0" prefWidth="8.0" style="-fx-background-color: WHITE;" />
-      <Pane layoutX="1199.0" layoutY="-4.0" prefHeight="717.0" prefWidth="8.0" style="-fx-background-color: WHITE;" />
+      <Pane layoutX="1.0" layoutY="1.0" prefHeight="830.0" prefWidth="8.0" style="-fx-background-color: WHITE;" />
+      <Pane layoutX="1199.0" layoutY="-4.0" prefHeight="830.0" prefWidth="8.0" style="-fx-background-color: WHITE;" />
       <Pane layoutY="117.0" prefHeight="8.0" prefWidth="1200.0" style="-fx-background-color: WHITE;" />
-      <Pane layoutX="1.0" layoutY="703.0" prefHeight="8.0" prefWidth="1200.0" style="-fx-background-color: WHITE;" />
-      <Pane layoutX="374.0" layoutY="125.0" prefHeight="585.0" prefWidth="8.0" style="-fx-background-color: WHITE;" />
-      <Pane layoutX="382.0" layoutY="146.0" prefHeight="559.0" prefWidth="816.0" style="-fx-background-color: SNOW;" />
+      <Pane layoutX="1.0" layoutY="703.0" prefHeight="8.0" prefWidth="1200.0" style="-fx-background-color: WHITE;">
+         <children>
+            <Pane layoutX="-481.0" prefHeight="8.0" prefWidth="1200.0" style="-fx-background-color: WHITE;" />
+         </children>
+      </Pane>
+      <Pane layoutX="374.0" layoutY="125.0" prefHeight="700.0" prefWidth="8.0" style="-fx-background-color: WHITE;" />
+      <Pane layoutX="382.0" layoutY="146.0" prefHeight="556.0" prefWidth="816.0" style="-fx-background-color: SNOW;" />
       <Slider fx:id="sliderInfectedPeople" layoutX="42.0" layoutY="198.0" majorTickUnit="20.0" minorTickCount="1" prefHeight="68.0" prefWidth="296.0" showTickLabels="true" showTickMarks="true" />
       <Label layoutX="46.0" layoutY="173.0" prefHeight="45.0" prefWidth="245.0" text="Infected people:" textFill="#ff3b6d">
          <font>
@@ -94,7 +100,7 @@
       </TextField>
       <Pane layoutX="382.0" layoutY="126.0" prefHeight="36.0" prefWidth="816.0" style="-fx-background-color: ALICEBLUE;">
          <children>
-            <Label layoutX="451.0" layoutY="8.0" text="T: ">
+            <Label layoutX="451.0" layoutY="8.0" text="T: " textFill="#484c4f">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -134,7 +140,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label fx:id="timeLabel" layoutX="683.0" layoutY="8.0" prefHeight="17.0" prefWidth="54.0" text="0:00:00">
+            <Label fx:id="timeLabel" layoutX="683.0" layoutY="8.0" prefHeight="17.0" prefWidth="54.0" text="0:00:00" textFill="#484c4f">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -174,7 +180,7 @@
                   <Image url="@../images/sepBar-01.png" />
                </image>
             </ImageView>
-            <Label layoutX="741.0" layoutY="8.0" text="DAY:">
+            <Label layoutX="741.0" layoutY="8.0" text="DAY:" textFill="#484c4f">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -189,7 +195,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="261.0" layoutY="8.0" text="Probability of contagion:">
+            <Label layoutX="261.0" layoutY="8.0" text="Probability of contagion:" textFill="#484c4f">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -226,5 +232,72 @@
             <Font size="14.0" />
          </font>
       </CheckBox>
+      <Pane layoutX="8.0" layoutY="820.0" prefHeight="8.0" prefWidth="1200.0" style="-fx-background-color: WHITE;" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#484c4f" height="2.0" layoutX="404.0" layoutY="802.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="781.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#484c4f" height="78.0" layoutX="404.0" layoutY="726.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="2.0" />
+      <Label fx:id="graphicTotalPeopleLabel" layoutX="386.0" layoutY="725.0">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label layoutX="404.0" layoutY="711.0" text="TOTAL PEOPLE">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </Label>
+      <Label layoutX="1169.0" layoutY="804.0" text="DAYS">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </Label>
+      <Label fx:id="graphicHalfPeopleLabel" layoutX="386.0" layoutY="760.0">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label layoutX="407.0" layoutY="804.0" text="0">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label layoutX="770.0" layoutY="804.0" text="50">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label layoutX="1150.0" layoutY="804.0" text="100">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Pane layoutX="175.0" layoutY="707.0" prefHeight="110.0" prefWidth="8.0" style="-fx-background-color: WHITE;" />
+      <Label layoutX="31.0" layoutY="743.0" text="REAL TIME" textFill="#000000c6">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="39.0" layoutY="767.0" text="GRAPHIC BAR" textFill="#000000c6">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="15.0" layoutX="213.0" layoutY="729.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="15.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#41a56f" height="15.0" layoutX="213.0" layoutY="758.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="15.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f57c6c" height="15.0" layoutX="213.0" layoutY="786.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="15.0" />
+      <Label layoutX="235.0" layoutY="728.0" text="Recovered People">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="236.0" layoutY="755.0" text="Healthy People">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="236.0" layoutY="783.0" text="Infected People">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

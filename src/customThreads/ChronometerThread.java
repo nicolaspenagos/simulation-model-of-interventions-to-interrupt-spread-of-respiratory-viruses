@@ -5,6 +5,7 @@
 */
 package customThreads;
 
+import controller.GraphicUserInterfaceController;
 import model.Chronometer;
 
 public class ChronometerThread extends Thread {
@@ -13,14 +14,16 @@ public class ChronometerThread extends Thread {
 	// Atributtes and relationships
 	// -------------------------------------
 	private Chronometer chronometer;
+	private GraphicUserInterfaceController graphicUserInterface;
 	private boolean running;
 
 	// -------------------------------------
 	// Constructor
 	// -------------------------------------
-	public ChronometerThread(Chronometer chronometer) {
+	public ChronometerThread(Chronometer chronometer, GraphicUserInterfaceController graphicUserInterface) {
 		
 		this.chronometer = chronometer;
+		this.graphicUserInterface = graphicUserInterface;
 		running = true;
 		
 	}
@@ -33,6 +36,9 @@ public class ChronometerThread extends Thread {
 		
 		for (int i = 0; i < 60 && running; i++) {
 			for (int j = 0; j < 60 && running; j++) {
+				
+				graphicUserInterface.toGraph(j);
+				
 				for (int k = 0; k < 100 && running; k++) {
 					
 					chronometer.setCentiSec(k);

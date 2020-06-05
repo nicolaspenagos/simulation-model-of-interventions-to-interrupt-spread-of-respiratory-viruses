@@ -8,6 +8,9 @@ package model;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
+
+import controller.GraphicUserInterfaceController;
+
 import java.util.List;
 import java.util.Random;
 
@@ -80,9 +83,9 @@ public class Logic {
 		return infectedPeople + recoveredPeople + healthyPeople;
 	}
 	
-	public void startChronometerThread() {
+	public void startChronometerThread(GraphicUserInterfaceController gui) {
 		
-		chronometerThread = new ChronometerThread(getChronometer());
+		chronometerThread = new ChronometerThread(getChronometer(), gui);
 		chronometerThread.setDaemon(true);
 		chronometerThread.start();
 		
