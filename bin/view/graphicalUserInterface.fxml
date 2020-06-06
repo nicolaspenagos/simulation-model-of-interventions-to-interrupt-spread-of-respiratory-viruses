@@ -12,7 +12,7 @@
 
 <Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="817.0" prefWidth="1197.0" style="-fx-background-color: ALICEBLUE;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GraphicUserInterfaceController">
    <children>
-      <Pane fx:id="graphicPane" layoutX="404.0" layoutY="724.0" prefHeight="79.0" prefWidth="781.0" style="-fx-background-color: SNOW;" />
+      <Pane fx:id="graphicPane" layoutX="409.0" layoutY="724.0" prefHeight="79.0" prefWidth="781.0" style="-fx-background-color: SNOW;" />
       <ImageView fitHeight="104.0" fitWidth="1151.0" layoutX="18.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Sin%20título-2-01.png" />
@@ -233,8 +233,8 @@
          </font>
       </CheckBox>
       <Pane layoutX="8.0" layoutY="820.0" prefHeight="8.0" prefWidth="1200.0" style="-fx-background-color: WHITE;" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#484c4f" height="2.0" layoutX="404.0" layoutY="802.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="781.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#484c4f" height="78.0" layoutX="404.0" layoutY="726.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="2.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#484c4f" height="2.0" layoutX="409.0" layoutY="802.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="781.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#484c4f" height="78.0" layoutX="409.0" layoutY="726.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="2.0" />
       <Label fx:id="graphicTotalPeopleLabel" layoutX="386.0" layoutY="725.0">
          <font>
             <Font size="10.0" />

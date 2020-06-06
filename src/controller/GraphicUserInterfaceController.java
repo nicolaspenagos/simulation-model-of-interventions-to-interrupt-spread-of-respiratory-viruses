@@ -346,7 +346,15 @@ public class GraphicUserInterfaceController {
 
 	}
 
-	public void toGraph(int t) {
+	public void toGraph(int min, int sec) {
+		
+		int t;
+		
+		if(min == 0) {
+			t = sec;
+		}else {
+			t = min*60 + sec;
+		}
 		
 		double iF = ((double)logic.getInfectedPeople() * GRAPHIC_SIZE / (double)logic.getTotalPeople());
 		

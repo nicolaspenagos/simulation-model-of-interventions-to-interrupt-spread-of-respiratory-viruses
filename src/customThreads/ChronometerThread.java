@@ -37,7 +37,7 @@ public class ChronometerThread extends Thread {
 		for (int i = 0; i < 60 && running; i++) {
 			for (int j = 0; j < 60 && running; j++) {
 				
-				graphicUserInterface.toGraph(j);
+				graphicUserInterface.toGraph(i,j);
 				
 				for (int k = 0; k < 100 && running; k++) {
 					
