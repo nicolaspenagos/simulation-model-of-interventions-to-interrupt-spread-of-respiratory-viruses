@@ -195,11 +195,21 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Label layoutX="261.0" layoutY="8.0" text="Probability of contagion:" textFill="#484c4f">
+            <Label layoutX="233.0" layoutY="8.0" text="Intervention Effectiveness:" textFill="#484c4f">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
+            <Label fx:id="interventionEffectivenessLabel" layoutX="412.0" layoutY="8.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="221.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/sepBar-01.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
       <ImageView fx:id="playImageView" fitHeight="25.0" fitWidth="19.0" layoutX="400.0" layoutY="134.0" onMouseClicked="#playButtonClicked" pickOnBounds="true" preserveRatio="true">
@@ -260,7 +270,7 @@
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="770.0" layoutY="804.0" text="50">
+      <Label layoutX="759.0" layoutY="804.0" text="50">
          <font>
             <Font size="10.0" />
          </font>
@@ -297,6 +307,16 @@
       <Label layoutX="236.0" layoutY="783.0" text="Infected People">
          <font>
             <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="581.0" layoutY="804.0" text="25">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+      <Label layoutX="935.0" layoutY="804.0" text="75">
+         <font>
+            <Font size="10.0" />
          </font>
       </Label>
    </children>

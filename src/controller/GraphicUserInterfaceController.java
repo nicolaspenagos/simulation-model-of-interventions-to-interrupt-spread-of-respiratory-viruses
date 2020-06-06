@@ -79,12 +79,15 @@ public class GraphicUserInterfaceController {
 
 	@FXML
 	private Label dayLabel;
-	
-    @FXML
-    private Label graphicTotalPeopleLabel;
 
-    @FXML
-    private Label graphicHalfPeopleLabel;
+	@FXML
+	private Label graphicTotalPeopleLabel;
+
+	@FXML
+	private Label graphicHalfPeopleLabel;
+
+	@FXML
+	private Label interventionEffectivenessLabel;
 
 	@FXML
 	private CheckBox maskChB;
@@ -154,7 +157,7 @@ public class GraphicUserInterfaceController {
 		circles = new ArrayList<Circle>();
 		people = (ArrayList<ModelCircle>) logic.getPeople();
 		graphic = new Stack<Rectangle>();
-		
+
 	}
 
 	// -------------------------------------
@@ -233,10 +236,10 @@ public class GraphicUserInterfaceController {
 				logic.setSimulationEnded(false);
 				logic.getChronometer().setPause(false);
 				setWindowLaunched(false);
-				
-			    graphicTotalPeopleLabel.setText(""+logic.getTotalPeople());
-			    graphicHalfPeopleLabel.setText(""+(logic.getTotalPeople()/2));
-		
+
+				graphicTotalPeopleLabel.setText("" + logic.getTotalPeople());
+				graphicHalfPeopleLabel.setText("" + (logic.getTotalPeople() / 2));
+
 			} else {
 
 				playImageView.setImage(playButtonOn);
@@ -251,47 +254,7 @@ public class GraphicUserInterfaceController {
 	void stopButtonClicked(MouseEvent event) {
 
 		if (stopButtonAble) {
-
-			playButtonAble = true;
-			stopButtonAble = false;
-			pauseButtonAble = false;
-
-			playImageView.setImage(playButtonOn);
-			stopImageView.setImage(stopButtonOff);
-			pauseImageView.setImage(pauseButtonOff);
-			logic.setPeople(new ArrayList<ModelCircle>());
-			removeAllCircles = true;
-			logic.killMovThread();
-			logic.setOption(-1);
-			ableConfigButtons(true);
-
-			sliderHealthyPeople.setValue(0);
-			sliderInfectedPeople.setValue(0);
-			sliderRecoveredPeople.setValue(0);
-
-			logic.setHealthyPeople(0);
-			logic.setInfectedPeople(0);
-			logic.setRecoveredPeople(0);
-			iPtxtField.setText("");
-			rPtxtField.setText("");
-			hPtxtField.setText("");
-			updateTotalPeople();
-			disableButton();
-
-			handWashingChB.setSelected(false);
-			maskChB.setSelected(false);
-			n95MaskChB.setSelected(false);
-			glovesChB.setSelected(false);
-			gownChB.setSelected(false);
-			allCombinedChB.setSelected(false);
-
-			logic.killChronometerThread();
-			logic.getChronometer().reStart();
-			
-			graphicPane.getChildren().clear();
-
-			graphicTotalPeopleLabel.setText("");
-		    graphicHalfPeopleLabel.setText("");
+			programmaticallyStopButton();
 		}
 
 	}
@@ -307,6 +270,7 @@ public class GraphicUserInterfaceController {
 			gownChB.setDisable(true);
 			allCombinedChB.setDisable(true);
 			logic.setOption(Logic.OPTION_FHW);
+			interventionEffectivenessLabel.setText((int) (Logic.IE_FREQUENT_HANDWAHING * 100) + "%");
 
 		} else {
 
@@ -316,6 +280,7 @@ public class GraphicUserInterfaceController {
 			gownChB.setDisable(false);
 			allCombinedChB.setDisable(false);
 			logic.setOption(-1);
+			interventionEffectivenessLabel.setText("0%");
 
 		}
 
@@ -332,6 +297,7 @@ public class GraphicUserInterfaceController {
 			gownChB.setDisable(true);
 			allCombinedChB.setDisable(true);
 			logic.setOption(Logic.OPTION_M);
+			interventionEffectivenessLabel.setText((int) (Logic.IE_WEARING_MASK * 100) + "%");
 
 		} else {
 
@@ -341,72 +307,10 @@ public class GraphicUserInterfaceController {
 			gownChB.setDisable(false);
 			allCombinedChB.setDisable(false);
 			logic.setOption(-1);
+			interventionEffectivenessLabel.setText("0%");
 
 		}
 
-	}
-
-	public void toGraph(int min, int sec) {
-		
-		int t;
-		
-		if(min == 0) {
-			t = sec;
-		}else {
-			t = min*60 + sec;
-		}
-		
-		double iF = ((double)logic.getInfectedPeople() * GRAPHIC_SIZE / (double)logic.getTotalPeople());
-		
-		System.out.println(iF);
-		
-		Rectangle rIf = new Rectangle();
-		rIf.setWidth(GRAPHIC_BAR_SIZE);
-		rIf.setHeight(iF);
-		rIf.setX(GRAPHIC_BAR_SIZE*t+1.5);
-		rIf.setY(GRAPHIC_SIZE-iF);
-		rIf.setFill(Color.SALMON);
-		
-		graphic.push(rIf);
-		
-		double hE = ((double)logic.getHealthyPeople() * GRAPHIC_SIZE / (double)logic.getTotalPeople());
-		
-		Rectangle rHe = new Rectangle();
-		rHe.setWidth(GRAPHIC_BAR_SIZE);
-		rHe.setHeight(hE);
-		rHe.setX(GRAPHIC_BAR_SIZE*t+1.5);
-		rHe.setY(GRAPHIC_SIZE-iF-hE);
-		rHe.setFill(Color.MEDIUMSEAGREEN);
-		
-		graphic.push(rHe);
-		
-		double rE = ((double)logic.getRecoveredPeople() * GRAPHIC_SIZE / (double)logic.getTotalPeople());
-		
-		Rectangle rRe = new Rectangle();
-		rRe.setWidth(GRAPHIC_BAR_SIZE);
-		rRe.setHeight(rE);
-		rRe.setX(GRAPHIC_BAR_SIZE*t+1.5);
-		rRe.setY(GRAPHIC_SIZE-iF-hE-rE);
-		rRe.setFill(Color.STEELBLUE);
-		
-		graphic.push(rRe);
-	
-		
-	
-	}
-
-	public void exit() {
-
-		programmaticallyStopButton();
-		Stage stage = (Stage) pane.getScene().getWindow();
-		stage.close();
-
-	}
-
-	public void saveCVS() {
-
-		System.out.println("SaveCVS");
-		programmaticallyStopButton();
 	}
 
 	@FXML
@@ -420,6 +324,7 @@ public class GraphicUserInterfaceController {
 			gownChB.setDisable(true);
 			allCombinedChB.setDisable(true);
 			logic.setOption(Logic.OPTION_N95M);
+			interventionEffectivenessLabel.setText((int) (Logic.IE_WEARING_N95_MASK * 100) + "%");
 
 		} else {
 
@@ -429,6 +334,7 @@ public class GraphicUserInterfaceController {
 			gownChB.setDisable(false);
 			allCombinedChB.setDisable(false);
 			logic.setOption(-1);
+			interventionEffectivenessLabel.setText("0%");
 
 		}
 
@@ -445,6 +351,7 @@ public class GraphicUserInterfaceController {
 			gownChB.setDisable(true);
 			allCombinedChB.setDisable(true);
 			logic.setOption(Logic.OPTION_GLVS);
+			interventionEffectivenessLabel.setText((int) (Logic.IE_WEARING_GLOVES * 100) + "%");
 
 		} else {
 
@@ -454,6 +361,7 @@ public class GraphicUserInterfaceController {
 			gownChB.setDisable(false);
 			allCombinedChB.setDisable(false);
 			logic.setOption(-1);
+			interventionEffectivenessLabel.setText("0%");
 
 		}
 
@@ -470,6 +378,7 @@ public class GraphicUserInterfaceController {
 			glovesChB.setDisable(true);
 			allCombinedChB.setDisable(true);
 			logic.setOption(Logic.OPTION_GWN);
+			interventionEffectivenessLabel.setText((int) (Logic.IE_WEARING_GOWN * 100) + "%");
 
 		} else {
 
@@ -479,6 +388,7 @@ public class GraphicUserInterfaceController {
 			glovesChB.setDisable(false);
 			allCombinedChB.setDisable(false);
 			logic.setOption(-1);
+			interventionEffectivenessLabel.setText("0%");
 
 		}
 
@@ -495,6 +405,7 @@ public class GraphicUserInterfaceController {
 			glovesChB.setDisable(true);
 			gownChB.setDisable(true);
 			logic.setOption(Logic.OPTION_WALL);
+			interventionEffectivenessLabel.setText((int) (Logic.IE_WEARING_ALL * 100) + "%");
 
 		} else {
 
@@ -504,9 +415,68 @@ public class GraphicUserInterfaceController {
 			glovesChB.setDisable(false);
 			gownChB.setDisable(false);
 			logic.setOption(-1);
+			interventionEffectivenessLabel.setText("0%");
 
 		}
 
+	}
+
+	public void toGraph(int min, int sec) {
+
+		int t;
+
+		if (min == 0) {
+			t = sec;
+		} else {
+			t = min * 60 + sec;
+		}
+
+		double iF = ((double) logic.getInfectedPeople() * GRAPHIC_SIZE / (double) logic.getTotalPeople());
+
+		Rectangle rIf = new Rectangle();
+		rIf.setWidth(GRAPHIC_BAR_SIZE);
+		rIf.setHeight(iF);
+		rIf.setX(GRAPHIC_BAR_SIZE * t + 1.5);
+		rIf.setY(GRAPHIC_SIZE - iF);
+		rIf.setFill(Color.SALMON);
+
+		graphic.push(rIf);
+
+		double hE = ((double) logic.getHealthyPeople() * GRAPHIC_SIZE / (double) logic.getTotalPeople());
+
+		Rectangle rHe = new Rectangle();
+		rHe.setWidth(GRAPHIC_BAR_SIZE);
+		rHe.setHeight(hE);
+		rHe.setX(GRAPHIC_BAR_SIZE * t + 1.5);
+		rHe.setY(GRAPHIC_SIZE - iF - hE);
+		rHe.setFill(Color.MEDIUMSEAGREEN);
+
+		graphic.push(rHe);
+
+		double rE = ((double) logic.getRecoveredPeople() * GRAPHIC_SIZE / (double) logic.getTotalPeople());
+
+		Rectangle rRe = new Rectangle();
+		rRe.setWidth(GRAPHIC_BAR_SIZE);
+		rRe.setHeight(rE);
+		rRe.setX(GRAPHIC_BAR_SIZE * t + 1.5);
+		rRe.setY(GRAPHIC_SIZE - iF - hE - rE);
+		rRe.setFill(Color.STEELBLUE);
+
+		graphic.push(rRe);
+
+	}
+
+	public void exit() {
+
+		programmaticallyStopButton();
+		Stage stage = (Stage) pane.getScene().getWindow();
+		stage.close();
+
+	}
+
+	public void saveCVS() {
+
+		programmaticallyStopButton();
 	}
 
 	public void update() {
@@ -595,14 +565,12 @@ public class GraphicUserInterfaceController {
 			removeAllCircles = false;
 
 		}
-		
+
 		totalPeopleLabel.toFront();
-			
-		while(!graphic.empty()) {
-			graphicPane.getChildren().add((Rectangle)graphic.pop());
+
+		while (!graphic.empty()) {
+			graphicPane.getChildren().add((Rectangle) graphic.pop());
 		}
-		
-			
 
 	}
 
@@ -734,13 +702,17 @@ public class GraphicUserInterfaceController {
 
 		logic.killChronometerThread();
 		logic.getChronometer().reStart();
-		
+
 		graphicPane.getChildren().clear();
 
 		graphicTotalPeopleLabel.setText("");
-	    graphicHalfPeopleLabel.setText("");
+		graphicHalfPeopleLabel.setText("");
+
+		setWindowLaunched(true);
+
+		interventionEffectivenessLabel.setText("0%");
+
 	}
-	
 
 	public boolean isPause() {
 		return pause;
