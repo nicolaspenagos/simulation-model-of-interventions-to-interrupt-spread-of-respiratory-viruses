@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -90,6 +91,21 @@ public class GraphicUserInterfaceController {
 	private Label interventionEffectivenessLabel;
 
 	@FXML
+	private Label number1Label;
+
+	@FXML
+	private Label number2Label;
+
+	@FXML
+	private Label number3Label;
+
+	@FXML
+	private Label number4Label;
+
+	@FXML
+	private Label number5Label;
+
+	@FXML
 	private CheckBox maskChB;
 
 	@FXML
@@ -115,7 +131,10 @@ public class GraphicUserInterfaceController {
 
 	@FXML
 	private ImageView pauseImageView;
-
+	
+    @FXML
+    private MenuBar menuBar;
+    
 	// -------------------------------------
 	// Atributtes
 	// -------------------------------------
@@ -126,6 +145,7 @@ public class GraphicUserInterfaceController {
 	private boolean removeAllCircles;
 	private boolean windowLaunched;
 	private boolean pause;
+	private boolean cleared;
 	private Image playButtonOn;
 	private Image playButtonOff;
 	private Image stopButtonOn;
@@ -138,6 +158,7 @@ public class GraphicUserInterfaceController {
 	private ArrayList<ModelCircle> people;
 	private AlertBox alertBox;
 	private Stack<Rectangle> graphic;
+	private Stack<Rectangle> lastRect;
 
 	// -------------------------------------
 	// Constructor
@@ -157,6 +178,7 @@ public class GraphicUserInterfaceController {
 		circles = new ArrayList<Circle>();
 		people = (ArrayList<ModelCircle>) logic.getPeople();
 		graphic = new Stack<Rectangle>();
+		lastRect = new Stack<Rectangle>();
 
 	}
 
@@ -177,6 +199,9 @@ public class GraphicUserInterfaceController {
 		pauseButtonOn = new Image("/images/pauseButtonOn.png");
 		pauseButtonOff = new Image("/images/pauseButtonOff.png");
 		pausePlayButton = new Image("/images/pausePlayButton.png");
+		
+		String style = "-fx-font-weight: bold; -fx-background-color: SNOW;";
+		menuBar.setStyle(style);
 
 	}
 
@@ -421,7 +446,7 @@ public class GraphicUserInterfaceController {
 
 	}
 
-	public void toGraph(int min, int sec) {
+	public synchronized void toGraph(int min, int sec) {
 
 		int t;
 
@@ -429,6 +454,10 @@ public class GraphicUserInterfaceController {
 			t = sec;
 		} else {
 			t = min * 60 + sec;
+		}
+		
+		if (t > 99 && t!=0) {
+			t -= (100*(t/100));
 		}
 
 		double iF = ((double) logic.getInfectedPeople() * GRAPHIC_SIZE / (double) logic.getTotalPeople());
@@ -439,7 +468,6 @@ public class GraphicUserInterfaceController {
 		rIf.setX(GRAPHIC_BAR_SIZE * t + 1.5);
 		rIf.setY(GRAPHIC_SIZE - iF);
 		rIf.setFill(Color.SALMON);
-
 		graphic.push(rIf);
 
 		double hE = ((double) logic.getHealthyPeople() * GRAPHIC_SIZE / (double) logic.getTotalPeople());
@@ -486,13 +514,48 @@ public class GraphicUserInterfaceController {
 
 	}
 
-	public void updateLabels() {
+	public synchronized void updateLabels() {
 
+		int totalTime = logic.getChronometer().getSec() + logic.getChronometer().getMin() * 60;
 		infectedPeopleLabel.setText("" + logic.getInfectedPeople());
 		healthyPeopleLabel.setText("" + logic.getHealthyPeople());
 		recoveredPeopleLabel.setText("" + logic.getRecoveredPeople());
 		timeLabel.setText(logic.getChronometer().getTime());
-		dayLabel.setText("" + (logic.getChronometer().getSec() + logic.getChronometer().getMin() * 60));
+		dayLabel.setText("" + totalTime );
+
+		if (totalTime >= 100) {
+			
+			if(totalTime %100==0 && !cleared && graphic.size() == 0) {
+				graphicPane.getChildren().clear();
+				System.out.println("CLEARED");
+				cleared = true;
+				
+				while(!lastRect.empty()) {
+					graphic.push(lastRect.pop());
+				}
+			}
+			
+			if(totalTime%101==0) {
+				cleared = false;
+			}
+
+			int  t = totalTime/100;
+			
+			number1Label.setText(t+"00");
+			number2Label.setText(t+"25");
+			number3Label.setText(t+"50");
+			number4Label.setText(t+"75");
+			number5Label.setText((t+1)+"00");
+
+		} else {
+
+			number1Label.setText("0");
+			number2Label.setText("25");
+			number3Label.setText("50");
+			number4Label.setText("75");
+			number5Label.setText("100");
+
+		}
 
 		if (logic.isSimulationEnded()) {
 
@@ -569,7 +632,13 @@ public class GraphicUserInterfaceController {
 		totalPeopleLabel.toFront();
 
 		while (!graphic.empty()) {
+			
+			int totalTime = logic.getChronometer().getSec() + logic.getChronometer().getMin() * 60;
+			if(totalTime % 100 == 0)
+				lastRect.push(graphic.peek());
+			
 			graphicPane.getChildren().add((Rectangle) graphic.pop());
+			
 		}
 
 	}

@@ -2,6 +2,9 @@
 
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -12,13 +15,13 @@
 
 <Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="817.0" prefWidth="1197.0" style="-fx-background-color: ALICEBLUE;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GraphicUserInterfaceController">
    <children>
-      <Pane fx:id="graphicPane" layoutX="409.0" layoutY="724.0" prefHeight="79.0" prefWidth="781.0" style="-fx-background-color: SNOW;" />
-      <ImageView fitHeight="104.0" fitWidth="1151.0" layoutX="18.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <Pane layoutX="1.0" layoutY="1.0" prefHeight="830.0" prefWidth="8.0" style="-fx-background-color: WHITE;" />
+      <Pane fx:id="graphicPane" layoutX="437.0" layoutY="725.0" prefHeight="79.0" prefWidth="702.0" style="-fx-background-color: SNOW;" />
+      <ImageView fitHeight="79.0" fitWidth="1081.0" layoutX="89.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Sin%20título-2-01.png" />
          </image>
       </ImageView>
-      <Pane layoutX="1.0" layoutY="1.0" prefHeight="830.0" prefWidth="8.0" style="-fx-background-color: WHITE;" />
       <Pane layoutX="1199.0" layoutY="-4.0" prefHeight="830.0" prefWidth="8.0" style="-fx-background-color: WHITE;" />
       <Pane layoutY="117.0" prefHeight="8.0" prefWidth="1200.0" style="-fx-background-color: WHITE;" />
       <Pane layoutX="1.0" layoutY="703.0" prefHeight="8.0" prefWidth="1200.0" style="-fx-background-color: WHITE;">
@@ -243,39 +246,39 @@
          </font>
       </CheckBox>
       <Pane layoutX="8.0" layoutY="820.0" prefHeight="8.0" prefWidth="1200.0" style="-fx-background-color: WHITE;" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#484c4f" height="2.0" layoutX="409.0" layoutY="802.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="781.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#484c4f" height="78.0" layoutX="409.0" layoutY="726.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="2.0" />
-      <Label fx:id="graphicTotalPeopleLabel" layoutX="386.0" layoutY="725.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#484c4f" height="2.0" layoutX="437.0" layoutY="802.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="702.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#484c4f" height="79.0" layoutX="437.0" layoutY="725.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="2.0" />
+      <Label fx:id="graphicTotalPeopleLabel" layoutX="400.0" layoutY="725.0">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="404.0" layoutY="711.0" text="TOTAL PEOPLE">
+      <Label layoutX="390.0" layoutY="712.0" text="TOTAL PEOPLE">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
       </Label>
-      <Label layoutX="1169.0" layoutY="804.0" text="DAYS">
+      <Label layoutX="1146.0" layoutY="794.0" text="DAYS">
          <font>
             <Font name="System Bold" size="10.0" />
          </font>
       </Label>
-      <Label fx:id="graphicHalfPeopleLabel" layoutX="386.0" layoutY="760.0">
+      <Label fx:id="graphicHalfPeopleLabel" layoutX="400.0" layoutY="760.0">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="407.0" layoutY="804.0" text="0">
+      <Label fx:id="number1Label" layoutX="436.0" layoutY="804.0" text="0">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="759.0" layoutY="804.0" text="50">
+      <Label fx:id="number3Label" layoutX="785.0" layoutY="804.0" text="50">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="1150.0" layoutY="804.0" text="100">
+      <Label fx:id="number5Label" layoutX="1124.0" layoutY="804.0" text="100">
          <font>
             <Font size="10.0" />
          </font>
@@ -309,15 +312,38 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="581.0" layoutY="804.0" text="25">
+      <Label fx:id="number2Label" layoutX="611.0" layoutY="804.0" text="25">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label layoutX="935.0" layoutY="804.0" text="75">
+      <Label fx:id="number4Label" layoutX="962.0" layoutY="804.0" text="75">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
+      <Pane layoutX="9.0" layoutY="28.0" prefHeight="8.0" prefWidth="1200.0" style="-fx-background-color: WHITE;" />
+      <MenuBar fx:id="menuBar" layoutX="9.0" layoutY="-4.0" prefHeight="26.0" prefWidth="1190.0" style="-fx-background-color: SNOW;">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Open data" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="About">
+            <items>
+              <MenuItem mnemonicParsing="false" text="References" />
+              <MenuItem mnemonicParsing="false" text="Contact" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Simulation" />
+              <MenuItem mnemonicParsing="false" text="Graphic bar" />
+              <MenuItem mnemonicParsing="false" text="Saved data" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </Pane>
