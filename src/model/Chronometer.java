@@ -54,7 +54,7 @@ public class Chronometer {
     }
     
     //-------------------------------------
-    // Getters
+    // Getters and Setters
     //-------------------------------------
     public String getTime() {
         return time;

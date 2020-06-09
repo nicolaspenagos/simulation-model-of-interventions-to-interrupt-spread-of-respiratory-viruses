@@ -62,6 +62,7 @@ public class Logic {
 	private MovementThread movementThread;
 	private Chronometer chronometer;
 	private ChronometerThread chronometerThread;
+	private Data data;
 
 	// -------------------------------------
 	// Constructor
@@ -73,6 +74,7 @@ public class Logic {
 		option = -1;
 		chronometer = new Chronometer();
 		setSimulationEnded(false);
+		data = new Data();
 
 	}
 
@@ -214,8 +216,7 @@ public class Logic {
 				if (i != index) {
 
 					ModelCircle other = people.get(i);
-					double dist = Math
-							.sqrt((current.getPosX() - other.getPosX()) * (current.getPosX() - other.getPosX())
+					double dist = Math.sqrt((current.getPosX() - other.getPosX()) * (current.getPosX() - other.getPosX())
 									+ (current.getPosY() - other.getPosY()) * (current.getPosY() - other.getPosY()));
 
 					if (dist <= current.getRadius() + other.getRadius()) {
@@ -369,6 +370,14 @@ public class Logic {
 
 	public void setSimulationEnded(boolean simulationEnded) {
 		this.simulationEnded = simulationEnded;
+	}
+
+	public Data getData() {
+		return data;
+	}
+
+	public void setData(Data data) {
+		this.data = data;
 	}
 
 }
