@@ -6,6 +6,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.Stack;
 
 import customThreads.GUIUpdateControlThread;
@@ -159,6 +160,7 @@ public class GraphicUserInterfaceController {
 	private AlertBox alertBox;
 	private Stack<Rectangle> graphic;
 	private Stack<Rectangle> lastRect;
+	private ArrayList<Integer[]> graphData;
 
 	// -------------------------------------
 	// Constructor
@@ -264,6 +266,8 @@ public class GraphicUserInterfaceController {
 
 				graphicTotalPeopleLabel.setText("" + logic.getTotalPeople());
 				graphicHalfPeopleLabel.setText("" + (logic.getTotalPeople() / 2));
+				
+				graphData = new ArrayList<Integer[]>();
 
 			} else {
 
@@ -460,8 +464,12 @@ public class GraphicUserInterfaceController {
 			t -= (100*(t/100));
 		}
 
-		double iF = ((double) logic.getInfectedPeople() * GRAPHIC_SIZE / (double) logic.getTotalPeople());
-
+		Integer[] stateOfTheDay = new Integer[3];
+		
+		int infectedPeople = logic.getInfectedPeople();
+		double iF = ((double) infectedPeople * GRAPHIC_SIZE / (double) logic.getTotalPeople());
+		stateOfTheDay[0] = infectedPeople;
+		
 		Rectangle rIf = new Rectangle();
 		rIf.setWidth(GRAPHIC_BAR_SIZE);
 		rIf.setHeight(iF);
@@ -469,8 +477,10 @@ public class GraphicUserInterfaceController {
 		rIf.setY(GRAPHIC_SIZE - iF);
 		rIf.setFill(Color.SALMON);
 		graphic.push(rIf);
-
-		double hE = ((double) logic.getHealthyPeople() * GRAPHIC_SIZE / (double) logic.getTotalPeople());
+		
+		int healthyPeople = logic.getHealthyPeople();
+		double hE = ((double) healthyPeople * GRAPHIC_SIZE / (double) logic.getTotalPeople());
+		stateOfTheDay[1] = healthyPeople;
 
 		Rectangle rHe = new Rectangle();
 		rHe.setWidth(GRAPHIC_BAR_SIZE);
@@ -481,7 +491,9 @@ public class GraphicUserInterfaceController {
 
 		graphic.push(rHe);
 
-		double rE = ((double) logic.getRecoveredPeople() * GRAPHIC_SIZE / (double) logic.getTotalPeople());
+		int recoveredPeople = logic.getRecoveredPeople();
+		double rE = ((double) recoveredPeople * GRAPHIC_SIZE / (double) logic.getTotalPeople());
+		stateOfTheDay[2] = recoveredPeople;
 
 		Rectangle rRe = new Rectangle();
 		rRe.setWidth(GRAPHIC_BAR_SIZE);
@@ -490,6 +502,7 @@ public class GraphicUserInterfaceController {
 		rRe.setY(GRAPHIC_SIZE - iF - hE - rE);
 		rRe.setFill(Color.STEELBLUE);
 
+		graphData.add(stateOfTheDay);
 		graphic.push(rRe);
 
 	}
@@ -504,7 +517,31 @@ public class GraphicUserInterfaceController {
 
 	public void saveCVS() {
 
+		int infectedPeopleAtDay0, healthyPeopleAtDay0, recoveredPeopleAtDay0, infectedPeopleAtDayN, healthyPeopleAtDayN, recoveredPeopleAtDayN , interventionOption, days;
+		double interventionEffectiveness;
+		String time;
+		ArrayList<Integer[]> graph; 
+		GregorianCalendar date;
+		
+		infectedPeopleAtDay0 = Integer.parseInt(iPtxtField.getText());
+		healthyPeopleAtDay0 = Integer.parseInt(hPtxtField.getText());
+		recoveredPeopleAtDay0 = Integer.parseInt(rPtxtField.getText());
+		
+		infectedPeopleAtDayN = logic.getInfectedPeople();
+		healthyPeopleAtDayN = logic.getHealthyPeople();
+		recoveredPeopleAtDayN = logic.getRecoveredPeople();
+		
+		interventionOption = logic.getOption();
+		interventionEffectiveness = logic.getProbability();
+		
+		days = Integer.parseInt(dayLabel.getText());
+		time = timeLabel.getText();
+		date = new GregorianCalendar();
+		graph = graphData;
+		
+		logic.saveData(infectedPeopleAtDay0, healthyPeopleAtDay0, recoveredPeopleAtDay0, infectedPeopleAtDayN, healthyPeopleAtDayN, recoveredPeopleAtDayN, interventionOption, interventionEffectiveness, time, days, graph, date);
 		programmaticallyStopButton();
+		
 	}
 
 	public void update() {

@@ -7,6 +7,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.concurrent.ThreadLocalRandom;
 
 import controller.GraphicUserInterfaceController;
@@ -81,6 +82,13 @@ public class Logic {
 	// -------------------------------------
 	// Methods
 	// -------------------------------------
+	public void saveData(int infectedPeopleAtDay0, int healthyPeopleAtDay0, int recoveredPeopleAtDay0, int infectedPeopleAtDayN, int healthyPeopleAtDayN, int recoveredPeopleAtDayN, int interventionOption, double interventionEffectiveness, String time, int days, ArrayList<Integer[]> graph, GregorianCalendar date) {
+		
+		SimulationData currentSimulation = new SimulationData(infectedPeopleAtDay0, healthyPeopleAtDay0, recoveredPeopleAtDay0, infectedPeopleAtDayN, healthyPeopleAtDayN, recoveredPeopleAtDayN, interventionOption, interventionEffectiveness, time, days, graph, date);
+		data.getData().add(currentSimulation);
+		
+	}
+	
 	public int getTotalPeople() {
 		return infectedPeople + recoveredPeople + healthyPeople;
 	}
@@ -226,7 +234,7 @@ public class Logic {
 						
 						double contagion = Math.random();
 					
-						if((probability - contagion<0)) {
+						if((getProbability() - contagion<0)) {
 						
 							if (other.getHealthCondition() == Person.INFECTED
 									&& current.getHealthCondition() == Person.HEALTHY) {
@@ -379,5 +387,14 @@ public class Logic {
 	public void setData(Data data) {
 		this.data = data;
 	}
+
+	public double getProbability() {
+		return probability;
+	}
+
+	public void setProbability(double probability) {
+		this.probability = probability;
+	}
+
 
 }
