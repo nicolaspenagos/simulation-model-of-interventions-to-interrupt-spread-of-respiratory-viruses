@@ -84,8 +84,13 @@ public class Logic {
 	// -------------------------------------
 	public void saveData(int infectedPeopleAtDay0, int healthyPeopleAtDay0, int recoveredPeopleAtDay0, int infectedPeopleAtDayN, int healthyPeopleAtDayN, int recoveredPeopleAtDayN, int interventionOption, double interventionEffectiveness, String time, int days, ArrayList<Integer[]> graph, GregorianCalendar date) {
 		
-		SimulationData currentSimulation = new SimulationData(infectedPeopleAtDay0, healthyPeopleAtDay0, recoveredPeopleAtDay0, infectedPeopleAtDayN, healthyPeopleAtDayN, recoveredPeopleAtDayN, interventionOption, interventionEffectiveness, time, days, graph, date);
+		int counter = data.getCounter();
+		counter++;
+		data.setCounter(counter);
+		
+		SimulationData currentSimulation = new SimulationData(infectedPeopleAtDay0, healthyPeopleAtDay0, recoveredPeopleAtDay0, infectedPeopleAtDayN, healthyPeopleAtDayN, recoveredPeopleAtDayN, interventionOption, interventionEffectiveness, time, days, graph, date, counter);
 		data.getData().add(currentSimulation);
+		data.saveData();
 		
 	}
 	

@@ -31,12 +31,14 @@ public class SimulationData implements Serializable{
 	private String time;
 	private int days;
 	private ArrayList<Integer[]> graph;
-	private Calendar date;
+	private Calendar cDate;
+	private String date;
+	private int id;
 	
 	//-------------------------------------
     // Constructor
     //-------------------------------------
-	public SimulationData(int infectedPeopleAtDay0, int healthyPeopleAtDay0, int recoveredPeopleAtDay0, int infectedPeopleAtDayN, int healthyPeopleAtDayN, int recoveredPeopleAtDayN, int interventionOption, double interventionEffectiveness, String time, int days, ArrayList<Integer[]> graph, GregorianCalendar date) {
+	public SimulationData(int infectedPeopleAtDay0, int healthyPeopleAtDay0, int recoveredPeopleAtDay0, int infectedPeopleAtDayN, int healthyPeopleAtDayN, int recoveredPeopleAtDayN, int interventionOption, double interventionEffectiveness, String time, int days, ArrayList<Integer[]> graph, GregorianCalendar cDate, int id) {
 		
 		this.infectedPeopleAtDay0 = infectedPeopleAtDay0;
 		this.healthyPeopleAtDay0 = healthyPeopleAtDay0;
@@ -49,6 +51,10 @@ public class SimulationData implements Serializable{
 		this.time = time;
 		this.days = days;
 		this.graph = graph;
+		this.id = id;
+		this.cDate = cDate;
+		Calendar d = (Calendar) cDate;
+		this.setDate("" + d.getTime());
 		
 	}
 
@@ -143,12 +149,36 @@ public class SimulationData implements Serializable{
 		this.graph = graph;
 	}
 
-	public Calendar getDate() {
-		return date;
+	public Calendar getCDate() {
+		return cDate;
 	}
 
-	public void setDate(Calendar date) {
+	public void setDate(Calendar cDate) {
+		this.cDate = cDate;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Calendar getcDate() {
+		return cDate;
+	}
+
+	public void setcDate(Calendar cDate) {
+		this.cDate = cDate;
+	}
+
+	public void setDate(String date) {
 		this.date = date;
 	} 
+	
+	public String getDate() {
+		return date;
+	}
 
 }

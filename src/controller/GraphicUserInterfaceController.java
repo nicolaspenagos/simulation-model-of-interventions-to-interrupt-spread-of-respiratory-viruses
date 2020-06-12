@@ -28,6 +28,7 @@ import javafx.stage.Stage;
 import model.Logic;
 import model.ModelCircle;
 import model.Person;
+import view.Main;
 
 public class GraphicUserInterfaceController {
 
@@ -132,10 +133,10 @@ public class GraphicUserInterfaceController {
 
 	@FXML
 	private ImageView pauseImageView;
-	
-    @FXML
-    private MenuBar menuBar;
-    
+
+	@FXML
+	private MenuBar menuBar;
+
 	// -------------------------------------
 	// Atributtes
 	// -------------------------------------
@@ -162,10 +163,13 @@ public class GraphicUserInterfaceController {
 	private Stack<Rectangle> lastRect;
 	private ArrayList<Integer[]> graphData;
 
+	private Main main;
+
 	// -------------------------------------
-	// Constructor
+	// Methods
 	// -------------------------------------
-	public GraphicUserInterfaceController() {
+	@FXML
+	public void initialize() {
 
 		logic = new Logic();
 		playButtonAble = false;
@@ -182,14 +186,6 @@ public class GraphicUserInterfaceController {
 		graphic = new Stack<Rectangle>();
 		lastRect = new Stack<Rectangle>();
 
-	}
-
-	// -------------------------------------
-	// Methods
-	// -------------------------------------
-	@FXML
-	public void initialize() {
-
 		disableTextFields();
 		addSlidersEventHandlers();
 		alertBox = new AlertBox();
@@ -201,10 +197,19 @@ public class GraphicUserInterfaceController {
 		pauseButtonOn = new Image("/images/pauseButtonOn.png");
 		pauseButtonOff = new Image("/images/pauseButtonOff.png");
 		pausePlayButton = new Image("/images/pausePlayButton.png");
-		
+
 		String style = "-fx-font-weight: bold; -fx-background-color: SNOW;";
 		menuBar.setStyle(style);
 
+		iPtxtField.setText("0");
+		rPtxtField.setText("0");
+		hPtxtField.setText("0");
+
+	}
+
+	@FXML
+	void goToOpenData(ActionEvent event) {
+		main.changeScene("data.fxml");
 	}
 
 	@FXML
@@ -266,7 +271,7 @@ public class GraphicUserInterfaceController {
 
 				graphicTotalPeopleLabel.setText("" + logic.getTotalPeople());
 				graphicHalfPeopleLabel.setText("" + (logic.getTotalPeople() / 2));
-				
+
 				graphData = new ArrayList<Integer[]>();
 
 			} else {
@@ -459,17 +464,17 @@ public class GraphicUserInterfaceController {
 		} else {
 			t = min * 60 + sec;
 		}
-		
-		if (t > 99 && t!=0) {
-			t -= (100*(t/100));
+
+		if (t > 99 && t != 0) {
+			t -= (100 * (t / 100));
 		}
 
 		Integer[] stateOfTheDay = new Integer[3];
-		
+
 		int infectedPeople = logic.getInfectedPeople();
 		double iF = ((double) infectedPeople * GRAPHIC_SIZE / (double) logic.getTotalPeople());
 		stateOfTheDay[0] = infectedPeople;
-		
+
 		Rectangle rIf = new Rectangle();
 		rIf.setWidth(GRAPHIC_BAR_SIZE);
 		rIf.setHeight(iF);
@@ -477,7 +482,7 @@ public class GraphicUserInterfaceController {
 		rIf.setY(GRAPHIC_SIZE - iF);
 		rIf.setFill(Color.SALMON);
 		graphic.push(rIf);
-		
+
 		int healthyPeople = logic.getHealthyPeople();
 		double hE = ((double) healthyPeople * GRAPHIC_SIZE / (double) logic.getTotalPeople());
 		stateOfTheDay[1] = healthyPeople;
@@ -517,31 +522,34 @@ public class GraphicUserInterfaceController {
 
 	public void saveCVS() {
 
-		int infectedPeopleAtDay0, healthyPeopleAtDay0, recoveredPeopleAtDay0, infectedPeopleAtDayN, healthyPeopleAtDayN, recoveredPeopleAtDayN , interventionOption, days;
+		int infectedPeopleAtDay0, healthyPeopleAtDay0, recoveredPeopleAtDay0, infectedPeopleAtDayN, healthyPeopleAtDayN,
+				recoveredPeopleAtDayN, interventionOption, days;
 		double interventionEffectiveness;
 		String time;
-		ArrayList<Integer[]> graph; 
+		ArrayList<Integer[]> graph;
 		GregorianCalendar date;
-		
+
 		infectedPeopleAtDay0 = Integer.parseInt(iPtxtField.getText());
 		healthyPeopleAtDay0 = Integer.parseInt(hPtxtField.getText());
 		recoveredPeopleAtDay0 = Integer.parseInt(rPtxtField.getText());
-		
+
 		infectedPeopleAtDayN = logic.getInfectedPeople();
 		healthyPeopleAtDayN = logic.getHealthyPeople();
 		recoveredPeopleAtDayN = logic.getRecoveredPeople();
-		
+
 		interventionOption = logic.getOption();
 		interventionEffectiveness = logic.getProbability();
-		
+
 		days = Integer.parseInt(dayLabel.getText());
 		time = timeLabel.getText();
 		date = new GregorianCalendar();
 		graph = graphData;
-		
-		logic.saveData(infectedPeopleAtDay0, healthyPeopleAtDay0, recoveredPeopleAtDay0, infectedPeopleAtDayN, healthyPeopleAtDayN, recoveredPeopleAtDayN, interventionOption, interventionEffectiveness, time, days, graph, date);
+
+		logic.saveData(infectedPeopleAtDay0, healthyPeopleAtDay0, recoveredPeopleAtDay0, infectedPeopleAtDayN,
+				healthyPeopleAtDayN, recoveredPeopleAtDayN, interventionOption, interventionEffectiveness, time, days,
+				graph, date);
 		programmaticallyStopButton();
-		
+
 	}
 
 	public void update() {
@@ -551,6 +559,10 @@ public class GraphicUserInterfaceController {
 
 	}
 
+	public void setupMain(Main main) {
+		this.main = main;
+	}
+
 	public synchronized void updateLabels() {
 
 		int totalTime = logic.getChronometer().getSec() + logic.getChronometer().getMin() * 60;
@@ -558,31 +570,31 @@ public class GraphicUserInterfaceController {
 		healthyPeopleLabel.setText("" + logic.getHealthyPeople());
 		recoveredPeopleLabel.setText("" + logic.getRecoveredPeople());
 		timeLabel.setText(logic.getChronometer().getTime());
-		dayLabel.setText("" + totalTime );
+		dayLabel.setText("" + totalTime);
 
 		if (totalTime >= 100) {
-			
-			if(totalTime %100==0 && !cleared && graphic.size() == 0) {
+
+			if (totalTime % 100 == 0 && !cleared && graphic.size() == 0) {
 				graphicPane.getChildren().clear();
-				System.out.println("CLEARED");
+
 				cleared = true;
-				
-				while(!lastRect.empty()) {
+
+				while (!lastRect.empty()) {
 					graphic.push(lastRect.pop());
 				}
 			}
-			
-			if(totalTime%101==0) {
+
+			if (totalTime % 101 == 0) {
 				cleared = false;
 			}
 
-			int  t = totalTime/100;
-			
-			number1Label.setText(t+"00");
-			number2Label.setText(t+"25");
-			number3Label.setText(t+"50");
-			number4Label.setText(t+"75");
-			number5Label.setText((t+1)+"00");
+			int t = totalTime / 100;
+
+			number1Label.setText(t + "00");
+			number2Label.setText(t + "25");
+			number3Label.setText(t + "50");
+			number4Label.setText(t + "75");
+			number5Label.setText((t + 1) + "00");
 
 		} else {
 
@@ -669,13 +681,13 @@ public class GraphicUserInterfaceController {
 		totalPeopleLabel.toFront();
 
 		while (!graphic.empty()) {
-			
+
 			int totalTime = logic.getChronometer().getSec() + logic.getChronometer().getMin() * 60;
-			if(totalTime % 100 == 0)
+			if (totalTime % 100 == 0)
 				lastRect.push(graphic.peek());
-			
+
 			graphicPane.getChildren().add((Rectangle) graphic.pop());
-			
+
 		}
 
 	}
@@ -817,6 +829,10 @@ public class GraphicUserInterfaceController {
 		setWindowLaunched(true);
 
 		interventionEffectivenessLabel.setText("0%");
+
+		iPtxtField.setText("0");
+		rPtxtField.setText("0");
+		hPtxtField.setText("0");
 
 	}
 

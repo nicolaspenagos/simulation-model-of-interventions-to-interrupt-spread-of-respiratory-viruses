@@ -23,15 +23,19 @@ public class Data implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// -------------------------------------
-	// Atributtes
+	// Atributtes and relationships
 	// -------------------------------------
 	private ArrayList<SimulationData> data;
+	private int counter;
 
 	// -------------------------------------
 	// Constructor
 	// -------------------------------------
 	public Data() {
+		
 		loadData();
+		counter = data.size();
+		
 	}
 
 	// -------------------------------------
@@ -49,6 +53,7 @@ public class Data implements Serializable {
 				ObjectInputStream io = new ObjectInputStream(new FileInputStream(file));
 				data = (ArrayList<SimulationData>) io.readObject();
 				io.close();
+				System.out.println("Cargo");
 				
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -61,7 +66,11 @@ public class Data implements Serializable {
 				e.printStackTrace();
 			}
 			
+		}else {
+			data = new ArrayList<SimulationData>();
 		}
+		
+		System.out.println(data.size());
 	}
 	
 	public void saveData() {
@@ -91,6 +100,14 @@ public class Data implements Serializable {
 
 	public void setData(ArrayList<SimulationData> data) {
 		this.data = data;
+	}
+
+	public int getCounter() {
+		return counter;
+	}
+
+	public void setCounter(int counter) {
+		this.counter = counter;
 	}
 
 }
