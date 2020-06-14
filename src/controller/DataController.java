@@ -80,6 +80,24 @@ public class DataController {
 	private Label dateLabel;
 	
     @FXML
+    private Label iPDay0Label;
+
+    @FXML
+    private Label hPDay0Label;
+
+    @FXML
+    private Label rPDay0Label;
+
+    @FXML
+    private Label iPDayNLabel;
+
+    @FXML
+    private Label hPDayNLabel;
+
+    @FXML
+    private Label rPDayNLabel;
+	
+    @FXML
     private Pane graphPane;
 
 	private Main main;
@@ -126,15 +144,24 @@ public class DataController {
 				+ clickedRow.getInfectedPeopleAtDay0();
 
 		numberLabel.setText("" + clickedRow.getId());
-		dateLabel.setText(clickedRow.getDate().toUpperCase());
+		dateLabel.setText(clickedRow.getDate());
 		numberOfPeople4.setText("" + totalPeople);
 		numberOfPeople3.setText("" + totalPeople * 3 / 4);
 		numberOfPeople2.setText("" + totalPeople / 2);
 		numberOfPeople1.setText("" + totalPeople / 4);
+		
+		iPDay0Label.setText(""+ clickedRow.getInfectedPeopleAtDay0());
+		hPDay0Label.setText(""+ clickedRow.getHealthyPeopleAtDay0());
+		rPDay0Label.setText(""+ clickedRow.getRecoveredPeopleAtDay0());
+		
+		iPDayNLabel.setText(""+ clickedRow.getInfectedPeopleAtDay0());
+		hPDayNLabel.setText(""+ clickedRow.getHealthyPeopleAtDayN());
+		rPDayNLabel.setText(""+ clickedRow.getRecoveredPeopleAtDayN());
 
 		toGraph(clickedRow.getGraph(), totalPeople, clickedRow.getDays());
 		
-		System.out.println("     ------"+clickedRow.getDays());
+		
+		System.out.println("     ------"+clickedRow.getDays()+ "children size: "+ graphPane.getChildren().size());
 
 	}
 
@@ -155,15 +182,18 @@ System.out.println("- - - - "+graph.size());
 		days3.setText("" + days * 3 / 4);
 		days4.setText("" + days);
 		
-		double barSize =  GRAPH_WIDTH / days;
-		barSize -= 1.5;
-		
+		double barSize =  GRAPH_WIDTH / (days + 1);
+	
+	//	barSize -= 1.5;
+		System.out.println("barSize"+" "+barSize);
 		for (int i = 0; i < graph.size(); i++) {
 			
+			System.out.println();
+			System.out.println(i);
 			Integer[] arr = graph.get(i);
 			double barHeight = 0, barHeight1 = 0, barHeight2 = 0;
 			for (int j = 0; j < arr.length; j++) {
-				
+			
 				if(j == 0) {
 					
 					barHeight = (double)arr[0] * GRAPH_HEIGHT / totalPeople;
@@ -172,6 +202,7 @@ System.out.println("- - - - "+graph.size());
 					rI.setHeight(barHeight);
 					rI.setX(barSize * i );
 					rI.setY(GRAPH_HEIGHT - barHeight);
+					System.out.println(barSize * i );
 					rI.setFill(Color.SALMON);
 					graphPane.getChildren().add(rI);
 					
@@ -182,6 +213,7 @@ System.out.println("- - - - "+graph.size());
 					rH.setWidth(barSize);
 					rH.setHeight(barHeight1);
 					rH.setX(barSize * i );
+					System.out.println(barSize * i );
 					rH.setY(GRAPH_HEIGHT - barHeight - barHeight1);
 					rH.setFill(Color.MEDIUMSEAGREEN);
 					graphPane.getChildren().add(rH);
@@ -193,6 +225,7 @@ System.out.println("- - - - "+graph.size());
 					rH.setWidth(barSize);
 					rH.setHeight(barHeight2);
 					rH.setX(barSize * i );
+					System.out.println(barSize * i );
 					rH.setY(GRAPH_HEIGHT - barHeight - barHeight1 - barHeight2);
 					rH.setFill(Color.STEELBLUE);
 					graphPane.getChildren().add(rH);

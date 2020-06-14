@@ -252,6 +252,7 @@ public class GraphicUserInterfaceController {
 
 			if (playButtonAble) {
 
+				
 				ableConfigButtons(false);
 				pause = false;
 				logic.setPause(false);
@@ -549,6 +550,7 @@ public class GraphicUserInterfaceController {
 				healthyPeopleAtDayN, recoveredPeopleAtDayN, interventionOption, interventionEffectiveness, time, days,
 				graph, date);
 		programmaticallyStopButton();
+		graphData.clear();
 
 	}
 
