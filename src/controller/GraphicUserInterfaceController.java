@@ -473,6 +473,9 @@ public class GraphicUserInterfaceController {
 		Integer[] stateOfTheDay = new Integer[3];
 
 		int infectedPeople = logic.getInfectedPeople();
+		logic.updatePeek(infectedPeople, min * 60 + sec);
+	
+		
 		double iF = ((double) infectedPeople * GRAPHIC_SIZE / (double) logic.getTotalPeople());
 		stateOfTheDay[0] = infectedPeople;
 
@@ -524,7 +527,7 @@ public class GraphicUserInterfaceController {
 	public void saveCVS() {
 
 		int infectedPeopleAtDay0, healthyPeopleAtDay0, recoveredPeopleAtDay0, infectedPeopleAtDayN, healthyPeopleAtDayN,
-				recoveredPeopleAtDayN, interventionOption, days;
+				recoveredPeopleAtDayN, interventionOption, days, infectedPeek, peekDay;
 		double interventionEffectiveness;
 		String time;
 		ArrayList<Integer[]> graph;
@@ -545,10 +548,14 @@ public class GraphicUserInterfaceController {
 		time = timeLabel.getText();
 		date = new GregorianCalendar();
 		graph = graphData;
+		
+		infectedPeek = logic.getInfectedPeek();
+		peekDay = logic.getPeekDay();
+		
 
 		logic.saveData(infectedPeopleAtDay0, healthyPeopleAtDay0, recoveredPeopleAtDay0, infectedPeopleAtDayN,
 				healthyPeopleAtDayN, recoveredPeopleAtDayN, interventionOption, interventionEffectiveness, time, days,
-				graph, date);
+				graph, date, peekDay, infectedPeek);
 		programmaticallyStopButton();
 		graphData.clear();
 
@@ -835,6 +842,9 @@ public class GraphicUserInterfaceController {
 		iPtxtField.setText("0");
 		rPtxtField.setText("0");
 		hPtxtField.setText("0");
+		
+		logic.setPeekDay(0);
+		logic.setInfectedPeek(0);
 
 	}
 

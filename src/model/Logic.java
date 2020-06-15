@@ -64,6 +64,8 @@ public class Logic {
 	private Chronometer chronometer;
 	private ChronometerThread chronometerThread;
 	private Data data;
+	private int peekDay;
+	private int infectedPeek;
 
 	// -------------------------------------
 	// Constructor
@@ -76,19 +78,20 @@ public class Logic {
 		chronometer = new Chronometer();
 		setSimulationEnded(false);
 		data = new Data();
+		peekDay = 0;
 
 	}
 
 	// -------------------------------------
 	// Methods
 	// -------------------------------------
-	public void saveData(int infectedPeopleAtDay0, int healthyPeopleAtDay0, int recoveredPeopleAtDay0, int infectedPeopleAtDayN, int healthyPeopleAtDayN, int recoveredPeopleAtDayN, int interventionOption, double interventionEffectiveness, String time, int days, ArrayList<Integer[]> graph, GregorianCalendar date) {
+	public void saveData(int infectedPeopleAtDay0, int healthyPeopleAtDay0, int recoveredPeopleAtDay0, int infectedPeopleAtDayN, int healthyPeopleAtDayN, int recoveredPeopleAtDayN, int interventionOption, double interventionEffectiveness, String time, int days, ArrayList<Integer[]> graph, GregorianCalendar date, int peekDay, int infectedPeek) {
 		
 		int counter = data.getCounter();
 		counter++;
 		data.setCounter(counter);
 		
-		SimulationData currentSimulation = new SimulationData(infectedPeopleAtDay0, healthyPeopleAtDay0, recoveredPeopleAtDay0, infectedPeopleAtDayN, healthyPeopleAtDayN, recoveredPeopleAtDayN, interventionOption, interventionEffectiveness, time, days, graph, date, counter);
+		SimulationData currentSimulation = new SimulationData(infectedPeopleAtDay0, healthyPeopleAtDay0, recoveredPeopleAtDay0, infectedPeopleAtDayN, healthyPeopleAtDayN, recoveredPeopleAtDayN, interventionOption, interventionEffectiveness, time, days, graph, date, counter ,peekDay, infectedPeek );
 		data.getData().add(currentSimulation);
 		data.saveData();
 		
@@ -305,10 +308,24 @@ public class Logic {
 			case -1:
 				probability = 0;
 				break;
-		
+				
 		}
 		
 	}
+	
+	public void updatePeek(int current, int day) {
+		
+		if(current > getInfectedPeek()) {
+			
+			infectedPeek = current;
+			peekDay = day;
+			
+			
+		}
+		
+	}
+	
+
 
 	// -------------------------------------
 	// Getters and Setters
@@ -399,6 +416,22 @@ public class Logic {
 
 	public void setProbability(double probability) {
 		this.probability = probability;
+	}
+
+	public int getPeekDay() {
+		return peekDay;
+	}
+
+	public void setPeekDay(int peekDay) {
+		this.peekDay = peekDay;
+	}
+
+	public int getInfectedPeek() {
+		return infectedPeek;
+	}
+
+	public void setInfectedPeek(int infectedPeek) {
+		this.infectedPeek = infectedPeek;
 	}
 
 

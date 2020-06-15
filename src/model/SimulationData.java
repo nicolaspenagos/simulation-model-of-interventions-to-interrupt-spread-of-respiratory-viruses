@@ -34,11 +34,13 @@ public class SimulationData implements Serializable{
 	private Calendar cDate;
 	private String date;
 	private int id;
+	private int peekDay;
+	private int infectedPeek;
 	
 	//-------------------------------------
     // Constructor
     //-------------------------------------
-	public SimulationData(int infectedPeopleAtDay0, int healthyPeopleAtDay0, int recoveredPeopleAtDay0, int infectedPeopleAtDayN, int healthyPeopleAtDayN, int recoveredPeopleAtDayN, int interventionOption, double interventionEffectiveness, String time, int days, ArrayList<Integer[]> graph, GregorianCalendar cDate, int id) {
+	public SimulationData(int infectedPeopleAtDay0, int healthyPeopleAtDay0, int recoveredPeopleAtDay0, int infectedPeopleAtDayN, int healthyPeopleAtDayN, int recoveredPeopleAtDayN, int interventionOption, double interventionEffectiveness, String time, int days, ArrayList<Integer[]> graph, GregorianCalendar cDate, int id, int peekDay, int infectedPeek) {
 		
 		this.infectedPeopleAtDay0 = infectedPeopleAtDay0;
 		this.healthyPeopleAtDay0 = healthyPeopleAtDay0;
@@ -55,6 +57,8 @@ public class SimulationData implements Serializable{
 		this.cDate = cDate;
 		Calendar d = (Calendar) cDate;
 		this.setDate("" + d.getTime());
+		this.peekDay = peekDay;
+		this.infectedPeek = infectedPeek;
 		
 	}
 
@@ -179,6 +183,22 @@ public class SimulationData implements Serializable{
 	
 	public String getDate() {
 		return date;
+	}
+
+	public int getPeekDay() {
+		return peekDay;
+	}
+
+	public void setPeekDay(int peekDay) {
+		this.peekDay = peekDay;
+	}
+
+	public int getInfectedPeek() {
+		return infectedPeek;
+	}
+
+	public void setInfectedPeek(int infectedPeek) {
+		this.infectedPeek = infectedPeek;
 	}
 
 }

@@ -98,7 +98,29 @@ public class DataController {
     private Label rPDayNLabel;
 	
     @FXML
+    private Label timeLabel;
+    
+    @FXML
+    private Label daysLabel;
+    
+    @FXML
+    private Label iEffectivenessLabel;
+   
+    @FXML
+    private Label infectedPeekLabel;
+    
+    @FXML
+    private Label textLabel1;
+
+    @FXML
+    private Label textLabel2;
+
+    @FXML
+    private Label peekDayLabel;
+    
+    @FXML
     private Pane graphPane;
+    
 
 	private Main main;
 	private ObservableList<SimulationData> dataList;
@@ -133,9 +155,9 @@ public class DataController {
 			return row;
 		});
 
-		// TablePosition pos = tableView.getSelectionModel().getSelectedCells().get(0);
-		// pos.getRow();
-
+		textLabel1.setVisible(false);
+		textLabel2.setVisible(false);
+	
 	}
 
 	private void displayInfo(SimulationData clickedRow) {
@@ -154,15 +176,23 @@ public class DataController {
 		hPDay0Label.setText(""+ clickedRow.getHealthyPeopleAtDay0());
 		rPDay0Label.setText(""+ clickedRow.getRecoveredPeopleAtDay0());
 		
-		iPDayNLabel.setText(""+ clickedRow.getInfectedPeopleAtDay0());
+		iPDayNLabel.setText(""+ clickedRow.getInfectedPeopleAtDayN());
 		hPDayNLabel.setText(""+ clickedRow.getHealthyPeopleAtDayN());
 		rPDayNLabel.setText(""+ clickedRow.getRecoveredPeopleAtDayN());
+		
+		timeLabel.setText(clickedRow.getTime());
+		daysLabel.setText("" + clickedRow.getDays());
+		iEffectivenessLabel.setText(""+ (int)(clickedRow.getInterventionEffectiveness() * 100 ) + "%");
+		
+		peekDayLabel.setText(""+ clickedRow.getPeekDay());
+		infectedPeekLabel.setText("" + clickedRow.getInfectedPeek());
+		
+		textLabel1.setVisible(true);
+		textLabel2.setVisible(true);
 
 		toGraph(clickedRow.getGraph(), totalPeople, clickedRow.getDays());
 		
 		
-		System.out.println("     ------"+clickedRow.getDays()+ "children size: "+ graphPane.getChildren().size());
-
 	}
 
 	public void setupMain(Main main) {
@@ -174,18 +204,14 @@ public class DataController {
 	public void toGraph(ArrayList<Integer[]> graph, double totalPeople, double days) {
 
 		graphPane.getChildren().clear();
-		
-
-System.out.println("- - - - "+graph.size());
-		days1.setText("" + days / 4);
-		days2.setText("" + days / 2);
-		days3.setText("" + days * 3 / 4);
-		days4.setText("" + days);
+	
+		days1.setText("" + Math.round((days / 4)));
+		days2.setText("" + Math.round(days / 2));
+		days3.setText("" + Math.round(days * 3 / 4));
+		days4.setText("" + Math.round(days));
 		
 		double barSize =  GRAPH_WIDTH / (days + 1);
 	
-	//	barSize -= 1.5;
-		System.out.println("barSize"+" "+barSize);
 		for (int i = 0; i < graph.size(); i++) {
 			
 			System.out.println();
