@@ -78,6 +78,9 @@ public class GraphicUserInterfaceController {
 	private Label infectedPeopleLabel;
 
 	@FXML
+	private Label restrictionLabel;
+
+	@FXML
 	private Label timeLabel;
 
 	@FXML
@@ -108,6 +111,9 @@ public class GraphicUserInterfaceController {
 	private Label number5Label;
 
 	@FXML
+	private Label descriptionLabel;
+
+	@FXML
 	private CheckBox maskChB;
 
 	@FXML
@@ -118,6 +124,12 @@ public class GraphicUserInterfaceController {
 
 	@FXML
 	private CheckBox gownChB;
+
+	@FXML
+	private CheckBox stricQuarantineChB;
+
+	@FXML
+	private CheckBox socialDistancingChB;
 
 	@FXML
 	private CheckBox handWashingChB;
@@ -205,6 +217,8 @@ public class GraphicUserInterfaceController {
 		rPtxtField.setText("0");
 		hPtxtField.setText("0");
 
+		restrictionLabel.setText("No restrictions");
+
 	}
 
 	@FXML
@@ -252,7 +266,6 @@ public class GraphicUserInterfaceController {
 
 			if (playButtonAble) {
 
-				
 				ableConfigButtons(false);
 				pause = false;
 				logic.setPause(false);
@@ -456,6 +469,48 @@ public class GraphicUserInterfaceController {
 
 	}
 
+	@FXML
+	void strictQuarentine(ActionEvent event) {
+
+		if (stricQuarantineChB.isSelected()) {
+
+			socialDistancingChB.setDisable(true);
+			restrictionLabel.setText("Strict quarentine");
+			descriptionLabel.setText("( 90% of reduced mobility )");
+			logic.setMobilityRestriction(0.9);
+
+		} else {
+
+			socialDistancingChB.setDisable(false);
+			restrictionLabel.setText("No restrictions");
+			descriptionLabel.setText("");
+			logic.setMobilityRestriction(0);
+
+		}
+
+	}
+
+	@FXML
+	void socialDistancing(ActionEvent event) {
+		
+		if (socialDistancingChB.isSelected()) {
+
+			stricQuarantineChB.setDisable(true);
+			restrictionLabel.setText("Social distancing");
+			descriptionLabel.setText("( 50% of reduced mobility )");
+			logic.setMobilityRestriction(0.5);
+
+		} else {
+
+			stricQuarantineChB.setDisable(false);
+			restrictionLabel.setText("No restrictions");
+			descriptionLabel.setText("");
+			logic.setMobilityRestriction(0);
+
+		}
+		
+	}
+
 	public synchronized void toGraph(int min, int sec) {
 
 		int t;
@@ -474,8 +529,7 @@ public class GraphicUserInterfaceController {
 
 		int infectedPeople = logic.getInfectedPeople();
 		logic.updatePeek(infectedPeople, min * 60 + sec);
-	
-		
+
 		double iF = ((double) infectedPeople * GRAPHIC_SIZE / (double) logic.getTotalPeople());
 		stateOfTheDay[0] = infectedPeople;
 
@@ -548,14 +602,16 @@ public class GraphicUserInterfaceController {
 		time = timeLabel.getText();
 		date = new GregorianCalendar();
 		graph = graphData;
-		
+
 		infectedPeek = logic.getInfectedPeek();
 		peekDay = logic.getPeekDay();
 		
+		String restriction = restrictionLabel.getText();
+		String restriction_ =  descriptionLabel.getText();
 
 		logic.saveData(infectedPeopleAtDay0, healthyPeopleAtDay0, recoveredPeopleAtDay0, infectedPeopleAtDayN,
 				healthyPeopleAtDayN, recoveredPeopleAtDayN, interventionOption, interventionEffectiveness, time, days,
-				graph, date, peekDay, infectedPeek);
+				graph, date, peekDay, infectedPeek, restriction, restriction_);
 		programmaticallyStopButton();
 		graphData.clear();
 
@@ -842,10 +898,18 @@ public class GraphicUserInterfaceController {
 		iPtxtField.setText("0");
 		rPtxtField.setText("0");
 		hPtxtField.setText("0");
-		
+
 		logic.setPeekDay(0);
 		logic.setInfectedPeek(0);
 
+		restrictionLabel.setText("No restrictions");
+		descriptionLabel.setText("");
+		stricQuarantineChB.setDisable(false);
+		socialDistancingChB.setDisable(false);
+		stricQuarantineChB.setSelected(false);
+		socialDistancingChB.setSelected(false);
+		logic.setMobilityRestriction(0.0);
+		
 	}
 
 	public boolean isPause() {

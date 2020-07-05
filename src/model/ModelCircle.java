@@ -19,9 +19,9 @@ public class ModelCircle extends Person {
 	// -------------------------------------
 	// Constructor
 	// -------------------------------------
-	public ModelCircle(char healthCondition, int posX, int posY, int velX, int velY, int radius) {
+	public ModelCircle(char healthCondition, int posX, int posY, int velX, int velY, int radius, boolean quarantine) {
 		
-		super(healthCondition);
+		super(healthCondition, quarantine);
 		
 		this.posX   = posX;
 		this.posY   = posY;
@@ -36,25 +36,30 @@ public class ModelCircle extends Person {
 	// -------------------------------------
 	public void move() {
 		
-		posY += velY;	
-	
-		if(posY<Logic.UP_LIMIT || posY>Logic.DOWN_LIMIT) {
-			velY *= -1;
+		if(!super.isQuarantine()) {
+			
+			posY += velY;	
+			
+			if(posY<Logic.UP_LIMIT || posY>Logic.DOWN_LIMIT) {
+				velY *= -1;
+			}
+			
+			posX += velX;
+			
+			if(posX<Logic.LEFT_LIMIT|| posX>Logic.RIGHT_LIMIT) {
+				velX *= -1;
+			}
+			
+			if(posY<Logic.UP_LIMIT-Logic.TOLERANCE || posY>Logic.DOWN_LIMIT+Logic.TOLERANCE) {
+				posY =(int) (Logic.UP_LIMIT + Logic.DOWN_LIMIT )/2;
+			}
+			
+			if(posX<Logic.LEFT_LIMIT-Logic.TOLERANCE || posX>Logic.RIGHT_LIMIT+Logic.TOLERANCE) {
+				posX =(int) (Logic.UP_LIMIT + Logic.DOWN_LIMIT )/2;
+			}
 		}
 		
-		posX += velX;
 		
-		if(posX<Logic.LEFT_LIMIT|| posX>Logic.RIGHT_LIMIT) {
-			velX *= -1;
-		}
-		
-		if(posY<Logic.UP_LIMIT-Logic.TOLERANCE || posY>Logic.DOWN_LIMIT+Logic.TOLERANCE) {
-			posY =(int) (Logic.UP_LIMIT + Logic.DOWN_LIMIT )/2;
-		}
-		
-		if(posX<Logic.LEFT_LIMIT-Logic.TOLERANCE || posX>Logic.RIGHT_LIMIT+Logic.TOLERANCE) {
-			posX =(int) (Logic.UP_LIMIT + Logic.DOWN_LIMIT )/2;
-		}
 			
 	}
 		

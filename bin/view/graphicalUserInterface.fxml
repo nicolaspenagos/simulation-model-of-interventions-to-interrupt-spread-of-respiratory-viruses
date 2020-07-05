@@ -49,10 +49,7 @@
             <Font size="17.0" />
          </font>
       </Label>
-      <CheckBox fx:id="handWashingChB" layoutX="79.0" layoutY="526.0" mnemonicParsing="false" onAction="#frequendHandwashing" prefHeight="36.0" prefWidth="245.0" text="Frequend handwashing">
-         <font>
-            <Font size="14.0" />
-         </font></CheckBox>
+      <CheckBox fx:id="handWashingChB" layoutX="22.0" layoutY="524.0" mnemonicParsing="false" onAction="#frequendHandwashing" prefHeight="36.0" prefWidth="245.0" text="Frequend handwashing" />
       <TextField fx:id="iPtxtField" layoutX="278.0" layoutY="184.0" prefHeight="25.0" prefWidth="54.0" text="0">
          <font>
             <Font name="Century Gothic" size="12.0" />
@@ -76,26 +73,10 @@
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
-      <CheckBox fx:id="maskChB" layoutX="80.0" layoutY="553.0" mnemonicParsing="false" onAction="#mask" prefHeight="36.0" prefWidth="245.0" text="Wearing mask">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </CheckBox>
-      <CheckBox fx:id="n95MaskChB" layoutX="80.0" layoutY="581.0" mnemonicParsing="false" onAction="#n95Mask" prefHeight="36.0" prefWidth="245.0" text="Wearing N95 mask">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </CheckBox>
-      <CheckBox fx:id="glovesChB" layoutX="80.0" layoutY="608.0" mnemonicParsing="false" onAction="#gloves" prefHeight="36.0" prefWidth="245.0" text="Wearing gloves">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </CheckBox>
-      <CheckBox fx:id="gownChB" layoutX="80.0" layoutY="635.0" mnemonicParsing="false" onAction="#gown" prefHeight="36.0" prefWidth="245.0" text="Wearing gown">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </CheckBox>
+      <CheckBox fx:id="maskChB" layoutX="23.0" layoutY="551.0" mnemonicParsing="false" onAction="#mask" prefHeight="36.0" prefWidth="245.0" text="Wearing mask" />
+      <CheckBox fx:id="n95MaskChB" layoutX="23.0" layoutY="579.0" mnemonicParsing="false" onAction="#n95Mask" prefHeight="36.0" prefWidth="245.0" text="Wearing N95 mask" />
+      <CheckBox fx:id="glovesChB" layoutX="224.0" layoutY="525.0" mnemonicParsing="false" onAction="#gloves" prefHeight="36.0" prefWidth="245.0" text="Wearing gloves" />
+      <CheckBox fx:id="gownChB" layoutX="224.0" layoutY="552.0" mnemonicParsing="false" onAction="#gown" prefHeight="36.0" prefWidth="245.0" text="Wearing gown" />
       <TextField fx:id="rPtxtField" layoutX="279.0" layoutY="385.0" prefHeight="25.0" prefWidth="54.0" text="0">
          <font>
             <Font name="Century Gothic" size="12.0" />
@@ -213,6 +194,11 @@
                   <Image url="@../images/sepBar-01.png" />
                </image>
             </ImageView>
+            <Label fx:id="restrictionLabel" layoutX="111.0" layoutY="7.0" text="No restrictions">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <ImageView fx:id="playImageView" fitHeight="25.0" fitWidth="19.0" layoutX="400.0" layoutY="134.0" onMouseClicked="#playButtonClicked" pickOnBounds="true" preserveRatio="true">
@@ -240,11 +226,7 @@
             <Image url="@../images/sepBar-01.png" />
          </image>
       </ImageView>
-      <CheckBox fx:id="allCombinedChB" layoutX="80.0" layoutY="661.0" mnemonicParsing="false" onAction="#allCombined" prefHeight="36.0" prefWidth="245.0" text="All combined">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </CheckBox>
+      <CheckBox fx:id="allCombinedChB" layoutX="224.0" layoutY="578.0" mnemonicParsing="false" onAction="#allCombined" prefHeight="36.0" prefWidth="245.0" text="All combined" />
       <Pane layoutX="8.0" layoutY="820.0" prefHeight="8.0" prefWidth="1200.0" style="-fx-background-color: WHITE;" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#484c4f" height="2.0" layoutX="437.0" layoutY="802.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="702.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#484c4f" height="79.0" layoutX="437.0" layoutY="725.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="2.0" />
@@ -345,5 +327,13 @@
           </Menu>
         </menus>
       </MenuBar>
+      <Pane layoutX="2.0" layoutY="626.0" prefHeight="8.0" prefWidth="380.0" style="-fx-background-color: WHITE;" />
+      <CheckBox fx:id="stricQuarantineChB" layoutX="25.0" layoutY="648.0" mnemonicParsing="false" onAction="#strictQuarentine" prefHeight="36.0" prefWidth="245.0" text="Strict quarantine" />
+      <CheckBox fx:id="socialDistancingChB" layoutX="207.0" layoutY="648.0" mnemonicParsing="false" onAction="#socialDistancing" prefHeight="36.0" prefWidth="245.0" text="Social distancing" />
+      <Label fx:id="descriptionLabel" layoutX="104.0" layoutY="678.0">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

@@ -19,13 +19,17 @@ public abstract class Person {
 	// -------------------------------------
 	private char healthCondition;
 	private Chronometer infectionTime;
+	private boolean quarantine;
 	
 	// -------------------------------------
 	// Constructor
 	// -------------------------------------
-	public Person(char healthCondition) {
+	public Person(char healthCondition, boolean quarantine) {
+		
 		this.healthCondition = healthCondition;
+		this.quarantine = quarantine;
 		infectionTime = new Chronometer(0,Integer.MIN_VALUE, 0, false);
+		
 	}
 
 	// -------------------------------------
@@ -51,6 +55,14 @@ public abstract class Person {
 
 	public void setInfectionTime(Chronometer infectionTime) {
 		this.infectionTime = infectionTime;
+	}
+
+	public boolean isQuarantine() {
+		return quarantine;
+	}
+
+	public void setQuarantine(boolean quarantine) {
+		this.quarantine = quarantine;
 	}
 	
 	

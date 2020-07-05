@@ -119,6 +119,12 @@ public class DataController {
     private Label peekDayLabel;
     
     @FXML
+    private Label restrictionLabel1;
+
+    @FXML
+    private Label restrictionLabel2;
+    
+    @FXML
     private Pane graphPane;
     
 
@@ -189,6 +195,9 @@ public class DataController {
 		
 		textLabel1.setVisible(true);
 		textLabel2.setVisible(true);
+		
+		restrictionLabel1.setText(clickedRow.getRestriction());
+		restrictionLabel2.setText(clickedRow.getRestriction_());
 
 		toGraph(clickedRow.getGraph(), totalPeople, clickedRow.getDays());
 		

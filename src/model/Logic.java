@@ -58,6 +58,7 @@ public class Logic {
 	private int option;
 	private double probability;
 	private boolean simulationEnded;
+	private double mobilityRestriction;
 
 	private List<ModelCircle> people;
 	private MovementThread movementThread;
@@ -79,19 +80,20 @@ public class Logic {
 		setSimulationEnded(false);
 		data = new Data();
 		peekDay = 0;
+		mobilityRestriction = 1.0;
 
 	}
 
 	// -------------------------------------
 	// Methods
 	// -------------------------------------
-	public void saveData(int infectedPeopleAtDay0, int healthyPeopleAtDay0, int recoveredPeopleAtDay0, int infectedPeopleAtDayN, int healthyPeopleAtDayN, int recoveredPeopleAtDayN, int interventionOption, double interventionEffectiveness, String time, int days, ArrayList<Integer[]> graph, GregorianCalendar date, int peekDay, int infectedPeek) {
+	public void saveData(int infectedPeopleAtDay0, int healthyPeopleAtDay0, int recoveredPeopleAtDay0, int infectedPeopleAtDayN, int healthyPeopleAtDayN, int recoveredPeopleAtDayN, int interventionOption, double interventionEffectiveness, String time, int days, ArrayList<Integer[]> graph, GregorianCalendar date, int peekDay, int infectedPeek, String restriction, String restriction_) {
 		
 		int counter = data.getCounter();
 		counter++;
 		data.setCounter(counter);
 		
-		SimulationData currentSimulation = new SimulationData(infectedPeopleAtDay0, healthyPeopleAtDay0, recoveredPeopleAtDay0, infectedPeopleAtDayN, healthyPeopleAtDayN, recoveredPeopleAtDayN, interventionOption, interventionEffectiveness, time, days, graph, date, counter ,peekDay, infectedPeek );
+		SimulationData currentSimulation = new SimulationData(infectedPeopleAtDay0, healthyPeopleAtDay0, recoveredPeopleAtDay0, infectedPeopleAtDayN, healthyPeopleAtDayN, recoveredPeopleAtDayN, interventionOption, interventionEffectiveness, time, days, graph, date, counter ,peekDay, infectedPeek, restriction, restriction_ );
 		data.getData().add(currentSimulation);
 		data.saveData();
 		
@@ -152,7 +154,10 @@ public class Logic {
 				condition = Person.HEALTHY;
 			}
 
-			people.add(new ModelCircle(condition, ramdonX, ramdonY, velX, velY, radius));
+			double random = Math.random();
+			boolean quarantine = (random >= mobilityRestriction) ? false : true;
+		
+			people.add(new ModelCircle(condition, ramdonX, ramdonY, velX, velY, radius, quarantine));
 			
 			if(setChronometer)
 				people.get(i).setInfectionTime(new Chronometer());
@@ -432,6 +437,14 @@ public class Logic {
 
 	public void setInfectedPeek(int infectedPeek) {
 		this.infectedPeek = infectedPeek;
+	}
+
+	public double getMobilityRestriction() {
+		return mobilityRestriction;
+	}
+
+	public void setMobilityRestriction(double mobilityRestriction) {
+		this.mobilityRestriction = mobilityRestriction;
 	}
 
 

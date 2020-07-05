@@ -36,11 +36,13 @@ public class SimulationData implements Serializable{
 	private int id;
 	private int peekDay;
 	private int infectedPeek;
+	private String restriction;
+	private String restriction_;
 	
 	//-------------------------------------
     // Constructor
     //-------------------------------------
-	public SimulationData(int infectedPeopleAtDay0, int healthyPeopleAtDay0, int recoveredPeopleAtDay0, int infectedPeopleAtDayN, int healthyPeopleAtDayN, int recoveredPeopleAtDayN, int interventionOption, double interventionEffectiveness, String time, int days, ArrayList<Integer[]> graph, GregorianCalendar cDate, int id, int peekDay, int infectedPeek) {
+	public SimulationData(int infectedPeopleAtDay0, int healthyPeopleAtDay0, int recoveredPeopleAtDay0, int infectedPeopleAtDayN, int healthyPeopleAtDayN, int recoveredPeopleAtDayN, int interventionOption, double interventionEffectiveness, String time, int days, ArrayList<Integer[]> graph, GregorianCalendar cDate, int id, int peekDay, int infectedPeek, String restriction, String restriction_) {
 		
 		this.infectedPeopleAtDay0 = infectedPeopleAtDay0;
 		this.healthyPeopleAtDay0 = healthyPeopleAtDay0;
@@ -59,6 +61,8 @@ public class SimulationData implements Serializable{
 		this.setDate("" + d.getTime());
 		this.peekDay = peekDay;
 		this.infectedPeek = infectedPeek;
+		this.restriction = restriction;
+		this.restriction_ = restriction;
 		
 	}
 
@@ -199,6 +203,22 @@ public class SimulationData implements Serializable{
 
 	public void setInfectedPeek(int infectedPeek) {
 		this.infectedPeek = infectedPeek;
+	}
+
+	public String getRestriction() {
+		return restriction;
+	}
+
+	public void setRestriction(String restriction) {
+		this.restriction = restriction;
+	}
+
+	public String getRestriction_() {
+		return restriction_;
+	}
+
+	public void setRestriction_(String restriction_) {
+		this.restriction_ = restriction_;
 	}
 
 }
