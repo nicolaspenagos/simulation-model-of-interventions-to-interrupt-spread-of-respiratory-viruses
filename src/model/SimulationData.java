@@ -62,7 +62,7 @@ public class SimulationData implements Serializable{
 		this.peekDay = peekDay;
 		this.infectedPeek = infectedPeek;
 		this.restriction = restriction;
-		this.restriction_ = restriction;
+		this.restriction_ = restriction_;
 		
 	}
 

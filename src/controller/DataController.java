@@ -147,7 +147,7 @@ public class DataController {
 
 		tableView.setItems(dataList);
 
-		goBack.setGraphic(new ImageView(new Image("/images/goBack-01.png")));
+		goBack.setGraphic(new ImageView(new Image("/images/goBack.png")));
 
 		tableView.setRowFactory(tv -> {
 			TableRow<SimulationData> row = new TableRow<>();

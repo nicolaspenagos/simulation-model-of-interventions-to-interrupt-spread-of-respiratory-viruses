@@ -19,7 +19,7 @@
       <Pane fx:id="graphicPane" layoutX="437.0" layoutY="725.0" prefHeight="79.0" prefWidth="702.0" style="-fx-background-color: SNOW;" />
       <ImageView fitHeight="79.0" fitWidth="1081.0" layoutX="89.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/Sin%20título-2-01.png" />
+            <Image url="@../images/tittle.png" />
          </image>
       </ImageView>
       <Pane layoutX="1199.0" layoutY="-4.0" prefHeight="830.0" prefWidth="8.0" style="-fx-background-color: WHITE;" />
@@ -131,22 +131,22 @@
             </Label>
             <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="674.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/sepBar-01.png" />
+                  <Image url="@../images/sepBar.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="616.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/sepBar-01.png" />
+                  <Image url="@../images/sepBar.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="558.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/sepBar-01.png" />
+                  <Image url="@../images/sepBar.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="500.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/sepBar-01.png" />
+                  <Image url="@../images/sepBar.png" />
                </image>
             </ImageView>
             <Label fx:id="totalPeopleLabel1111" layoutX="-447.0" layoutY="5.0" text="R:" textFill="STEELBLUE">
@@ -156,12 +156,12 @@
             </Label>
             <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="442.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/sepBar-01.png" />
+                  <Image url="@../images/sepBar.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="734.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/sepBar-01.png" />
+                  <Image url="@../images/sepBar.png" />
                </image>
             </ImageView>
             <Label layoutX="741.0" layoutY="8.0" text="DAY:" textFill="#484c4f">
@@ -171,7 +171,7 @@
             </Label>
             <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="800.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/sepBar-01.png" />
+                  <Image url="@../images/sepBar.png" />
                </image>
             </ImageView>
             <Label fx:id="dayLabel" layoutX="776.0" layoutY="8.0" text="0">
@@ -191,7 +191,7 @@
             </Label>
             <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="221.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/sepBar-01.png" />
+                  <Image url="@../images/sepBar.png" />
                </image>
             </ImageView>
             <Label fx:id="restrictionLabel" layoutX="111.0" layoutY="7.0" text="No restrictions">
@@ -208,7 +208,7 @@
       </ImageView>
       <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="390.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/sepBar-01.png" />
+            <Image url="@../images/sepBar.png" />
          </image>
       </ImageView>
       <ImageView fx:id="stopImageView" fitHeight="25.0" fitWidth="19.0" layoutX="426.0" layoutY="134.0" onMouseClicked="#stopButtonClicked" pickOnBounds="true" preserveRatio="true">
@@ -223,7 +223,7 @@
       </ImageView>
       <ImageView fitHeight="24.0" fitWidth="7.0" layoutX="475.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/sepBar-01.png" />
+            <Image url="@../images/sepBar.png" />
          </image>
       </ImageView>
       <CheckBox fx:id="allCombinedChB" layoutX="224.0" layoutY="578.0" mnemonicParsing="false" onAction="#allCombined" prefHeight="36.0" prefWidth="245.0" text="All combined" />

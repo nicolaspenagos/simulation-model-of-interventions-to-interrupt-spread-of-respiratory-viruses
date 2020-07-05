@@ -80,7 +80,7 @@ public class Logic {
 		setSimulationEnded(false);
 		data = new Data();
 		peekDay = 0;
-		mobilityRestriction = 1.0;
+		mobilityRestriction = 0.0;
 
 	}
 

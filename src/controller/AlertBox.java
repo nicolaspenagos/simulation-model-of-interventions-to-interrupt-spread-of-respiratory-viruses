@@ -56,7 +56,7 @@ public class AlertBox {
 			label.setStyle(style);
 
 			Label label1 = new Label();
-			label1.setText("What would you like to do with the data?  ");
+			label1.setText("What would you like to do ?  ");
 
 			Label space = new Label();
 			space.setText("  ");
@@ -66,21 +66,18 @@ public class AlertBox {
 			// -------------------------------------
 			// Images
 			// -------------------------------------
-			Image goBackImage = new Image("/images/goBack-01.png");
-			Image exitButtonImage = new Image("/images/exitImage-01.png");
-			Image saveAsCvsImage = new Image("/images/saveAsCvs-01.png");
-			Image bckgImage = new Image("/images/alertBox-01-01-01.png");
+			Image goBackImage = new Image("/images/goBack.png");
+			Image saveImage = new Image("/images/save.png");
+			Image bckgImage = new Image("/images/alertBox.png");
 
 			// -------------------------------------
 			// Buttons
 			// -------------------------------------
 			Button closeButton = new Button();
-			Button exitButton = new Button();
-			Button saveAsCvsButton = new Button();
+			Button saveButton = new Button();
 
 			closeButton.setGraphic(new ImageView(goBackImage));
-			exitButton.setGraphic(new ImageView(exitButtonImage));
-			saveAsCvsButton.setGraphic(new ImageView(saveAsCvsImage));
+			saveButton.setGraphic(new ImageView(saveImage));
 
 			closeButton.setOnAction(new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent e) {
@@ -89,26 +86,20 @@ public class AlertBox {
 				}
 			});
 
-			saveAsCvsButton.setOnAction(new EventHandler<ActionEvent>() {
+			saveButton.setOnAction(new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent e) {
 					gui.saveCVS();
 					window.close();
 				}
 			});
 
-			exitButton.setOnAction(new EventHandler<ActionEvent>() {
-				public void handle(ActionEvent e) {
-					gui.exit();
-					window.close();
-				}
-			});
 
 			// -------------------------------------
 			// HBox
 			// -------------------------------------
 			HBox horizontalLayout = new HBox(5);
 
-			horizontalLayout.getChildren().addAll(closeButton, space, saveAsCvsButton, space1, exitButton);
+			horizontalLayout.getChildren().addAll(closeButton, space, saveButton, space1);
 			horizontalLayout.setAlignment(Pos.CENTER);
 
 			// -------------------------------------
