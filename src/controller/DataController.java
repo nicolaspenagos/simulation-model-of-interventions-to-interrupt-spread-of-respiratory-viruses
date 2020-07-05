@@ -223,8 +223,7 @@ public class DataController {
 	
 		for (int i = 0; i < graph.size(); i++) {
 			
-			System.out.println();
-			System.out.println(i);
+	
 			Integer[] arr = graph.get(i);
 			double barHeight = 0, barHeight1 = 0, barHeight2 = 0;
 			for (int j = 0; j < arr.length; j++) {
@@ -237,7 +236,6 @@ public class DataController {
 					rI.setHeight(barHeight);
 					rI.setX(barSize * i );
 					rI.setY(GRAPH_HEIGHT - barHeight);
-					System.out.println(barSize * i );
 					rI.setFill(Color.SALMON);
 					graphPane.getChildren().add(rI);
 					
@@ -248,7 +246,6 @@ public class DataController {
 					rH.setWidth(barSize);
 					rH.setHeight(barHeight1);
 					rH.setX(barSize * i );
-					System.out.println(barSize * i );
 					rH.setY(GRAPH_HEIGHT - barHeight - barHeight1);
 					rH.setFill(Color.MEDIUMSEAGREEN);
 					graphPane.getChildren().add(rH);
@@ -260,7 +257,6 @@ public class DataController {
 					rH.setWidth(barSize);
 					rH.setHeight(barHeight2);
 					rH.setX(barSize * i );
-					System.out.println(barSize * i );
 					rH.setY(GRAPH_HEIGHT - barHeight - barHeight1 - barHeight2);
 					rH.setFill(Color.STEELBLUE);
 					graphPane.getChildren().add(rH);

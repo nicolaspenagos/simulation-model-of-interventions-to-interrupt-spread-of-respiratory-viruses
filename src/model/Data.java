@@ -53,7 +53,7 @@ public class Data implements Serializable {
 				ObjectInputStream io = new ObjectInputStream(new FileInputStream(file));
 				data = (ArrayList<SimulationData>) io.readObject();
 				io.close();
-				System.out.println("Cargo");
+		
 				
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -70,7 +70,6 @@ public class Data implements Serializable {
 			data = new ArrayList<SimulationData>();
 		}
 		
-		System.out.println(data.size());
 	}
 	
 	public void saveData() {
