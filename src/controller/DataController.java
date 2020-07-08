@@ -1,3 +1,8 @@
+/**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* @author Nicolás Penagos Montoya
+* nicolas.penagosm98@gmail.com
+**~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*/
 package controller;
 
 import java.util.ArrayList;

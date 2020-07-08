@@ -314,7 +314,7 @@
           </Menu>
           <Menu mnemonicParsing="false" text="About">
             <items>
-              <MenuItem mnemonicParsing="false" text="References" />
+              <MenuItem mnemonicParsing="false" onAction="#goToReferences" text="References" />
               <MenuItem mnemonicParsing="false" text="Contact" />
             </items>
           </Menu>

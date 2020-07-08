@@ -227,6 +227,11 @@ public class GraphicUserInterfaceController {
 	}
 
 	@FXML
+	void goToReferences(ActionEvent event) {
+		main.changeScene("references.fxml");
+	}
+
+	@FXML
 	void pauseButtonClicked(MouseEvent event) {
 
 		if (pauseButtonAble) {
@@ -492,7 +497,7 @@ public class GraphicUserInterfaceController {
 
 	@FXML
 	void socialDistancing(ActionEvent event) {
-		
+
 		if (socialDistancingChB.isSelected()) {
 
 			stricQuarantineChB.setDisable(true);
@@ -508,7 +513,7 @@ public class GraphicUserInterfaceController {
 			logic.setMobilityRestriction(0);
 
 		}
-		
+
 	}
 
 	public synchronized void toGraph(int min, int sec) {
@@ -605,9 +610,9 @@ public class GraphicUserInterfaceController {
 
 		infectedPeek = logic.getInfectedPeek();
 		peekDay = logic.getPeekDay();
-		
+
 		String restriction = restrictionLabel.getText();
-		String restriction_ =  descriptionLabel.getText();
+		String restriction_ = descriptionLabel.getText();
 
 		logic.saveData(infectedPeopleAtDay0, healthyPeopleAtDay0, recoveredPeopleAtDay0, infectedPeopleAtDayN,
 				healthyPeopleAtDayN, recoveredPeopleAtDayN, interventionOption, interventionEffectiveness, time, days,
@@ -909,7 +914,7 @@ public class GraphicUserInterfaceController {
 		stricQuarantineChB.setSelected(false);
 		socialDistancingChB.setSelected(false);
 		logic.setMobilityRestriction(0.0);
-		
+
 	}
 
 	public boolean isPause() {
