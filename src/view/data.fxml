@@ -19,7 +19,10 @@
          <children>
             <MenuBar fx:id="menuBar" layoutX="8.0" layoutY="1.0" prefHeight="26.0" prefWidth="1197.0">
               <menus>
-                <Menu mnemonicParsing="false" text="About" />
+                <Menu mnemonicParsing="false" text="About">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#goToReferences" text="References" />
+                     </items></Menu>
                 <Menu mnemonicParsing="false" text="Help">
                   <items>
                     <MenuItem mnemonicParsing="false" text="About" />
@@ -55,8 +58,8 @@
                   <Font name="System Bold" size="17.0" />
                </font>
             </Label>
-            <Button fx:id="goBack" layoutX="1114.0" layoutY="129.0" mnemonicParsing="false" onAction="#goToMainView" />
-            <Pane layoutX="1094.0" layoutY="117.0" prefHeight="101.0" prefWidth="8.0" style="-fx-background-color: WHITE;" />
+            <Button fx:id="goBack" layoutX="1110.0" layoutY="129.0" mnemonicParsing="false" onAction="#goToMainView" />
+            <Pane layoutX="1094.0" layoutY="117.0" prefHeight="110.0" prefWidth="8.0" style="-fx-background-color: WHITE;" />
             <Pane layoutX="383.0" layoutY="224.0" prefHeight="8.0" prefWidth="821.0" style="-fx-background-color: WHITE;" />
             <Pane fx:id="graphPane" layoutX="424.0" layoutY="526.0" prefHeight="261.0" prefWidth="732.0" style="-fx-background-color: SNOW;" />
             <Pane layoutX="422.0" layoutY="526.0" prefHeight="261.0" prefWidth="2.0" style="-fx-background-color: #484c4f;" />

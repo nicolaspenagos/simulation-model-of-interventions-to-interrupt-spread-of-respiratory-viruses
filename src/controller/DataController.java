@@ -279,4 +279,8 @@ public class DataController {
 		main.changeScene("graphicalUserInterface.fxml");
 	}
 
+	@FXML
+    void goToReferences(ActionEvent event) {
+		main.changeScene("references.fxml");
+    }
 }

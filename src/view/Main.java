@@ -8,6 +8,7 @@ package view;
 import java.io.IOException;
 
 import controller.GraphicUserInterfaceController;
+import controller.ReferencesController;
 import controller.DataController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +25,7 @@ public class Main extends Application {
 	private Stage currentStage;
 	private GraphicUserInterfaceController gUIC;
 	private DataController dataController;
+	private ReferencesController referencesController;
 	
 	// -------------------------------------
 	// Main Method
@@ -80,6 +82,11 @@ public class Main extends Application {
 				
 				gUIC = fxmlL.getController();
 				gUIC.setupMain(this); 
+				
+			}else if(fxmlL.getController() instanceof ReferencesController) {
+				
+				referencesController = fxmlL.getController();
+				referencesController.setupMain(this);
 				
 			}
 			

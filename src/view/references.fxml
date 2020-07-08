@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
-
+<?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="817.0" prefWidth="1197.0" style="-fx-background-color: ALICEBLUE;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ReferencesController">
    <children>
@@ -29,5 +33,32 @@
       </MenuBar>
       <Pane prefHeight="824.0" prefWidth="8.0" style="-fx-background-color: WHITE;" />
       <Pane layoutX="1199.0" prefHeight="824.0" prefWidth="8.0" style="-fx-background-color: WHITE;" />
+      <Pane layoutX="9.0" layoutY="28.0" prefHeight="8.0" prefWidth="1200.0" style="-fx-background-color: WHITE;" />
+      <Pane layoutY="117.0" prefHeight="8.0" prefWidth="1200.0" style="-fx-background-color: WHITE;" />
+      <ImageView fitHeight="79.0" fitWidth="1081.0" layoutX="89.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/tittle.png" />
+         </image>
+      </ImageView>
+      <Pane layoutX="1094.0" layoutY="117.0" prefHeight="110.0" prefWidth="8.0" style="-fx-background-color: WHITE;" />
+      <Pane layoutX="1094.0" layoutY="223.0" prefHeight="8.0" prefWidth="110.0" style="-fx-background-color: WHITE;" />
+      <Button fx:id="goBack" layoutX="1110.0" layoutY="129.0" mnemonicParsing="false" onAction="#goToMainView" />
+      <Pane layoutX="8.0" layoutY="820.0" prefHeight="8.0" prefWidth="1200.0" style="-fx-background-color: WHITE;" />
+      <Pane layoutX="8.0" layoutY="232.0" prefHeight="588.0" prefWidth="1190.0" style="-fx-background-color: SNOW;">
+         <children>
+            <Pane layoutX="1.0" layoutY="-52.0" prefHeight="52.0" prefWidth="1085.0" style="-fx-background-color: SNOW;" />
+            <ImageView fitHeight="490.0" fitWidth="553.0" layoutX="623.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/table6.PNG" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="8.0" layoutY="173.0" prefHeight="8.0" prefWidth="1091.0" style="-fx-background-color: WHITE;" />
+      <Label layoutX="521.0" layoutY="135.0" text="REFERENCES ">
+         <font>
+            <Font name="System Bold" size="17.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
